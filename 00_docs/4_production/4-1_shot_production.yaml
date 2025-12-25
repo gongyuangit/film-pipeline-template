@@ -1,0 +1,8 @@
+meta: {role: shot_production, version: 1.0, status: draft}
+inputs:
+  from_docs: ["2-2_layout_freeze","3-1_lookdev","X-0_execution_tokens"]
+content:
+  per_shot_execution:
+    - shot: "shot001"
+      tasks: []
+      outputs_to: "02_outputs/shots/shot001/"

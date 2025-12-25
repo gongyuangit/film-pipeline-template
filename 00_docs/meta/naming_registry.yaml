@@ -1,0 +1,18 @@
+meta:
+  role: naming_registry
+  version: 1.0
+
+ids:
+  segment: {format: "segment%03d", example: "segment001"}
+  shot:    {format: "shot%03d",    example: "shot001"}
+  env:     {format: "env%03d",     example: "env001"}
+  asset:   {format: "asset%03d",   example: "asset001"}
+
+timeline_naming:
+  preferred_clip_names:
+    - "shot001"
+    - "shot001_take01"
+    - "shot001_v001"
+  shot_name_patterns:
+    - "^shot(?P<num>\\d{3})$"
+    - "^shot(?P<num>\\d{3})[_-].*$"

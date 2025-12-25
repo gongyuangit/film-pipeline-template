@@ -1,0 +1,24 @@
+meta:
+  role: project_config
+  version: 1.0
+
+project:
+  id: "template"
+  title: "Film Pipeline Template"
+  language: "zh"
+  fps: null
+
+workflow_intent:
+  primary_workbench: "timeline_first"
+  bridge_formats: ["xml","srt"]
+  human_writes_docs_directly: false
+  machine_manages_docs: true
+
+sources_of_truth:
+  story_truth:  "00_docs/1_story/1-5_shot_list.yaml"
+  layout_truth: "00_docs/2_layout/2-2_layout_freeze.yaml"
+  look_truth:   "00_docs/3_lookdev/3-1_lookdev.yaml"
+  exec_truth:   "00_docs/X_exec/X-0_execution_tokens.yaml"
+  timeline_truth:
+    xml_dir: "01_inputs/timeline_xml"
+    srt_dir: "01_inputs/timeline_srt"

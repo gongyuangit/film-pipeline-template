@@ -1,0 +1,12 @@
+meta: {role: segment_story_prompts, version: 1.0, status: draft}
+prompt:
+  positive: |
+    You are given segment structure and segment drama.
+    Produce a beat list that is readable and causally coherent.
+    Output YAML with beats, issues, and pass/fail recommendation.
+  negative: |
+    Do NOT mention camera, lens, framing, layout, lookdev, or production details.
+output_schema:
+  beats: [{id: "beat###", description: ""}]
+  issues: []
+  pass: false

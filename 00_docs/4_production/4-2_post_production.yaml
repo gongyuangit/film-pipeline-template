@@ -1,0 +1,8 @@
+meta: {role: post_production, version: 1.0, status: draft}
+inputs:
+  from_docs: ["4-1_shot_production","X-0_execution_tokens"]
+content:
+  assembly: {edit_notes: []}
+  color: {targets: []}
+  audio: {notes: []}
+  delivery: {outputs_to: "02_outputs/final/"}

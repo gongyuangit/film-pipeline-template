@@ -1,0 +1,25 @@
+meta:
+  role: state_machine
+  version: 1.0
+
+gates:
+  - id: "G0_to_G1"
+    description: "源头层信息不足，禁止冻结叙事结构"
+    required_docs:
+      - "00_docs/0_source/0-2_world_rules.yaml"
+      - "00_docs/0_source/0-3_assets_entities.yaml"
+
+  - id: "G1_to_G2"
+    description: "镜头清单未冻结，禁止进入 layout 冻结"
+    required_docs:
+      - "00_docs/1_story/1-5_shot_list.yaml"
+
+  - id: "G2_to_G3"
+    description: "layout 未冻结，禁止进入 lookdev 定版"
+    required_docs:
+      - "00_docs/2_layout/2-2_layout_freeze.yaml"
+
+  - id: "G3_to_G4"
+    description: "lookdev 未定版，禁止进入规模化生产"
+    required_docs:
+      - "00_docs/3_lookdev/3-1_lookdev.yaml"

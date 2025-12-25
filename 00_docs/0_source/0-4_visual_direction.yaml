@@ -1,0 +1,7 @@
+meta: {role: visual_direction, version: 1.0, status: draft}
+content:
+  style_keywords: []
+  mood_keywords: []
+  color_range: {preferred: [], avoid: []}
+  lighting_direction: []
+  do_not: []

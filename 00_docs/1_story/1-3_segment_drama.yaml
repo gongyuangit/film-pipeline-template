@@ -1,0 +1,8 @@
+meta: {role: segment_drama, version: 1.0, status: draft}
+content:
+  segments:
+    - segment: "segment001"
+      dramatic_function: "introduce|escalate|reveal|reverse|resolve"
+      emotional_arc: {start: "", peak: "", end: ""}
+      conflict: {wants: "", obstacle: "", escalation: ""}
+      notes: ""

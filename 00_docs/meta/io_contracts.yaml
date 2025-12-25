@@ -1,0 +1,16 @@
+meta:
+  role: io_contracts
+  version: 1.0
+
+inputs:
+  - {path: "01_inputs/timeline_xml", allowed: ["*.xml","*.fcpxml","*.edl"], meaning: "时间线结构输入"}
+  - {path: "01_inputs/timeline_srt", allowed: ["*.srt"], meaning: "时间线注释输入（标签路由）"}
+  - {path: "01_inputs/storyboards", allowed: ["*.png","*.jpg","*.jpeg","*.pdf"], meaning: "分镜/参考图"}
+
+outputs:
+  - {path: "02_outputs/tests/segment_story", meaning: "段落剧情测试产物"}
+  - {path: "02_outputs/layout", meaning: "layout 结果与版本"}
+  - {path: "02_outputs/lookdev", meaning: "lookdev 变体与定版"}
+  - {path: "02_outputs/shots", meaning: "逐镜头产出（按 shot### 分目录）", naming: "02_outputs/shots/shot###/..."}
+  - {path: "02_outputs/post", meaning: "后期中间产物"}
+  - {path: "02_outputs/final", meaning: "交付成片（归档/只读建议）"}

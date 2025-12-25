@@ -1,0 +1,17 @@
+meta: {role: layout_freeze, version: 1.0, status: draft}
+inputs:
+  from_docs: ["2-1_cinematic_intent","1-5_shot_list","X-2_layout_prompts"]
+content:
+  shots:
+    - shot: "shot001"
+      framing:
+        shot_size: "CU|MS|WS"
+        composition: "center|edge|leading"
+        subject_position: "center|left|right"
+      camera:
+        movement: "static|push|pull|pan|tilt|orbit"
+        duration_sec: null
+      spatial:
+        environment_id: "env001"
+        key_objects: []
+        continuity_notes: []

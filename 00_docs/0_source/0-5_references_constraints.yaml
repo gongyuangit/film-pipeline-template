@@ -1,0 +1,7 @@
+meta: {role: references_constraints, version: 1.0, status: draft}
+content:
+  references:
+    positive: []
+    negative: []
+  constraints:
+    process_constraints: []   # 仅流程约束，不写任何工具限制

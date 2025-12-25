@@ -1,0 +1,9 @@
+meta: {role: layout_prompts, version: 1.0, status: draft}
+prompt:
+  positive: |
+    Use shot list and cinematic intent.
+    For each shot, propose framing, camera movement, duration, and continuity notes.
+    Output YAML matching 2-2_layout_freeze.yaml structure.
+  negative: |
+    Do NOT introduce new story facts or change shot order.
+output_target: "00_docs/2_layout/2-2_layout_freeze.yaml"

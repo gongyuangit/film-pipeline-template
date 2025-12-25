@@ -1,0 +1,30 @@
+meta:
+  role: rules
+  version: 1.0
+
+principles:
+  - "Template is process-only. No tool constraints, no vendor limitations."
+  - "All authoritative docs are YAML."
+  - "X_exec contains executable interfaces (tokens/prompts) but cannot override 0–4 decisions."
+
+format_policy:
+  primary: yaml
+  markdown_allowed: false
+
+boundaries:
+  layer_0_owns: ["source_origin","world_rules","assets_entities","visual_direction","references_constraints"]
+  layer_1_owns: ["script_text","segment_structure","segment_drama","segment_story_test","shot_narrative","shot_list"]
+  layer_2_owns: ["cinematic_intent","layout_freeze"]
+  layer_3_owns: ["lookdev"]
+  layer_4_owns: ["shot_production","post_production"]
+
+  forbidden_crosswrites:
+    - "Layer 4 must not define story structure."
+    - "Layer 3 must not change layout freeze."
+    - "Layer 2 must not introduce new world rules or story facts."
+    - "Layer 1 must not lock final lookdev or production implementation."
+
+execution_interface_policy:
+  prompt_must_split:
+    - "positive"   # desired content
+    - "negative"   # exclusions / avoid list

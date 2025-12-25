@@ -1,0 +1,9 @@
+meta: {role: lookdev_prompts, version: 1.0, status: draft}
+prompt:
+  positive: |
+    Use visual direction and frozen layout.
+    Propose global style notes and per-shot look notes.
+    Output YAML matching 3-1_lookdev.yaml structure.
+  negative: |
+    Do NOT change any layout fields (framing/camera/spatial).
+output_target: "00_docs/3_lookdev/3-1_lookdev.yaml"

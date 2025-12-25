@@ -1,0 +1,20 @@
+meta: {role: segment_story_test, version: 1.0, status: draft}
+purpose: "段落式剧情测试：验证段落可读性/因果/节拍，不讨论镜头语言"
+inputs:
+  from_docs: ["1-2_segment_structure","1-3_segment_drama","0-2_world_rules","0-3_assets_entities","X-1_segment_story_prompts"]
+protocol:
+  checklist:
+    readability: ""
+    emotional_arc: ""
+    conflict_progression: ""
+    causality: ""
+    exit_point: ""
+outputs:
+  segment_results:
+    - segment: "segment001"
+      pass: false
+      issues: []
+      corrected_beats:
+        - {id: "beat001", description: "示例：节拍占位"}
+gate:
+  pass_to: "1-4_shot_narrative"

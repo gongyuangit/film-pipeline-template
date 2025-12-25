@@ -1,0 +1,10 @@
+meta: {role: world_rules, version: 1.0, status: draft}
+content:
+  invariants: []
+  rules: []
+  power_system:
+    allowed: []
+    forbidden: []
+    costs_and_limits: []
+  examples:
+    - {rule: "Example invariant/rule placeholder"}

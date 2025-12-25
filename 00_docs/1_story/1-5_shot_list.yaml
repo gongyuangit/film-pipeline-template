@@ -1,0 +1,8 @@
+meta: {role: shot_list, version: 1.0, status: draft}
+content:
+  shots:
+    - shot: "shot001"
+      segment: "segment001"
+      order: 1
+      duration_sec: null
+      duration_source: "estimate|timeline_xml|locked"

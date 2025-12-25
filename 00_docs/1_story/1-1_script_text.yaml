@@ -1,0 +1,4 @@
+meta: {role: script_text, version: 1.0, status: draft}
+content:
+  source_type: "treatment|outline|script"
+  scenes: []

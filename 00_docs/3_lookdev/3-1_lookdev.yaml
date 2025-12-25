@@ -1,0 +1,11 @@
+meta: {role: lookdev, version: 1.0, status: draft}
+inputs:
+  from_docs: ["0-4_visual_direction","2-2_layout_freeze","X-3_lookdev_prompts"]
+content:
+  global_style:
+    keywords: []
+    color_mood: []
+    lighting: []
+  per_shot_notes:
+    - shot: "shot001"
+      notes: []

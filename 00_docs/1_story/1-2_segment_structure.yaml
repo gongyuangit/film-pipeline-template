@@ -1,0 +1,7 @@
+meta: {role: segment_structure, version: 1.0, status: draft}
+content:
+  segments:
+    - segment: "segment001"
+      title: ""
+      scope: "setup|build|turn|climax|release"
+      notes: ""

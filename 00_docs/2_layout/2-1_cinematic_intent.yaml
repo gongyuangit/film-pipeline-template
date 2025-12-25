@@ -1,0 +1,10 @@
+meta: {role: cinematic_intent, version: 1.0, status: draft}
+content:
+  global_principles:
+    pacing: ""
+    continuity_rules: []
+  shot_intents:
+    - shot: "shot001"
+      viewing_goal: ""
+      emphasis: []
+      avoid: []
