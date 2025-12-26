@@ -29,3 +29,7 @@
 - 所有需要人工介入的事项（判定、裁决、补信息、审批）必须通过 `00_human/INBOX.md` 提出，并注明状态，便于人类察看与回应。
 - `00_human/INBOX.md`、`00_human/NEEDED_INPUTS.md`、`00_human/APPROVALS.md` 中的描述、问题、选项与行动要求，应以中文为主；可在结尾附上英文补充说明，但中文表述需清晰完整。
 - 机器执行层（`10_codex/Makefile`、`10_codex/tools/`、`20_runtime/` 等）无需调整语言，按现有逻辑继续使用英文或中英混用即可。
+
+## 7. 启动清单默认路径规范
+- 所有项目启动清单必须指向这一套固定路径：`30_project/inputs/script/`、`30_project/inputs/storyboard/`、`30_project/inputs/reference/`、`30_project/inputs/assets/`，任何时候都不得更改这些目录名。
+- 若需要说明具体文件或格式，仍在清单备注中补充，但路径引用必须保持与上述规范一致，确保 Codex 与人类始终围绕统一结构协作。
