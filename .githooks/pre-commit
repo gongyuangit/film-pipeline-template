@@ -1,0 +1,8 @@
+#!/bin/sh
+set -e
+make docs-index >/dev/null
+if ! git diff --quiet 10_codex/TEMPLATE_INDEX.md; then
+  echo "TEMPLATE_INDEX.md changed; run 'git add 10_codex/TEMPLATE_INDEX.md' and retry."
+  git status -sb 10_codex/TEMPLATE_INDEX.md
+  exit 1
+fi

@@ -1,4 +1,6 @@
+import os
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -176,6 +178,24 @@ def load_project_mode():
     except yaml.YAMLError:
         pass
     return DEFAULT_PROJECT_MODE
+
+
+def run_template_index_check(strict: bool = False):
+    script = REPO_ROOT / "10_codex" / "tools" / "gen_template_index.py"
+    if not script.exists():
+        return True
+    cmd = [sys.executable, str(script), "--check"]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode == 0:
+        return True
+    print("template index is out of sync. Run `make docs-index` and commit the result.")
+    if result.stdout.strip():
+        print(result.stdout.strip())
+    if result.stderr.strip():
+        print(result.stderr.strip())
+    if strict:
+        sys.exit(result.returncode)
+    return False
 
 def parse_approvals_table(text):
     lines = text.splitlines()
@@ -361,6 +381,8 @@ def main():
     entries = load_manifest()
     ensure_structure(entries)
     ensure_human_templates()
+    strict_mode = os.environ.get("TEMPLATE_INDEX_STRICT") == "1"
+    run_template_index_check(strict=strict_mode)
     approvals_text = load_approvals()
     approvals_data = parse_approvals_table(approvals_text)
     stages = load_pipeline_stages()
