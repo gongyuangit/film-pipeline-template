@@ -31,6 +31,11 @@
 - Layout prompt pack（如 `branch1_segment_prompt_pack_v1.yaml` / `branch2_shot_prompt_pack_v1.yaml`）聚焦镜头逻辑、镜头语言与叙事节奏，源自 cinematic intent 与 layout freeze 输出；它们的逻辑是“如何用镜头呈现叙事”。
 - Lookdev shot prompt pack (`branch_lookdev_shot_prompt_pack_v1.yaml`) 则侧重镜头画面风格、材质与灯光预期，其信息源必须包含 cinematic intent 与 `reports/layout_review_v1.md` 中的验收反馈（问题清单 + 通用教训 + lookdev 补丁），目的是帮助 lookdev 团队在镜头构图基础上决策材质调性。
 
+### Lookdev Review Requirement
+
+- Lookdev 阶段完成镜头提示词后，必须生成 `reports/lookdev_review_v1.md` 验收报告，并将其作为后续 execution / render 参考；未获得 `LOOKDEV_REVIEW_APPROVED`，不得开始执行计划或 render 相关流程。
+- `lookdev_review_v1.md` 同样按镜头列出问题、教训与执行建议，它与 cinematic intent + layout review 等资料共同构成 downstream 的输入集合，用于排查材质、色彩、光照等一致性问题。
+
 ## Prompt Pack Convention
 
 - 所有 prompt pack 必须包含 `globals.negative`（全局负向提示词）与 `shots[]`（正向/负向提示词按镜头分组），其中 `shots[].positive` 构成镜头正向提示，`shots[].negative` 用以添加该镜头特有的负向提示；整体生效的负向提示可以理解为 `negative_effective = globals.negative + shots[].negative`。

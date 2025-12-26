@@ -54,6 +54,13 @@ stages:
     requires:
       - "LAYOUT_REVIEW_APPROVED"
       - "CINEMATIC_INTENT_APPROVED"
+    next_targets: ["Stage K_R"]
+  - name: "Stage K_R"
+    description: "Lookdev review"
+    product: "30_project/docs/2_layout/_artifacts/reports/lookdev_review_v1.md"
+    approval_key: "LOOKDEV_REVIEW_APPROVED"
+    requires:
+      - "LOOKDEV_PROMPTS_APPROVED"
     next_targets: ["Stage F"]
   - name: "Stage F"
     description: "Execution planning"
@@ -62,4 +69,5 @@ stages:
     requires:
       - "LAYOUT_FREEZE_APPROVED"
       - "LOOKDEV_PROMPTS_APPROVED"
+      - "LOOKDEV_REVIEW_APPROVED"
     next_targets: []

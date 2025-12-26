@@ -9,6 +9,7 @@
 | LAYOUT_FREEZE_APPROVED | 2-2_layout_freeze.yaml | pending |  |
 | LAYOUT_REVIEW_APPROVED | _artifacts/reports/layout_review_v1.md | pending |  |
 | LOOKDEV_PROMPTS_APPROVED | _artifacts/branch_lookdev_shot_prompt_pack_v1.yaml | pending |  |
+| LOOKDEV_REVIEW_APPROVED | _artifacts/reports/lookdev_review_v1.md | pending |  |
 | EXEC_PLAN_APPROVED | exec_plan.json | pending |  |
 
 ## Stage approvals
@@ -20,4 +21,5 @@
 - LAYOUT_FREEZE_APPROVED: 人工确认 `2-2_layout_freeze.yaml`
 - LAYOUT_REVIEW_APPROVED: 人工确认 `_artifacts/reports/layout_review_v1.md`
 - LOOKDEV_PROMPTS_APPROVED: 人工确认 `_artifacts/branch_lookdev_shot_prompt_pack_v1.yaml`
+- LOOKDEV_REVIEW_APPROVED: 人工确认 `_artifacts/reports/lookdev_review_v1.md`
 - EXEC_PLAN_APPROVED: 人工确认执行计划输出
