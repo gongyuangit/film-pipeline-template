@@ -31,14 +31,27 @@ entries:
     type: file
   - path: "30_project/inputs/README.md"
     type: file
-  - path: "20_runtime/layout"
-    type: dir
   - path: "20_runtime/plan"
     type: dir
+  - path: "20_runtime"
+    type: dir
+  - path: "20_runtime/README.md"
+    type: file
+  - path: "20_runtime/plan"
+    type: dir
+  - path: "20_runtime/plan/.gitkeep"
+    type: file
   - path: "20_runtime/exec"
     type: dir
-  - path: "20_runtime/exec/execution_plan.json"
+  - path: "20_runtime/exec/.gitkeep"
     type: file
+  - path: "20_runtime/tests"
+    type: dir
+  - path: "20_runtime/tests/.gitkeep"
+    type: file
+  - path: "20_runtime/final"
+    type: dir
+  - path: "20_runtime/final/.gitkeep"
   - path: "30_project/docs/0-source/README.md"
     type: file
   - path: "30_project/docs/0-source/raw/"
