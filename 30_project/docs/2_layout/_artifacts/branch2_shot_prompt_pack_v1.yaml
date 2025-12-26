@@ -3,4 +3,8 @@ meta:
   version: 1.0
   status: draft
 content:
+  globals:
+    negative: []
   shots: []
+  notes: |
+    - Shot-level prompts must include `positive`/`negative` fields.

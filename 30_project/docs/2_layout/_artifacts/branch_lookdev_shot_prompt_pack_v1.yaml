@@ -1,2 +1,11 @@
-shots: []
-# 用于 lookdev 镜头提示词，必须基于 cinematic intent 与 layout review。 
+meta:
+  role: branch_lookdev_shot_prompt_pack
+  version: 1.0
+  status: draft
+content:
+  globals:
+    negative: []
+  shots: []
+  notes: |
+    - Lookdev prompts must combine cinematic intent + layout review learnings.
+    - Negative prompts inherit from `globals.negative` and each `shots[].negative`.

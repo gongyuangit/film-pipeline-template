@@ -3,4 +3,8 @@ meta:
   version: 1.0
   status: draft
 content:
-  tokens: []
+  globals:
+    negative: []
+  shots: []
+  notes: |
+    - Blender layout tokens can reference `shots[].positive` for geometry cues.
