@@ -1,4 +1,4 @@
 .DS_Store
-02_outputs/
+20_runtime/
 __pycache__/
 *.pyc

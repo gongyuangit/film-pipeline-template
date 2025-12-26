@@ -13,9 +13,9 @@ try:
 except ImportError:
     sys.exit("PyYAML is required by tools/generate_plan.py: install via requirements.txt")
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 INDEX_PATH = ROOT / "index.yaml"
-OUTPUT_PATH = ROOT / "02_outputs" / "plan" / "shot_list.json"
+OUTPUT_PATH = ROOT / "20_runtime" / "plan" / "shot_list.json"
 
 def locate_shots(index_data: dict) -> list[dict]:
     result = []

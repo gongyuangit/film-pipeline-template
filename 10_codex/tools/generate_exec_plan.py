@@ -8,9 +8,9 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-PLAN_SOURCE = ROOT / "02_outputs" / "plan" / "shot_list.json"
-OUTPUT_PATH = ROOT / "02_outputs" / "exec" / "execution_plan.json"
+ROOT = Path(__file__).resolve().parents[2]
+PLAN_SOURCE = ROOT / "20_runtime" / "plan" / "shot_list.json"
+OUTPUT_PATH = ROOT / "20_runtime" / "exec" / "execution_plan.json"
 
 def build_steps(shots: list[dict]) -> list[dict]:
     template = ["validate_inputs", "generate_assets", "render"]
