@@ -21,7 +21,7 @@ stages:
     next_targets: ["Stage D"]
   - name: "Stage D"
     description: "Cinematic intent / layout guidance"
-    product: "30_project/docs/2_layout/2-1_cinematic_intent.yaml"
+    product: "30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml"
     approval_key: "CINEMATIC_INTENT_APPROVED"
     requires:
       - "STAGE_C_DECISION_APPROVED"

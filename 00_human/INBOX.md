@@ -6,7 +6,8 @@
 | 3 | pending | 已依据现有剧本文本生成 `30_project/docs/1_story/script_breakdown_v1.yaml` 的第一版骨架，必须人工确认后方可进入 Stage C；分镜/参考只是建议，可选。 |  |
 | 4 | done | `30_project/docs/1_story/` 已清理为仅保留 `script_breakdown_v1.yaml` 与 `1-2_segment_structure.yaml`，其余原始脚本/拆解文件移除。 |  |
 | 5 | done | `script_breakdown_v1.yaml` 已补齐场次与镜头层（segment→beat→shot），成为 Stage B 的唯一主产物。 |  |
-| 6 | pending | `30_project/docs/2_layout/2-1_cinematic_intent.yaml` 已基于 `source_script.md` 与 `script_breakdown_v1.yaml` 生成，请确认后再进入 layout freeze 或 prompt 生成。 |  |
+| 6 | pending | `30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml` 已生成三分支段落/镜头/Blender 信息，请确认后再进入 layout freeze 或 prompt 生成。 |  |
+| 6 | pending | `30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml` 已基于 `source_script.md` 与 `script_breakdown_v1.yaml` 生成，请确认后再进入 layout freeze 或 prompt 生成。 |  |
 
 ## 【素材检测 / 启动前状态】
 <!-- inputs-detection:start -->

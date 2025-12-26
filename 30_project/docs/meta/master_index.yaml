@@ -66,8 +66,8 @@ documents:
   - {id: "1-1", path: "30_project/docs/1_story/script_breakdown_v1.yaml", role: "script_breakdown"}
   - {id: "1-2", path: "30_project/docs/1_story/1-2_segment_structure.yaml", role: "segment_structure"}
 
-  - {id: "2-1", path: "00_docs/2_layout/2-1_cinematic_intent.yaml", role: "cinematic_intent"}
-  - {id: "2-2", path: "00_docs/2_layout/2-2_layout_freeze.yaml", role: "layout_freeze"}
+  - {id: "2-1", path: "30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml", role: "cinematic_intent"}
+  - {id: "2-2", path: "30_project/docs/2_layout/2-2_layout_freeze.yaml", role: "layout_freeze"}
 
   - {id: "3-1", path: "00_docs/3_lookdev/3-1_lookdev.yaml", role: "lookdev"}
 

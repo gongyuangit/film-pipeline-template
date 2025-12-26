@@ -63,6 +63,28 @@ entries:
     type: file
   - path: "30_project/docs/2_layout/.gitkeep"
     type: file
+  - path: "30_project/docs/2_layout/_artifacts/"
+    type: dir
+  - path: "30_project/docs/2_layout/_artifacts/README.md"
+    type: file
+  - path: "30_project/docs/2_layout/_artifacts/reports/"
+    type: dir
+  - path: "30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml"
+    type: file
+  - path: "30_project/docs/2_layout/_artifacts/branch1_segment_prompt_pack_v1.yaml"
+    type: file
+  - path: "30_project/docs/2_layout/_artifacts/branch2_shot_prompt_pack_v1.yaml"
+    type: file
+  - path: "30_project/docs/2_layout/_artifacts/branch3_blender_tokens_v1.yaml"
+    type: file
+  - path: "30_project/docs/2_layout/_artifacts/mappings_v1.yaml"
+    type: file
+  - path: "30_project/docs/2_layout/CURRENT.yaml"
+    type: file
+  - path: "30_project/docs/2_layout/_exports/"
+    type: dir
+  - path: "30_project/docs/2_layout/_exports/README.md"
+    type: file
   - path: "30_project/docs/3_prompt/"
     type: dir
   - path: "30_project/docs/3_prompt/README.md"

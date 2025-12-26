@@ -37,10 +37,10 @@ stages:
     id: 2
     docs:
       - id: "2-1"
-        path: "00_docs/2_layout/2-1_cinematic_intent.yaml"
+        path: "30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml"
         depends_on: ["1-1", "1-2", "X-6"]
       - id: "2-2"
-        path: "00_docs/2_layout/2-2_layout_freeze.yaml"
+        path: "30_project/docs/2_layout/2-2_layout_freeze.yaml"
         depends_on: ["2-1", "1-1", "X-2", "X-4", "X-7"]
 
   - stage: "3_lookdev"

@@ -1,0 +1,8 @@
+meta:
+  role: layout_mappings
+  version: 1.0
+  status: draft
+content:
+  segments_to_branch1: {}
+  shots_to_branch2: {}
+  shots_to_blender: {}

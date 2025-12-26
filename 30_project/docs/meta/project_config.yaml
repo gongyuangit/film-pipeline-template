@@ -112,7 +112,7 @@ fields:
     purpose: layout 真值文档路径
     type: string
     required: true
-    default: 00_docs/2_layout/2-2_layout_freeze.yaml
+    default: 30_project/docs/2_layout/2-2_layout_freeze.yaml
   - path: sources_of_truth.look_truth
     purpose: lookdev 真值文档路径
     type: string
@@ -143,7 +143,7 @@ workflow_intent:
 
 sources_of_truth:
   story_truth: "30_project/docs/1_story/script_breakdown_v1.yaml"
-  layout_truth: "00_docs/2_layout/2-2_layout_freeze.yaml"
+  layout_truth: "30_project/docs/2_layout/2-2_layout_freeze.yaml"
   look_truth: "00_docs/3_lookdev/3-1_lookdev.yaml"
   exec_truth: "00_docs/X_exec/X-0_execution_tokens.yaml"
   timeline_truth:
@@ -164,7 +164,7 @@ example:
     machine_manages_docs: true
   sources_of_truth:
     story_truth: "30_project/docs/1_story/script_breakdown_v1.yaml"
-    layout_truth: "00_docs/2_layout/2-2_layout_freeze.yaml"
+    layout_truth: "30_project/docs/2_layout/2-2_layout_freeze.yaml"
     look_truth: "00_docs/3_lookdev/3-1_lookdev.yaml"
     exec_truth: "00_docs/X_exec/X-0_execution_tokens.yaml"
     timeline_truth:

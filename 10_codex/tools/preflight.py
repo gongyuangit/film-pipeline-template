@@ -110,7 +110,7 @@ def update_source_script_gate():
         INBOX_PATH.write_text(new_text, encoding="utf-8")
 
 
-STAGE_D_ROW = "| 6 | pending | `30_project/docs/2_layout/2-1_cinematic_intent.yaml` 已基于 `source_script.md` 与 `script_breakdown_v1.yaml` 生成，请确认后再进入 layout freeze 或 prompt 生成。 |  |"
+STAGE_D_ROW = "| 6 | pending | `30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml` 已基于 `source_script.md` 与 `script_breakdown_v1.yaml` 生成，请确认后再进入 layout freeze 或 prompt 生成。 |  |"
 
 
 def _update_table(lines):

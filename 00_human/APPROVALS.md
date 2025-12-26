@@ -4,7 +4,7 @@
 | SOURCE_SCRIPT_APPROVED | source_script.md | approved |  |
 | SCRIPT_BREAKDOWN_APPROVED | script_breakdown_v1.yaml | approved |  |
 | STAGE_C_DECISION_APPROVED | DECISIONS.md | approved |  |
-| CINEMATIC_INTENT_APPROVED | 2-1_cinematic_intent.yaml | pending |  |
+| CINEMATIC_INTENT_APPROVED | _artifacts/2-1_cinematic_intent_v1.yaml | pending |  |
 | LAYOUT_FREEZE_APPROVED | 2-2_layout_freeze.yaml | pending |  |
 | EXEC_PLAN_APPROVED | exec_plan.json | pending |  |
 

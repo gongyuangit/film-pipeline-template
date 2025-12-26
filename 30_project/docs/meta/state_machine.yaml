@@ -73,7 +73,7 @@ gates:
   - id: "G2_to_G3"
     description: "layout 未冻结，禁止进入 lookdev 定版"
     required_docs:
-      - "00_docs/2_layout/2-2_layout_freeze.yaml"
+      - "30_project/docs/2_layout/2-2_layout_freeze.yaml"
 
   - id: "G3_to_G4"
     description: "lookdev 未定版，禁止进入规模化生产"

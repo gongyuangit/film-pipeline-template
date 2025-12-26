@@ -1,0 +1,4 @@
+current:
+  cinematic_intent:
+    path: "_artifacts/2-1_cinematic_intent_v1.yaml"
+    version: "v1"
