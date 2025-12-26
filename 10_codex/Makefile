@@ -7,8 +7,9 @@ PLAN_REPORT := $(PLAN_DIR)/shot_list.json
 EXEC_DIR := $(RUNTIME_DIR)/exec
 EXEC_REPORT := $(EXEC_DIR)/execution_plan.json
 
-.PHONY: smoke plan exec-plan FORCE
+.PHONY: smoke plan exec-plan check-inputs FORCE
 smoke:
+	@python3 tools/check_inputs.py
 	@mkdir -p $(SMOKE_DIR)
 	@{ \
 		printf "Time: %s\n" "$$(date -u +"%Y-%m-%dT%H:%M:%SZ")"; \
@@ -17,6 +18,9 @@ smoke:
 		ls -1 $(REPO_ROOT); \
 		printf "index.yaml present: %s\n" "$$( [ -f $(INDEX_FILE) ] && echo yes || echo no)"; \
 	} > $(SMOKE_REPORT)
+
+check-inputs:
+	@python3 tools/check_inputs.py
 
 plan: $(PLAN_REPORT)
 
