@@ -1,0 +1,184 @@
+meta:
+  role: script_breakdown
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, inputs, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    inputs:
+      type: object
+      required: [from_docs]
+      properties:
+        from_docs:
+          type: array
+          items: {type: string}
+        optional_refs:
+          type: array
+          items: {type: string}
+    content:
+      type: object
+      required: [source_script, scenes]
+      properties:
+        source_script: {type: string}
+        scenes:
+          type: array
+          items:
+            type: object
+            required: [scene_id, slugline, summary, beats]
+            properties:
+              scene_id: {type: string}
+              slugline: {type: string}
+              summary: {type: string}
+              beats:
+                type: array
+                items: {type: string}
+              characters:
+                type: array
+                items: {type: string}
+              props:
+                type: array
+                items: {type: string}
+              visual_focus: {type: string}
+              storyboard_refs:
+                type: array
+                items: {type: string}
+              reference_assets:
+                type: array
+                items: {type: string}
+              notes: {type: string}
+        notes: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: script_breakdown
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: inputs.from_docs
+    purpose: 上游文档（最小：剧本文本）
+    type: array[string]
+    required: true
+    default: ["1-1_script_text"]
+  - path: inputs.optional_refs
+    purpose: 可选的分镜 / 参考文档
+    type: array[string]
+    required: false
+    default: []
+  - path: content.source_script
+    purpose: 标识使用的剧本文档
+    type: string
+    required: true
+    default: "1-1_script_text"
+  - path: content.scenes[].scene_id
+    purpose: 场景编号
+    type: string
+    required: true
+    default: "scene001"
+  - path: content.scenes[].slugline
+    purpose: slugline 或场景定位
+    type: string
+    required: true
+    default: ""
+  - path: content.scenes[].summary
+    purpose: 场景内逻辑脉络与节奏
+    type: string
+    required: true
+    default: ""
+  - path: content.scenes[].beats
+    purpose: 关键节奏点或镜头隐含的转折
+    type: array[string]
+    required: true
+    default: []
+  - path: content.scenes[].characters
+    purpose: 本场主要涉事人物
+    type: array[string]
+    required: false
+    default: []
+  - path: content.scenes[].props
+    purpose: 需记录的重要道具
+    type: array[string]
+    required: false
+    default: []
+  - path: content.scenes[].visual_focus
+    purpose: 视觉关注点或情绪线
+    type: string
+    required: false
+    default: ""
+  - path: content.scenes[].storyboard_refs
+    purpose: 关联的分镜文件（可选）
+    type: array[string]
+    required: false
+    default: []
+  - path: content.scenes[].reference_assets
+    purpose: 参考资料链接（可选）
+    type: array[string]
+    required: false
+    default: []
+  - path: content.scenes[].notes
+    purpose: 补充说明或待确认事项
+    type: string
+    required: false
+    default: ""
+  - path: content.notes
+    purpose: 整体备注
+    type: string
+    required: false
+    default: ""
+
+content:
+  source_script: "1-1_script_text"
+  scenes:
+    - scene_id: "scene001"
+      slugline: "待补充"
+      summary: "根据剧本文本第一段，描述节奏与情绪占位，待脚本具体内容填充。"
+      beats:
+        - "节奏点 1（占位）"
+        - "节奏点 2（占位）"
+      characters: []
+      props: []
+      visual_focus: ""
+      storyboard_refs: []
+      reference_assets: []
+      notes: "当前剧本正文尚未提供，先采纳骨架格式。"
+  notes: "该骨架侧重结构化拆解，剧本内容到位后再补全 `scenes` 中的各项字段。"
+
+example:
+  meta: {role: script_breakdown, version: 1.0, status: draft}
+  inputs:
+    from_docs: ["1-1_script_text"]
+    optional_refs: ["storyboard", "reference"]
+  content:
+    source_script: "1-1_script_text"
+    scenes:
+      - scene_id: "scene001"
+        slugline: "INT. STUDIO - DAY"
+        summary: "第一场为角色在工作室内小游戏的起承，节奏明快。"
+        beats:
+          - "角色 A 启动机器"
+          - "角色 B 提问核心冲突"
+        characters: ["角色 A", "角色 B"]
+        props: ["控制面板", "老式闹钟"]
+        visual_focus: "工业质感光影，背景海报镜面反射"
+        storyboard_refs: ["storyboard/scene001.png"]
+        reference_assets: ["reference/moodboard_page01.jpg"]
+        notes: "需确认是否采用仰拍以强化张力"
+    notes: "确认脚本后再补充完整的场次与节奏细节。"
