@@ -12,3 +12,4 @@
 - Layout prompts（segment/shot prompt pack）依赖 cinematic intent + layout freeze 输出，关注结构、节奏与镜头逻辑；Lookdev prompts 则必须额外依赖 `reports/layout_review_v1.md` 中的验收反馈（按镜头问题清单 + 通用教训 + lookdev 输入补丁），用于指导材质、光效、细节层面的设计决策。
 - Lookdev 阶段的最后一步必须生成 `reports/lookdev_review_v1.md` 验收报告，未获得 `LOOKDEV_REVIEW_APPROVED` 不得启动执行计划或向渲染/后期交付环节递交素材。
 - 音频流水线平行运行，依赖同一 shot_map + timeline（`30_project/docs/2_layout/_artifacts/editing_bridge/shot_map_v1.srt` 与 `timeline_plan_v1.xml`），但拥有独立的 stop→go→stop gate。音频的素材/重命名操作亦需同步产生 `audio_asset_manifest_v1.yaml` / `rename_plan_v1.yaml` / `timeline_updated.xml`，并在 `00_human/INBOX.md` 发起对应 pending 请求。
+- 调色阶段由机器执行可量化 QC（`color_qc_v1.md`），随后生成 `color_review_v1.md` 用于决定是否允许最终交付；`COLOR_REVIEW_APPROVED` 是所有最终交付（如 deliverables）前必过的闸门。

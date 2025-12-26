@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<timeline start="01:00:00:00" fps="24">
+  <tracks>
+    <track id="A4" role="dialogue_master" />
+    <track id="A8" role="sfx_master" />
+    <track id="A12" role="music_master" />
+  </tracks>
+  <markers>
+    <!-- color markers aligned with shot_map timeline -->
+  </markers>
+</timeline>

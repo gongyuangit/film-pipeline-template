@@ -13,6 +13,8 @@
 | AUDIO_PLAN_APPROVED | _artifacts/audio_plan_v1.yaml | pending |  |
 | AUDIO_PROMPTS_APPROVED | _artifacts/prompt_packs/dialogue_vo_prompt_pack_v1.yaml + ... | pending |  |
 | AUDIO_REVIEW_APPROVED | _artifacts/reports/audio_review_v1.md | pending |  |
+| COLOR_QC_APPROVED | _artifacts/reports/color_qc_v1.md | pending |  |
+| COLOR_REVIEW_APPROVED | _artifacts/reports/color_review_v1.md | pending |  |
 | EXEC_PLAN_APPROVED | exec_plan.json | pending |  |
 
 ## Stage approvals
@@ -28,6 +30,8 @@
 - AUDIO_PLAN_APPROVED: 人工确认 `_artifacts/audio_plan_v1.yaml`
 - AUDIO_PROMPTS_APPROVED: 人工确认所有音频 prompt pack
 - AUDIO_REVIEW_APPROVED: 人工确认 `_artifacts/reports/audio_review_v1.md`
+- COLOR_QC_APPROVED: 人工确认 `_artifacts/reports/color_qc_v1.md`（机器量化 QC）
+- COLOR_REVIEW_APPROVED: 人工确认 `_artifacts/reports/color_review_v1.md`，确认是否允许最终交付
 - EXEC_PLAN_APPROVED: 人工确认执行计划输出
 
-- 音频审批与视觉审批互不阻塞，均需按照 stop→go→stop 的节奏完成。
+- 音频审批与视觉审批互不阻塞，均需按照 stop→go→stop 的节奏完成；而调色阶段则主要由机器做 QC 判断、人类负责盖章同意/拒绝最终交付。

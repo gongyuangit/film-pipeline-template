@@ -141,6 +141,40 @@ entries:
     type: file
   - path: "30_project/docs/2_audio/_artifacts/editing_bridge/rename_plan_v1.yaml"
     type: file
+  - path: "30_project/docs/5_color/"
+    type: dir
+  - path: "30_project/docs/5_color/README.md"
+    type: file
+  - path: "30_project/docs/5_color/_artifacts/"
+    type: dir
+  - path: "30_project/docs/5_color/_artifacts/reports/"
+    type: dir
+  - path: "30_project/docs/5_color/_artifacts/reports/color_qc_v1.md"
+    type: file
+  - path: "30_project/docs/5_color/_artifacts/reports/color_review_v1.md"
+    type: file
+  - path: "30_project/docs/5_color/_artifacts/inputs/"
+    type: dir
+  - path: "30_project/docs/5_color/_artifacts/inputs/final_picture_path.txt"
+    type: file
+  - path: "30_project/docs/5_color/_artifacts/inputs/reference_frames/"
+    type: dir
+  - path: "30_project/docs/5_color/_artifacts/exports/"
+    type: dir
+  - path: "30_project/docs/5_color/_artifacts/exports/markers_plan_v1.yaml"
+    type: file
+  - path: "30_project/docs/5_color/_artifacts/editing_bridge"
+    type: dir
+  - path: "30_project/docs/5_color/_artifacts/editing_bridge/timeline_plan_v1.xml"
+    type: file
+  - path: "30_project/docs/5_color/_artifacts/editing_bridge/timeline_in.xml"
+    type: file
+  - path: "30_project/docs/5_color/_artifacts/editing_bridge/timeline_updated.xml"
+    type: file
+  - path: "30_project/docs/5_color/_artifacts/editing_bridge/color_asset_manifest_v1.yaml"
+    type: file
+  - path: "30_project/docs/5_color/_artifacts/editing_bridge/rename_plan_v1.yaml"
+    type: file
   - path: "30_project/docs/3_prompt/"
     type: dir
   - path: "30_project/docs/3_prompt/README.md"
