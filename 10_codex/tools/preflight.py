@@ -9,6 +9,32 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 MANIFEST_PATH = REPO_ROOT / "10_codex" / "TEMPLATE_MANIFEST.yaml"
 INBOX_PATH = REPO_ROOT / "00_human" / "INBOX.md"
 SOURCE_SCRIPT_PATH = REPO_ROOT / "30_project" / "inputs" / "script" / "source_script.md"
+STAGE_PATH = REPO_ROOT / "10_codex" / "PIPELINE_STAGES.yaml"
+APPROVALS_PATH = REPO_ROOT / "00_human" / "APPROVALS.md"
+
+
+HUMAN_TEMPLATES = {
+    "00_human/INBOX.md": (
+        "# INBOX\n"
+        "| ID | Status | Description | 备注 |\n"
+        "| -- | -- | -- | -- |\n"
+    ),
+    "00_human/APPROVALS.md": (
+        "# APPROVALS\n"
+        "| Approval Key | Artifact | Status | Notes |\n"
+        "| -- | -- | -- | -- |\n"
+        "## Stage approvals\n"
+        "- SOURCE_SCRIPT_APPROVED: 人工确认剧本文本\n"
+        "- SCRIPT_BREAKDOWN_APPROVED: 人工确认 script_breakdown_v1\n"
+        "- STAGE_C_DECISION_APPROVED: 人工确认方向性决策\n"
+        "- CINEMATIC_INTENT_APPROVED: 人工确认 cinematic intent\n"
+        "- LAYOUT_FREEZE_APPROVED: 人工确认 layout freeze\n"
+        "- EXEC_PLAN_APPROVED: 人工确认 exec plan\n"
+    ),
+    "00_human/DECISIONS.md": "# DECISIONS\n\n- 无\n",
+    "00_human/NEEDED_INPUTS.md": "# NEEDED INPUTS\n\n- None\n",
+    "00_human/PRODUCTION.md": "# PRODUCTION\n\n- None\n",
+}
 
 
 def load_manifest():
@@ -33,6 +59,22 @@ def ensure_structure(entries):
                 target.touch()
                 created.append(relative)
     return created
+
+
+def ensure_human_templates():
+    for relative, template in HUMAN_TEMPLATES.items():
+        target = REPO_ROOT / relative
+        if not target.exists():
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(template, encoding="utf-8")
+            continue
+        text = target.read_text(encoding="utf-8")
+        header = template.splitlines()[0]
+        if header not in text:
+            updated = template
+            if text.strip():
+                updated += "\n" + text.lstrip("\n")
+            target.write_text(updated, encoding="utf-8")
 
 
 def ensure_preflight_section():
@@ -89,9 +131,35 @@ def _update_table(lines):
     return lines[:start] + header + rows + lines[end:]
 
 
+def load_pipeline_stages():
+    if not STAGE_PATH.exists():
+        return []
+    with STAGE_PATH.open("r", encoding="utf-8") as f:
+        data = yaml.safe_load(f)
+    return data.get("stages", [])
+
+
+def load_approvals():
+    if not APPROVALS_PATH.exists():
+        return ""
+    return APPROVALS_PATH.read_text(encoding="utf-8")
+
+
+def enforce_stage_gates(stages, approvals_text):
+    for stage in stages:
+        missing = [req for req in stage.get("requires", []) if req not in approvals_text]
+        if missing:
+            print(
+                f"Stage '{stage['name']}' ({stage['description']}) 需等待下列 approvals：{', '.join(missing)}；"
+                f"请在 {APPROVALS_PATH.name} 中记录以继续。参阅 {STAGE_PATH.relative_to(REPO_ROOT)}。"
+            )
+            sys.exit(1)
+
+
 def main():
     entries = load_manifest()
     created = ensure_structure(entries)
+    ensure_human_templates()
     append_preflight_summary(created)
     INBOX_TEXT = INBOX_PATH.read_text(encoding="utf-8")
     if "## Preflight" not in INBOX_TEXT:
@@ -100,6 +168,9 @@ def main():
     if not SOURCE_SCRIPT_PATH.exists():
         print("缺失 30_project/inputs/script/source_script.md，暂停 1_story 生成，等待人工上传或通过 0-source/raw 补全。")
         sys.exit(1)
+    stages = load_pipeline_stages()
+    approvals_text = load_approvals()
+    enforce_stage_gates(stages, approvals_text)
 
 
 if __name__ == "__main__":

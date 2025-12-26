@@ -1,0 +1,42 @@
+stages:
+  - name: "Stage S"
+    description: "Source Synthesis / script confirmation"
+    product: "30_project/inputs/script/source_script.md"
+    approval_key: "SOURCE_SCRIPT_APPROVED"
+    requires: []
+    next_targets: ["Stage B"]
+  - name: "Stage B"
+    description: "Script breakdown (first draft)"
+    product: "30_project/docs/1_story/script_breakdown_v1.yaml"
+    approval_key: "SCRIPT_BREAKDOWN_APPROVED"
+    requires:
+      - "SOURCE_SCRIPT_APPROVED"
+    next_targets: ["Stage C"]
+  - name: "Stage C"
+    description: "Human creative/production decisions"
+    product: "00_human/DECISIONS.md"
+    approval_key: "STAGE_C_DECISION_APPROVED"
+    requires:
+      - "SCRIPT_BREAKDOWN_APPROVED"
+    next_targets: ["Stage D"]
+  - name: "Stage D"
+    description: "Cinematic intent / layout guidance"
+    product: "30_project/docs/2_layout/2-1_cinematic_intent.yaml"
+    approval_key: "CINEMATIC_INTENT_APPROVED"
+    requires:
+      - "STAGE_C_DECISION_APPROVED"
+    next_targets: ["Stage E"]
+  - name: "Stage E"
+    description: "Layout freeze"
+    product: "30_project/docs/2_layout/2-2_layout_freeze.yaml"
+    approval_key: "LAYOUT_FREEZE_APPROVED"
+    requires:
+      - "CINEMATIC_INTENT_APPROVED"
+    next_targets: ["Stage F"]
+  - name: "Stage F"
+    description: "Execution planning"
+    product: "20_runtime/exec/execution_plan.json"
+    approval_key: "EXEC_PLAN_APPROVED"
+    requires:
+      - "LAYOUT_FREEZE_APPROVED"
+    next_targets: []

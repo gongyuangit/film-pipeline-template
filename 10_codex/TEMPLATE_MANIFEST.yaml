@@ -9,6 +9,8 @@ entries:
     type: file
   - path: "00_human/README.md"
     type: file
+  - path: "00_human/PRODUCTION.md"
+    type: file
   - path: "10_codex/00_CODEX_README.md"
     type: file
   - path: "10_codex/Makefile"
@@ -16,6 +18,8 @@ entries:
   - path: "10_codex/tools/preflight.py"
     type: file
   - path: "10_codex/TEMPLATE_MANIFEST.yaml"
+    type: file
+  - path: "10_codex/PIPELINE_STAGES.yaml"
     type: file
   - path: "20_runtime/layout"
     type: dir

@@ -179,6 +179,7 @@
 2) 每次执行前必须先运行 `preflight`；该脚本会根据 manifest 补齐结构、在 00_human/INBOX.md 写入结构变化摘要，并在缺失的 `source_script.md` situ 抛出门槛（只会在 INBOX 表格中提示“请向 30_project/docs/0-source/raw/ 投递碎片以生成 script”），确保执行节奏“停→走→停”。
 3) `10_codex/Makefile` 已将 `plan`、`exec-plan`、`check-inputs` 与 `preflight` 串联：先自检、再生成，再等待人工批准；任何阶段主产物产出后都需在 INBOX 创建对应 pending 项，一旦 `APPROVALS.md` 写入该产物，该阶段才允许继续。
 4) `source_script.md` 是第一门槛；没有确认的剧本，就不能生成 `script_breakdown_v1`，更不能进入 layout、prompt、render 等下游，整套流程靠 “AI 做事、人类决策” 的【停走停】节奏控制。
+5) `10_codex/PIPELINE_STAGES.yaml` 是各阶段主产物与审批、后续目标的 Source of Truth；任何阶段产物或 gate 变更必须同步更新该文件，否则 preflight 会因缺失 approvals 而阻止执行。
 ## 强制停止规则（核心）
 
 1) 在任何需要创作判断的节点，必须停下并等待人工。
