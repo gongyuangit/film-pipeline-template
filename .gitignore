@@ -1,4 +1,6 @@
 .DS_Store
 20_runtime/
+!20_runtime/exec/
+!20_runtime/exec/execution_plan.json
 __pycache__/
 *.pyc
