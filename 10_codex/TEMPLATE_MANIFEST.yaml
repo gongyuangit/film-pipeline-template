@@ -116,8 +116,6 @@ entries:
     type: file
   - path: "30_project/docs/2_layout/_artifacts/reports/layout_review_v1.md"
     type: file
-  - path: "30_project/docs/2_layout/_artifacts/reports/lookdev_review_v1.md"
-    type: file
   - path: "30_project/docs/2_layout/_artifacts/prompt_packs"
     type: dir
   - path: "30_project/docs/2_layout/_artifacts/prompt_packs/branch1_segment_prompt_pack_v1.yaml"
@@ -125,8 +123,6 @@ entries:
   - path: "30_project/docs/2_layout/_artifacts/prompt_packs/branch2_shot_prompt_pack_v1.yaml"
     type: file
   - path: "30_project/docs/2_layout/_artifacts/prompt_packs/branch3_blender_tokens_v1.yaml"
-    type: file
-  - path: "30_project/docs/2_layout/_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml"
     type: file
   - path: "30_project/docs/2_layout/_artifacts/prompt_packs/README.md"
     type: file
@@ -139,6 +135,30 @@ entries:
   - path: "30_project/docs/2_layout/_artifacts/exports/layout_markers_v1.yaml"
     type: file
   - path: "30_project/docs/2_layout/2-2_layout_freeze.yaml"
+    type: file
+  - path: "30_project/docs/3_lookdev/"
+    type: dir
+  - path: "30_project/docs/3_lookdev/README.md"
+    type: file
+  - path: "30_project/docs/3_lookdev/CURRENT.yaml"
+    type: file
+  - path: "30_project/docs/3_lookdev/_artifacts/"
+    type: dir
+  - path: "30_project/docs/3_lookdev/_artifacts/prompt_packs/"
+    type: dir
+  - path: "30_project/docs/3_lookdev/_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml"
+    type: file
+  - path: "30_project/docs/3_lookdev/_artifacts/prompt_packs/.gitkeep"
+    type: file
+  - path: "30_project/docs/3_lookdev/_artifacts/reports/"
+    type: dir
+  - path: "30_project/docs/3_lookdev/_artifacts/reports/lookdev_review_v1.md"
+    type: file
+  - path: "30_project/docs/3_lookdev/_artifacts/reports/.gitkeep"
+    type: file
+  - path: "30_project/docs/3_lookdev/_artifacts/exports/"
+    type: dir
+  - path: "30_project/docs/3_lookdev/_artifacts/exports/.gitkeep"
     type: file
   - path: "30_project/docs/2_audio/"
     type: dir

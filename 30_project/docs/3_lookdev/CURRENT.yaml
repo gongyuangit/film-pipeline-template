@@ -1,0 +1,6 @@
+meta:
+  role: lookdev_pointer
+  version: 1.0
+  status: draft
+current:
+  prompt_pack: 3_lookdev/_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml

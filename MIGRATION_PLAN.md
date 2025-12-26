@@ -26,7 +26,7 @@ Each `_artifacts/` directory must expose `inputs/`, `reports/`, and `exports/` (
 Each sample is ~5-20 lines to stay light.
 1. `30_project/docs/2_layout/_artifacts/inputs/2-1_cinematic_intent_v1.yaml` with `meta` & `segments` list to show structure (used as template for future variants).
 2. `30_project/docs/2_layout/_artifacts/prompt_packs/branch1_segment_prompt_pack_v1.yaml` showing `globals` + `shots[]` + `segments[]` sections, plus `notes` referencing `negative_effective = globals.negative + shots[].negative`.
-3. `30_project/docs/2_layout/_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml` with lookdev-specific guidance.
+3. `30_project/docs/3_lookdev/_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml` with lookdev-specific guidance.
 4. `30_project/docs/2_audio/_artifacts/prompt_packs/dialogue_vo_prompt_pack_v1.yaml` as already existing template (will stay and get referenced in manifest/README).
 5. `30_project/docs/5_color/_artifacts/reports/color_qc_v1.md` and `color_review_v1.md` with the metrics/checklist stub already present; ensure references mention final deliverable gating.
 6. `30_project/docs/2_layout/_artifacts/exports/layout_markers_v1.yaml` as new placeholder enumerating shot markers for final exports.

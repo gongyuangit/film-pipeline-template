@@ -28,6 +28,8 @@
 
 ## Lookdev Prompt Guidance
 
+- Lookdev prompt packs, reviews, and exports now live under `30_project/docs/3_lookdev/_artifacts/`; this layout README covers the remaining layout prompt packs only.
+
 - Layout prompt pack（如 `_artifacts/prompt_packs/branch1_segment_prompt_pack_v1.yaml` / `_artifacts/prompt_packs/branch2_shot_prompt_pack_v1.yaml`）聚焦镜头逻辑、镜头语言与叙事节奏，源自 cinematic intent 与 layout freeze 输出；它们的逻辑是“如何用镜头呈现叙事”。
 - Lookdev shot prompt pack (`_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml`) 则侧重镜头画面风格、材质与灯光预期，其信息源必须包含 cinematic intent 与 `reports/layout_review_v1.md` 中的验收反馈（问题清单 + 通用教训 + lookdev 补丁），目的是帮助 lookdev 团队在镜头构图基础上决策材质调性。
 

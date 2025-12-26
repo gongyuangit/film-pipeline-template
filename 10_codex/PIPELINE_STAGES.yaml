@@ -70,7 +70,7 @@ stages:
     next_targets: ["Stage K"]
   - name: "Stage K"
     description: "Lookdev shot prompts"
-    product: "30_project/docs/2_layout/_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml"
+    product: "30_project/docs/3_lookdev/_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml"
     approval_key: "LOOKDEV_PROMPTS_APPROVED"
     requires:
       - "LAYOUT_REVIEW_APPROVED"
@@ -78,7 +78,7 @@ stages:
     next_targets: ["Stage K_R"]
   - name: "Stage K_R"
     description: "Lookdev review (must cover STANDARDS_LOOKDEV.md pillars)"
-    product: "30_project/docs/2_layout/_artifacts/reports/lookdev_review_v1.md"
+    product: "30_project/docs/3_lookdev/_artifacts/reports/lookdev_review_v1.md"
     approval_key: "LOOKDEV_REVIEW_APPROVED"
     requires:
       - "LOOKDEV_PROMPTS_APPROVED"

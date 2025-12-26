@@ -14,6 +14,8 @@
     - `30_project/docs/2_audio/_artifacts`
   - `30_project/docs/2_layout`
     - `30_project/docs/2_layout/_artifacts`
+  - `30_project/docs/3_lookdev`
+    - `30_project/docs/3_lookdev/_artifacts`
   - `30_project/docs/5_color`
     - `30_project/docs/5_color/_artifacts`
   - `30_project/docs/meta`
@@ -38,6 +40,7 @@
 | 30_project/docs/0-source/ | Codex | Source fragments + registry | Feeds Stage S | raw/ -> structured shards |
 | 30_project/docs/1_story/script_breakdown_v1.yaml | Codex | Script breakdown | Feeds layout/audio | Placeholder until populated |
 | 30_project/docs/2_layout/_artifacts/ | Codex | Layout/lookdev artifacts | All layout outputs live here | Includes editing_bridge + CURRENT pointer |
+| 30_project/docs/3_lookdev/_artifacts/ | Codex | Lookdev prompt pack + reports | Feeding lookdev gates | Hosts prompt pack + lookdev review |
 | 30_project/docs/2_audio/_artifacts/ | Codex | Audio planning + prompts + review | Parallel to layout | Shares editing_bridge facts |
 | 30_project/docs/5_color/_artifacts/ | Codex | Color QC + review | After exec plan | Editing bridge anchors XML/SRT |
 | 20_runtime/ | Codex | Runtime/cache skeleton | Cache only, never committed outputs | Holds plan/exec/tests/final folders with `.gitkeep` placeholders |
@@ -48,6 +51,7 @@
 - `TEMPLATE_PLACEHOLDER: true` + `content_nontrivial` heuristics guard readiness for YAML/MD/SRT/XML/JSON inputs.
 - XML/SRT files represent timeline facts; trust track IDs and durations, not track names, and keep them under `_artifacts/editing_bridge/`.
 - Every generated product must live inside the stage’s `_artifacts/` directory; layout uses `CURRENT.yaml` as the pointer.
+- Lookdev prompt packs and reports live under `30_project/docs/3_lookdev/_artifacts/` to keep the stage boundaries explicit.
 - `20_runtime/` is an ephemeral cache (plan/exec/tests/final); files inside are regenerated and may be cleared at will.
 
 ## D. No-drift rules
