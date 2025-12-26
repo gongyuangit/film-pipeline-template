@@ -15,8 +15,8 @@ APPROVALS_PATH = REPO_ROOT / "00_human" / "APPROVALS.md"
 HUMAN_TEMPLATES = {
     "00_human/INBOX.md": (
         "# INBOX\n"
-        "| Stage | Gate Key | Status | Order | Action | Artifact |\n"
-        "| -- | -- | -- | -- | -- | -- |\n"
+        "| Order | Stage | Gate Key | Status | Prereq | Artifact | Notes |\n"
+        "| -- | -- | -- | -- | -- | -- | -- |\n"
     ),
     "00_human/APPROVALS.md": (
         "# APPROVALS\n"
@@ -43,100 +43,6 @@ HUMAN_TEMPLATES = {
     "00_human/NEEDED_INPUTS.md": "# NEEDED INPUTS\n\n- None\n",
     "00_human/PRODUCTION.md": "# PRODUCTION\n\n- None\n",
 }
-
-STAGE_GATE_DEFINITIONS = [
-    {
-        "stage": "Stage S",
-        "key": "SOURCE_SCRIPT_APPROVED",
-        "artifact": "30_project/inputs/script/source_script.md",
-        "action": "上传/确认权威剧本",
-    },
-    {
-        "stage": "Stage B",
-        "key": "SCRIPT_BREAKDOWN_APPROVED",
-        "artifact": "30_project/docs/1_story/script_breakdown_v1.yaml",
-        "action": "确认 script_breakdown 初版",
-    },
-    {
-        "stage": "Stage C",
-        "key": "STAGE_C_DECISION_APPROVED",
-        "artifact": "00_human/DECISIONS.md",
-        "action": "确认方向性/制片决策",
-    },
-    {
-        "stage": "Stage A1",
-        "key": "AUDIO_PLAN_APPROVED",
-        "artifact": "30_project/docs/2_audio/_artifacts/audio_plan_v1.yaml",
-        "action": "确认音频计划",
-    },
-    {
-        "stage": "Stage A2",
-        "key": "AUDIO_PROMPTS_APPROVED",
-        "artifact": "30_project/docs/2_audio/_artifacts/prompt_packs/dialogue_vo_prompt_pack_v1.yaml + 30_project/docs/2_audio/_artifacts/prompt_packs/sfx_prompt_pack_v1.yaml + 30_project/docs/2_audio/_artifacts/prompt_packs/music_prompt_pack_v1.yaml",
-        "action": "确认音频提示词",
-    },
-    {
-        "stage": "Stage A3",
-        "key": "AUDIO_REVIEW_APPROVED",
-        "artifact": "30_project/docs/2_audio/_artifacts/reports/audio_review_v1.md",
-        "action": "确认音频验收",
-    },
-    {
-        "stage": "Stage D",
-        "key": "CINEMATIC_INTENT_APPROVED",
-        "artifact": "30_project/docs/2_layout/_artifacts/inputs/2-1_cinematic_intent_v1.yaml",
-        "action": "确认 cinematic intent",
-    },
-    {
-        "stage": "Stage P1.5",
-        "key": "SHOT_MAP_SRT_XML_APPROVED",
-        "artifact": "30_project/docs/2_layout/_artifacts/editing_bridge/shot_map_v1.srt + 30_project/docs/2_layout/_artifacts/editing_bridge/timeline_plan_v1.xml",
-        "action": "确认 shot map SRT 与规划 XML",
-    },
-    {
-        "stage": "Stage E",
-        "key": "LAYOUT_FREEZE_APPROVED",
-        "artifact": "30_project/docs/2_layout/2-2_layout_freeze.yaml",
-        "action": "确认 layout freeze",
-    },
-    {
-        "stage": "Stage LR",
-        "key": "LAYOUT_REVIEW_APPROVED",
-        "artifact": "30_project/docs/2_layout/_artifacts/reports/layout_review_v1.md",
-        "action": "确认 layout review",
-    },
-    {
-        "stage": "Stage K",
-        "key": "LOOKDEV_PROMPTS_APPROVED",
-        "artifact": "30_project/docs/2_layout/_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml",
-        "action": "确认 lookdev prompt pack",
-    },
-    {
-        "stage": "Stage K_R",
-        "key": "LOOKDEV_REVIEW_APPROVED",
-        "artifact": "30_project/docs/2_layout/_artifacts/reports/lookdev_review_v1.md",
-        "action": "确认 lookdev review 报告",
-    },
-    {
-        "stage": "Stage F",
-        "key": "EXEC_PLAN_APPROVED",
-        "artifact": "20_runtime/exec/execution_plan.json",
-        "action": "确认执行计划",
-    },
-    {
-        "stage": "Stage G1",
-        "key": "COLOR_QC_APPROVED",
-        "artifact": "30_project/docs/5_color/_artifacts/reports/color_qc_v1.md",
-        "action": "确认 color QC 检测",
-    },
-    {
-        "stage": "Stage G2",
-        "key": "COLOR_REVIEW_APPROVED",
-        "artifact": "30_project/docs/5_color/_artifacts/reports/color_review_v1.md",
-        "action": "确认 color review 报告",
-    },
-]
-
 
 def load_manifest():
     with open(MANIFEST_PATH, "r", encoding="utf-8") as f:
@@ -229,40 +135,52 @@ def load_approvals():
 
 
 def write_inbox_table(approvals_data, stages):
-    stage_lookup = {stage["name"]: stage for stage in stages}
-    stage_order = {stage["name"]: idx + 1 for idx, stage in enumerate(stages)}
     rows = [
         "# INBOX",
         "",
-        "| Stage | Gate Key | Status | Order | Action | Artifact |",
-        "| -- | -- | -- | -- | -- | -- |",
+        "| Order | Stage | Gate Key | Status | Prereq | Artifact | Notes |",
+        "| -- | -- | -- | -- | -- | -- | -- |",
     ]
-    actionable_found = False
-    for stage_def in sorted(
-        STAGE_GATE_DEFINITIONS, key=lambda item: stage_order.get(item["stage"], float("inf"))
-    ):
-        stage_info = stage_lookup.get(stage_def["stage"])
-        if not stage_info:
-            continue
-        product_paths = parse_product_paths(stage_info.get("product", ""))
+    for order, stage in enumerate(stages, start=1):
+        gate_key = stage.get("approval_key") or stage.get("name")
+        product = stage.get("product", "-")
+        product_paths = parse_product_paths(product)
         exists = artifact_exists(product_paths)
-        prereqs = stage_info.get("requires", [])
-        prereq_ok = all(
-            approvals_data.get(req, {}).get("status", "").lower() == "approved"
-            for req in prereqs
+        missing_prereqs = [
+            req
+            for req in stage.get("requires", [])
+            if approvals_data.get(req, {}).get("status", "").lower() != "approved"
+        ]
+        prereq_ok = not missing_prereqs
+        entry = approvals_data.get(gate_key, {})
+        raw_status = entry.get("status", "pending")
+        approved = str(raw_status).lower() == "approved"
+        if approved:
+            status = "approved"
+        elif not prereq_ok:
+            status = "blocked"
+        else:
+            status = "pending"
+        prereq_display = "yes" if prereq_ok else f"missing: {', '.join(missing_prereqs)}"
+        if product:
+            missing_paths = [
+                path for path in product_paths if not (REPO_ROOT / path).exists()
+            ]
+            if missing_paths:
+                artifact_display = f"{product} (missing: {', '.join(missing_paths)})"
+            else:
+                artifact_display = f"{product} (exists)"
+        else:
+            artifact_display = "-"
+        notes_parts = [stage.get("description", "").strip()]
+        if not notes_parts[0]:
+            notes_parts = []
+        if status == "pending" and not exists:
+            notes_parts.append("waiting artifact")
+        notes = "；".join(part for part in notes_parts if part)
+        rows.append(
+            f"| {order} | {stage.get('name')} | {gate_key} | {status} | {prereq_display} | {artifact_display} | {notes} |"
         )
-        entry = approvals_data.get(stage_def["key"])
-        status = entry.get("status") if entry else "pending"
-        approved = str(status).lower() == "approved"
-        if exists and prereq_ok and not approved:
-            order = stage_order.get(stage_def["stage"], 0)
-            rows.append(
-                f"| {stage_def['stage']} | {stage_def['key']} | {status} | {order} | {stage_def['action']} | {stage_def['artifact']} |"
-            )
-            actionable_found = True
-    if not actionable_found:
-        rows.append("| - | - | - | - | - | - |")
-        rows.append("> 当前无可行动的 gate，等待下一步。")
     with INBOX_PATH.open("w", encoding="utf-8") as f:
         f.write("\n".join(rows) + "\n")
 
