@@ -1,6 +1,4 @@
-.PHONY: smoke plan exec-plan check-inputs
-smoke:
-	$(MAKE) -C 10_codex smoke
+.PHONY: plan exec-plan check-inputs
 
 plan:
 	$(MAKE) -C 10_codex plan

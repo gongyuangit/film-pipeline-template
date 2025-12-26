@@ -1,6 +1,5 @@
-# Smoke Test
-1. Run `make smoke` from the repository root.
-2. Open `20_runtime/smoke/smoke_report.md` to verify the generated report.
+# Smoke Test（已废弃）
+- 该机制仅用于早期验证，现已移除；模板不再生成 `20_runtime/smoke`，且无需运行 `make smoke`。
 
 ## Plan Generation
 1. Run `make plan`.
