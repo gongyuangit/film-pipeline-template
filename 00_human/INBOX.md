@@ -6,6 +6,7 @@
 | 3 | pending | 已依据现有剧本文本生成 `30_project/docs/1_story/script_breakdown_v1.yaml` 的第一版骨架，必须人工确认后方可进入 Stage C；分镜/参考只是建议，可选。 |  |
 | 4 | done | `30_project/docs/1_story/` 已清理为仅保留 `script_breakdown_v1.yaml` 与 `1-2_segment_structure.yaml`，其余原始脚本/拆解文件移除。 |  |
 | 5 | done | `script_breakdown_v1.yaml` 已补齐场次与镜头层（segment→beat→shot），成为 Stage B 的唯一主产物。 |  |
+| 6 | pending | 请先将 `30_project/inputs/script/source_script.md` 提供为权威剧本文本，或继续在 `30_project/docs/0-source/raw/` 投递碎片供 Source Synthesis 合成；之后再继续 1_story。 |  |
 
 ## 【素材检测 / 启动前状态】
 <!-- inputs-detection:start -->
@@ -22,3 +23,6 @@
 ## 【可选素材建议】
 - 当前流程可仅依赖剧本发起，分镜与参考均为可选补充，若有现成可直接放入上述路径供参考。
 - 若暂未提供分镜或参考，可在 `00_human/INBOX.md` 中以 `Status: pending` 形式记录“建议”信息，待人类反馈再决定是否需要加入。
+
+## Preflight
+- 尚未检测到结构更新

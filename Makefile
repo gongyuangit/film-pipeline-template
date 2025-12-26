@@ -1,4 +1,7 @@
-.PHONY: plan exec-plan check-inputs
+.PHONY: preflight plan exec-plan check-inputs
+
+preflight:
+	$(MAKE) -C 10_codex preflight
 
 plan:
 	$(MAKE) -C 10_codex plan

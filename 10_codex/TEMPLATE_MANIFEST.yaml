@@ -1,0 +1,73 @@
+entries:
+  - path: "00_human/INBOX.md"
+    type: file
+  - path: "00_human/APPROVALS.md"
+    type: file
+  - path: "00_human/DECISIONS.md"
+    type: file
+  - path: "00_human/NEEDED_INPUTS.md"
+    type: file
+  - path: "00_human/README.md"
+    type: file
+  - path: "10_codex/00_CODEX_README.md"
+    type: file
+  - path: "10_codex/Makefile"
+    type: file
+  - path: "10_codex/tools/preflight.py"
+    type: file
+  - path: "10_codex/TEMPLATE_MANIFEST.yaml"
+    type: file
+  - path: "20_runtime/layout"
+    type: dir
+  - path: "20_runtime/plan"
+    type: dir
+  - path: "20_runtime/exec"
+    type: dir
+  - path: "30_project/docs/0-source/README.md"
+    type: file
+  - path: "30_project/docs/0-source/raw/"
+    type: dir
+  - path: "30_project/docs/0-source/raw/README.md"
+    type: file
+  - path: "30_project/docs/0-source/raw/structured/"
+    type: dir
+  - path: "30_project/docs/0-source/raw/structured/0-1_source_origin.yaml"
+    type: file
+  - path: "30_project/docs/0-source/raw/structured/0-2_world_rules.yaml"
+    type: file
+  - path: "30_project/docs/0-source/raw/structured/0-3_assets_entities.yaml"
+    type: file
+  - path: "30_project/docs/0-source/raw/structured/0-4_visual_direction.yaml"
+    type: file
+  - path: "30_project/docs/0-source/raw/structured/0-5_references_constraints.yaml"
+    type: file
+  - path: "30_project/docs/0-source/parsed/"
+    type: dir
+  - path: "30_project/docs/0-source/parsed/README.md"
+    type: file
+  - path: "30_project/docs/0-source/parsed/.gitkeep"
+    type: file
+  - path: "30_project/docs/0-source/registry.yaml"
+    type: file
+  - path: "30_project/docs/1_story/script_breakdown_v1.yaml"
+    type: file
+  - path: "30_project/docs/1_story/1-2_segment_structure.yaml"
+    type: file
+  - path: "30_project/docs/2_layout/"
+    type: dir
+  - path: "30_project/docs/2_layout/README.md"
+    type: file
+  - path: "30_project/docs/2_layout/.gitkeep"
+    type: file
+  - path: "30_project/docs/3_prompt/"
+    type: dir
+  - path: "30_project/docs/3_prompt/README.md"
+    type: file
+  - path: "30_project/docs/3_prompt/.gitkeep"
+    type: file
+  - path: "30_project/docs/4_render/"
+    type: dir
+  - path: "30_project/docs/4_render/README.md"
+    type: file
+  - path: "30_project/docs/4_render/.gitkeep"
+    type: file
