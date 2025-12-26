@@ -15,8 +15,8 @@ APPROVALS_PATH = REPO_ROOT / "00_human" / "APPROVALS.md"
 HUMAN_TEMPLATES = {
     "00_human/INBOX.md": (
         "# INBOX\n"
-        "| Stage | Gate Key | Status | Action | Artifact |\n"
-        "| -- | -- | -- | -- | -- |\n"
+        "| Stage | Gate Key | Status | Order | Action | Artifact |\n"
+        "| -- | -- | -- | -- | -- | -- |\n"
     ),
     "00_human/APPROVALS.md": (
         "# APPROVALS\n"
@@ -178,6 +178,19 @@ def ensure_human_templates():
             target.write_text(updated, encoding="utf-8")
 
 
+def parse_product_paths(product: str):
+    if not product:
+        return []
+    parts = [part.strip() for part in product.split("+")]
+    return [part for part in parts if part]
+
+
+def artifact_exists(paths):
+    if not paths:
+        return False
+    return all((REPO_ROOT / path).exists() for path in paths)
+
+
 def parse_approvals_table(text):
     lines = text.splitlines()
     data = {}
@@ -201,28 +214,6 @@ def parse_approvals_table(text):
     return data
 
 
-def write_inbox_table(approvals_data):
-    rows = [
-        "# INBOX",
-        "",
-        "| Stage | Gate Key | Status | Action | Artifact |",
-        "| -- | -- | -- | -- | -- |",
-    ]
-    pending_found = False
-    for stage in STAGE_GATE_DEFINITIONS:
-        entry = approvals_data.get(stage["key"])
-        if entry and entry.get("status", "").lower() == "pending":
-            rows.append(
-                f"| {stage['stage']} | {stage['key']} | {entry['status']} | {stage['action']} | {stage['artifact']} |"
-            )
-            pending_found = True
-    if not pending_found:
-        rows.append("| - | - | - | - | - |")
-        rows.append("> 当前无 pending gate，等待下一步。")
-    with INBOX_PATH.open("w", encoding="utf-8") as f:
-        f.write("\n".join(rows) + "\n")
-
-
 def load_pipeline_stages():
     if not STAGE_PATH.exists():
         return []
@@ -235,6 +226,45 @@ def load_approvals():
     if not APPROVALS_PATH.exists():
         return ""
     return APPROVALS_PATH.read_text(encoding="utf-8")
+
+
+def write_inbox_table(approvals_data, stages):
+    stage_lookup = {stage["name"]: stage for stage in stages}
+    stage_order = {stage["name"]: idx + 1 for idx, stage in enumerate(stages)}
+    rows = [
+        "# INBOX",
+        "",
+        "| Stage | Gate Key | Status | Order | Action | Artifact |",
+        "| -- | -- | -- | -- | -- | -- |",
+    ]
+    actionable_found = False
+    for stage_def in sorted(
+        STAGE_GATE_DEFINITIONS, key=lambda item: stage_order.get(item["stage"], float("inf"))
+    ):
+        stage_info = stage_lookup.get(stage_def["stage"])
+        if not stage_info:
+            continue
+        product_paths = parse_product_paths(stage_info.get("product", ""))
+        exists = artifact_exists(product_paths)
+        prereqs = stage_info.get("requires", [])
+        prereq_ok = all(
+            approvals_data.get(req, {}).get("status", "").lower() == "approved"
+            for req in prereqs
+        )
+        entry = approvals_data.get(stage_def["key"])
+        status = entry.get("status") if entry else "pending"
+        approved = str(status).lower() == "approved"
+        if exists and prereq_ok and not approved:
+            order = stage_order.get(stage_def["stage"], 0)
+            rows.append(
+                f"| {stage_def['stage']} | {stage_def['key']} | {status} | {order} | {stage_def['action']} | {stage_def['artifact']} |"
+            )
+            actionable_found = True
+    if not actionable_found:
+        rows.append("| - | - | - | - | - | - |")
+        rows.append("> 当前无可行动的 gate，等待下一步。")
+    with INBOX_PATH.open("w", encoding="utf-8") as f:
+        f.write("\n".join(rows) + "\n")
 
 
 def enforce_stage_gates(stages, approvals_text):
@@ -254,11 +284,11 @@ def main():
     ensure_human_templates()
     approvals_text = load_approvals()
     approvals_data = parse_approvals_table(approvals_text)
-    write_inbox_table(approvals_data)
+    stages = load_pipeline_stages()
+    write_inbox_table(approvals_data, stages)
     if not SOURCE_SCRIPT_PATH.exists():
         print("缺失 30_project/inputs/script/source_script.md，暂停 1_story 生成，等待人工上传或通过 0-source/raw 补全。")
         sys.exit(1)
-    stages = load_pipeline_stages()
     enforce_stage_gates(stages, approvals_text)
 
 
