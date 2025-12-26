@@ -1,3 +1,5 @@
+TEMPLATE_PLACEHOLDER: true
+
 meta:
   role: layout_freeze
   version: 1.0

@@ -1,3 +1,5 @@
+# TEMPLATE_PLACEHOLDER: true
+
 # Color Review v1
 
 ## Summary

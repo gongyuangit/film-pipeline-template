@@ -1,3 +1,5 @@
+TEMPLATE_PLACEHOLDER: true
+
 meta:
   role: dialogue_vo_prompt_pack
   version: 1.0

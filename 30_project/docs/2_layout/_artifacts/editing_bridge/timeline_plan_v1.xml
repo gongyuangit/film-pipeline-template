@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- TEMPLATE_PLACEHOLDER: true -->
 <timeline start="01:00:00:00" fps="24">
   <tracks>
     <track id="V4" type="video" role="layout_master" />

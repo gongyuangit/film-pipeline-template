@@ -1,3 +1,5 @@
+# TEMPLATE_PLACEHOLDER: true
+
 # Source Script
 
 INT. STUDIO - DAY

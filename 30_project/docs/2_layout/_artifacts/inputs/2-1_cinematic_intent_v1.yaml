@@ -1,3 +1,5 @@
+TEMPLATE_PLACEHOLDER: true
+
 meta:
   role: cinematic_intent
   version: 1.0

@@ -1,3 +1,5 @@
+# TEMPLATE_PLACEHOLDER: true
+
 # DECISIONS
 | ID | Date | Decision |
 | -- | ---- | -------- |

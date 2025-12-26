@@ -1,3 +1,5 @@
+# TEMPLATE_PLACEHOLDER: true
+
 # Layout Review v1
 
 ## Shot Issue Checklist

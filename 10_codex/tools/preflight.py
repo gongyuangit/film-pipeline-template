@@ -102,6 +102,39 @@ def artifact_exists(paths):
     return all((REPO_ROOT / path).exists() for path in paths)
 
 
+def file_has_placeholder(path):
+    target = REPO_ROOT / path
+    if not target.exists():
+        return False
+    try:
+        with open(target, "r", encoding="utf-8", errors="ignore") as f:
+            for _ in range(5):
+                line = f.readline()
+                if not line:
+                    break
+                if "TEMPLATE_PLACEHOLDER" in line:
+                    return True
+    except (OSError, UnicodeDecodeError):
+        return False
+    return False
+
+
+def artifact_ready_info(paths):
+    missing = []
+    placeholders = []
+    if not paths:
+        return False, missing, placeholders
+    for path in paths:
+        target = REPO_ROOT / path
+        if not target.exists():
+            missing.append(path)
+            continue
+        if file_has_placeholder(path):
+            placeholders.append(path)
+    ready = not missing and not placeholders
+    return ready, missing, placeholders
+
+
 def parse_approvals_table(text):
     lines = text.splitlines()
     data = {}
@@ -159,18 +192,42 @@ def build_stage_status(stage, approvals_data):
         status = "blocked"
     else:
         status = "pending"
+    artifact_ready_flag, missing_ready, placeholder_paths = artifact_ready_info(product_paths)
+    missing_paths = [path for path in product_paths if not (REPO_ROOT / path).exists()]
     if product == "-":
         artifact_display = "-"
+        artifact_exists_col = "-"
+        artifact_ready_display = "-"
     else:
-        missing_paths = [path for path in product_paths if not (REPO_ROOT / path).exists()]
         artifact_display = (
             f"{product} (missing: {', '.join(missing_paths)})"
             if missing_paths
             else f"{product} (exists)"
         )
-    artifact_exists_col = "yes" if exists_flag else "no"
+        artifact_exists_col = (
+            "yes" if exists_flag else f"no (missing: {', '.join(missing_paths)})"
+        )
+        if artifact_ready_flag:
+            artifact_ready_display = "yes"
+        else:
+            reasons = []
+            if missing_ready:
+                reasons.append(f"missing: {', '.join(missing_ready)}")
+            if placeholder_paths:
+                reasons.append(f"placeholder: {', '.join(placeholder_paths)}")
+            artifact_ready_display = (
+                f"no ({'; '.join(reasons)})" if reasons else "no (not ready)"
+            )
     prereq_display = "yes" if prereq_ok else f"missing: {', '.join(missing_prereqs)}"
     action_description = stage.get("description", "").strip() or stage.get("name")
+    notes_parts = [stage.get("description", "").strip()]
+    if not notes_parts[0]:
+        notes_parts = []
+    if status == "pending" and not exists_flag:
+        notes_parts.append("waiting artifact")
+    elif status == "pending" and placeholder_paths:
+        notes_parts.append("waiting placeholder resolution")
+    notes = "；".join(part for part in notes_parts if part)
     return {
         "stage_name": stage.get("name"),
         "gate_key": gate_key,
@@ -179,8 +236,11 @@ def build_stage_status(stage, approvals_data):
         "artifact": artifact_display,
         "prereq": prereq_display,
         "artifact_exists": artifact_exists_col,
-        "exists": exists_flag,
+        "artifact_ready": artifact_ready_display,
+        "artifact_ready_flag": artifact_ready_flag,
         "prereq_ok": prereq_ok,
+        "exists": exists_flag,
+        "notes": notes,
     }
 
 
@@ -188,14 +248,14 @@ def write_inbox_table(approvals_data, stages):
     rows = [
         "# INBOX",
         "",
-        "| Order | Stage | Gate Key | Status | Action | Artifact | Prereq | Artifact Exists |",
-        "| -- | -- | -- | -- | -- | -- | -- | -- |",
+        "| Order | Stage | Gate Key | Status | Action | Artifact | Prereq | Artifact Exists | Artifact Ready | Notes |",
+        "| -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |",
     ]
     for order, stage in enumerate(stages, start=1):
         stage_status = build_stage_status(stage, approvals_data)
         rows.append(
             f"| {order} | {stage_status['stage_name']} | {stage_status['gate_key']} | {stage_status['status']} | "
-            f"{stage_status['action']} | {stage_status['artifact']} | {stage_status['prereq']} | {stage_status['artifact_exists']} |"
+            f"{stage_status['action']} | {stage_status['artifact']} | {stage_status['prereq']} | {stage_status['artifact_exists']} | {stage_status['artifact_ready']} | {stage_status['notes']} |"
         )
     with INBOX_PATH.open("w", encoding="utf-8") as f:
         f.write("\n".join(rows) + "\n")
@@ -210,7 +270,11 @@ def write_now_table(approvals_data, stages):
     ]
     for order, stage in enumerate(stages, start=1):
         stage_status = build_stage_status(stage, approvals_data)
-        if stage_status["status"] == "pending" and stage_status["prereq_ok"] and stage_status["exists"]:
+        if (
+            stage_status["status"] == "pending"
+            and stage_status["prereq_ok"]
+            and stage_status["artifact_ready_flag"]
+        ):
             rows.append(
                 f"| {order} | {stage_status['stage_name']} | {stage_status['gate_key']} | {stage_status['status']} | "
                 f"{stage_status['action']} | {stage_status['artifact']} |"

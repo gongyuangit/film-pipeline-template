@@ -1,3 +1,5 @@
+# TEMPLATE_PLACEHOLDER: true
+
 # Lookdev Review v1
 
 ## Summary

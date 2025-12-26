@@ -1,3 +1,5 @@
+# TEMPLATE_PLACEHOLDER: true
+
 # Color QC v1
 
 ## Summary

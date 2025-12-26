@@ -1,9 +1,9 @@
 # APPROVALS
 | Approval Key | Artifact | Status | Notes |
 | -- | -- | -- | -- |
-| SOURCE_SCRIPT_APPROVED | source_script.md | approved |  |
-| SCRIPT_BREAKDOWN_APPROVED | script_breakdown_v1.yaml | approved |  |
-| STAGE_C_DECISION_APPROVED | DECISIONS.md | approved |  |
+| SOURCE_SCRIPT_APPROVED | source_script.md | pending |  |
+| SCRIPT_BREAKDOWN_APPROVED | script_breakdown_v1.yaml | pending |  |
+| STAGE_C_DECISION_APPROVED | DECISIONS.md | pending |  |
 | CINEMATIC_INTENT_APPROVED | _artifacts/inputs/2-1_cinematic_intent_v1.yaml | pending |  |
 | SHOT_MAP_SRT_XML_APPROVED | _artifacts/editing_bridge/shot_map_v1.srt + _artifacts/editing_bridge/timeline_plan_v1.xml | pending |  |
 | LAYOUT_FREEZE_APPROVED | 2-2_layout_freeze.yaml | pending |  |

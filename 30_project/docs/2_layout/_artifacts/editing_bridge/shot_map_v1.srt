@@ -1,3 +1,5 @@
+TEMPLATE_PLACEHOLDER: true
+
 1
 00:00:00,000 --> 00:00:04,000
 SHOT: shot001 | TYPE: push_in (cold_fill) | VISUAL: industrial panel, neon beams | NOTES: maintain left-to-right push, avoid background glare and jitter.
