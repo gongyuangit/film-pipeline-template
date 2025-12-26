@@ -1,4 +1,91 @@
-meta: {role: execution_tokens, version: 1.0, status: draft}
+meta:
+  role: execution_tokens
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, tokens]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    tokens:
+      type: object
+      required: [positive, negative]
+      properties:
+        positive:
+          type: object
+          required: [shared, by_stage]
+          properties:
+            shared:
+              type: array
+              items: {type: string}
+            by_stage:
+              type: object
+              required: [segment_test, layout, lookdev, production]
+              properties:
+                segment_test: {type: array, items: {type: string}}
+                layout: {type: array, items: {type: string}}
+                lookdev: {type: array, items: {type: string}}
+                production: {type: array, items: {type: string}}
+        negative:
+          type: object
+          required: [shared, by_stage]
+          properties:
+            shared:
+              type: array
+              items: {type: string}
+            by_stage:
+              type: object
+              required: [segment_test, layout, lookdev, production]
+              properties:
+                segment_test: {type: array, items: {type: string}}
+                layout: {type: array, items: {type: string}}
+                lookdev: {type: array, items: {type: string}}
+                production: {type: array, items: {type: string}}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: execution_tokens
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: tokens.positive.shared
+    purpose: 全流程通用正向词
+    type: array[string]
+    required: true
+    default: []
+  - path: tokens.positive.by_stage
+    purpose: 各阶段正向词
+    type: object
+    required: true
+    default: {segment_test: [], layout: [], lookdev: [], production: []}
+  - path: tokens.negative.shared
+    purpose: 全流程通用负向词
+    type: array[string]
+    required: true
+    default: []
+  - path: tokens.negative.by_stage
+    purpose: 各阶段负向词
+    type: object
+    required: true
+    default: {segment_test: [], layout: [], lookdev: [], production: []}
+
 tokens:
   positive:
     shared: []
@@ -14,3 +101,21 @@ tokens:
       layout: []
       lookdev: []
       production: []
+
+example:
+  meta: {role: execution_tokens, version: 1.0, status: draft}
+  tokens:
+    positive:
+      shared: ["清晰", "一致"]
+      by_stage:
+        segment_test: ["节拍明确"]
+        layout: ["构图稳定"]
+        lookdev: ["色调统一"]
+        production: ["输出可追溯"]
+    negative:
+      shared: ["模糊", "矛盾"]
+      by_stage:
+        segment_test: ["无因果"]
+        layout: ["过度晃动"]
+        lookdev: ["失焦"]
+        production: ["缺少标记"]

@@ -1,22 +1,120 @@
 meta:
   role: rules
   version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, principles, format_policy, boundaries, execution_interface_policy]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    principles:
+      type: array
+      items: {type: string}
+    format_policy:
+      type: object
+      required: [primary, markdown_allowed]
+      properties:
+        primary: {type: string}
+        markdown_allowed: {type: boolean}
+    boundaries:
+      type: object
+      required: [layer_0_owns, layer_1_owns, layer_2_owns, layer_3_owns, layer_4_owns, forbidden_crosswrites]
+      properties:
+        layer_0_owns:
+          type: array
+          items: {type: string}
+        layer_1_owns:
+          type: array
+          items: {type: string}
+        layer_2_owns:
+          type: array
+          items: {type: string}
+        layer_3_owns:
+          type: array
+          items: {type: string}
+        layer_4_owns:
+          type: array
+          items: {type: string}
+        forbidden_crosswrites:
+          type: array
+          items: {type: string}
+    execution_interface_policy:
+      type: object
+      required: [prompt_must_split]
+      properties:
+        prompt_must_split:
+          type: array
+          items: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: rules
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: principles
+    purpose: 全流程原则
+    type: array[string]
+    required: true
+    default: []
+  - path: format_policy.primary
+    purpose: 主格式
+    type: string
+    required: true
+    default: yaml
+  - path: format_policy.markdown_allowed
+    purpose: 是否允许 markdown
+    type: boolean
+    required: true
+    default: false
+  - path: boundaries.layer_*_owns
+    purpose: 各层级可写文档
+    type: array[string]
+    required: true
+    default: []
+  - path: boundaries.forbidden_crosswrites
+    purpose: 跨层禁止写入规则
+    type: array[string]
+    required: true
+    default: []
+  - path: execution_interface_policy.prompt_must_split
+    purpose: prompt 必须字段
+    type: array[string]
+    required: true
+    default: [positive, negative]
 
 principles:
-  - "Template is process-only. No tool constraints, no vendor limitations."
-  - "All authoritative docs are YAML."
-  - "X_exec contains executable interfaces (tokens/prompts) but cannot override 0–4 decisions."
+  - "模板只描述流程职责，不限定具体工具或平台。"
+  - "所有权威文档均为 YAML。"
+  - "X_exec 只提供可执行接口，不覆盖 0–4 层级决策。"
 
 format_policy:
   primary: yaml
   markdown_allowed: false
 
 boundaries:
-  layer_0_owns: ["source_origin","world_rules","assets_entities","visual_direction","references_constraints"]
-  layer_1_owns: ["script_text","segment_structure","segment_drama","segment_story_test","shot_narrative","shot_list"]
-  layer_2_owns: ["cinematic_intent","layout_freeze"]
+  layer_0_owns: ["source_origin", "world_rules", "assets_entities", "visual_direction", "references_constraints"]
+  layer_1_owns: ["script_text", "segment_structure", "segment_drama", "segment_story_test", "shot_narrative", "shot_list"]
+  layer_2_owns: ["cinematic_intent", "layout_freeze"]
   layer_3_owns: ["lookdev"]
-  layer_4_owns: ["shot_production","post_production"]
+  layer_4_owns: ["shot_production", "post_production"]
 
   forbidden_crosswrites:
     - "Layer 4 must not define story structure."
@@ -26,5 +124,22 @@ boundaries:
 
 execution_interface_policy:
   prompt_must_split:
-    - "positive"   # desired content
-    - "negative"   # exclusions / avoid list
+    - "positive"
+    - "negative"
+
+example:
+  meta: {role: rules, version: 1.0, status: draft}
+  principles:
+    - "模板描述流程与字段规范"
+  format_policy:
+    primary: yaml
+    markdown_allowed: false
+  boundaries:
+    layer_0_owns: ["source_origin"]
+    layer_1_owns: ["script_text"]
+    layer_2_owns: ["cinematic_intent"]
+    layer_3_owns: ["lookdev"]
+    layer_4_owns: ["shot_production"]
+    forbidden_crosswrites: ["Layer 4 must not define story structure."]
+  execution_interface_policy:
+    prompt_must_split: ["positive", "negative"]

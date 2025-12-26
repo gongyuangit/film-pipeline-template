@@ -1,0 +1,86 @@
+meta:
+  role: token_input
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, tokens]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    tokens:
+      type: object
+      required: [shared, by_stage]
+      properties:
+        shared:
+          type: array
+          items: {type: string}
+        by_stage:
+          type: array
+          items:
+            type: object
+            required: [stage, positive, negative]
+            properties:
+              stage: {type: string}
+              positive:
+                type: array
+                items: {type: string}
+              negative:
+                type: array
+                items: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: token_input
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: tokens.shared
+    purpose: 全流程共享 tokens
+    type: array[string]
+    required: true
+    default: []
+  - path: tokens.by_stage[].stage
+    purpose: 阶段标识
+    type: string
+    required: true
+    default: "story"
+  - path: tokens.by_stage[].positive
+    purpose: 阶段正向 tokens
+    type: array[string]
+    required: true
+    default: []
+  - path: tokens.by_stage[].negative
+    purpose: 阶段负向 tokens
+    type: array[string]
+    required: true
+    default: []
+
+tokens:
+  shared: []
+  by_stage: []
+
+example:
+  meta: {role: token_input, version: 1.0, status: draft}
+  tokens:
+    shared: ["清晰", "一致"]
+    by_stage:
+      - stage: "layout"
+        positive: ["构图明确"]
+        negative: ["信息噪声"]

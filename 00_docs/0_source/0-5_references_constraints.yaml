@@ -1,7 +1,80 @@
-meta: {role: references_constraints, version: 1.0, status: draft}
+meta:
+  role: references_constraints
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    content:
+      type: object
+      required: [references, constraints]
+      properties:
+        references:
+          type: object
+          required: [positive, negative]
+          properties:
+            positive:
+              type: array
+              items: {type: string}
+            negative:
+              type: array
+              items: {type: string}
+        constraints:
+          type: object
+          required: [process_constraints]
+          properties:
+            process_constraints:
+              type: array
+              items: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: references_constraints
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: content.references
+    purpose: 正负参考素材说明
+    type: object
+    required: true
+    default: {positive: [], negative: []}
+  - path: content.constraints.process_constraints
+    purpose: 流程约束说明
+    type: array[string]
+    required: true
+    default: []
+
 content:
   references:
     positive: []
     negative: []
   constraints:
-    process_constraints: []   # 仅流程约束，不写任何工具限制
+    process_constraints: []
+
+example:
+  meta: {role: references_constraints, version: 1.0, status: draft}
+  content:
+    references:
+      positive: ["结构节奏示意"]
+      negative: ["避免过度信息密度"]
+    constraints:
+      process_constraints: ["保持阶段间接口一致"]

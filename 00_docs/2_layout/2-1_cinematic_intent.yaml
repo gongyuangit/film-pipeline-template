@@ -1,4 +1,111 @@
-meta: {role: cinematic_intent, version: 1.0, status: draft}
+meta:
+  role: cinematic_intent
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, inputs, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    inputs:
+      type: object
+      required: [from_docs]
+      properties:
+        from_docs:
+          type: array
+          items: {type: string}
+    content:
+      type: object
+      required: [global_principles, shot_intents]
+      properties:
+        global_principles:
+          type: object
+          required: [pacing, continuity_rules]
+          properties:
+            pacing: {type: string}
+            continuity_rules:
+              type: array
+              items: {type: string}
+        shot_intents:
+          type: array
+          items:
+            type: object
+            required: [shot, viewing_goal, emphasis, avoid]
+            properties:
+              shot: {type: string}
+              viewing_goal: {type: string}
+              emphasis:
+                type: array
+                items: {type: string}
+              avoid:
+                type: array
+                items: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: cinematic_intent
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: inputs.from_docs
+    purpose: 上游依赖文档编号
+    type: array[string]
+    required: true
+    default: []
+  - path: content.global_principles.pacing
+    purpose: 全局节奏原则
+    type: string
+    required: true
+    default: ""
+  - path: content.global_principles.continuity_rules
+    purpose: 连续性规则
+    type: array[string]
+    required: true
+    default: []
+  - path: content.shot_intents[].shot
+    purpose: 镜头编号
+    type: string
+    required: true
+    default: "shot001"
+  - path: content.shot_intents[].viewing_goal
+    purpose: 观看目标
+    type: string
+    required: true
+    default: ""
+  - path: content.shot_intents[].emphasis
+    purpose: 强调元素
+    type: array[string]
+    required: true
+    default: []
+  - path: content.shot_intents[].avoid
+    purpose: 避免元素
+    type: array[string]
+    required: true
+    default: []
+
+inputs:
+  from_docs:
+    - "1-5_shot_list"
+    - "1-4_shot_narrative"
+    - "X-6_srt_input"
+
 content:
   global_principles:
     pacing: ""
@@ -8,3 +115,17 @@ content:
       viewing_goal: ""
       emphasis: []
       avoid: []
+
+example:
+  meta: {role: cinematic_intent, version: 1.0, status: draft}
+  inputs:
+    from_docs: ["1-5_shot_list", "1-4_shot_narrative", "X-6_srt_input"]
+  content:
+    global_principles:
+      pacing: "整体节奏平稳"
+      continuity_rules: ["保持方向一致"]
+    shot_intents:
+      - shot: "shot001"
+        viewing_goal: "明确主体行动"
+        emphasis: ["主体位置"]
+        avoid: ["多余背景信息"]

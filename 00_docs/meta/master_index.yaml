@@ -1,30 +1,94 @@
 meta:
   role: navigation_index
   version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, documents]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    documents:
+      type: array
+      items:
+        type: object
+        required: [id, path, role]
+        properties:
+          id: {type: string}
+          path: {type: string}
+          role: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: navigation_index
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: documents[].id
+    purpose: 文档编号
+    type: string
+    required: true
+    default: "0-1"
+  - path: documents[].path
+    purpose: 文档路径
+    type: string
+    required: true
+    default: ""
+  - path: documents[].role
+    purpose: 文档角色
+    type: string
+    required: true
+    default: ""
 
 documents:
-  - {id: "0-1", path: "00_docs/0_source/0-1_source_origin.yaml",        role: "source_origin"}
-  - {id: "0-2", path: "00_docs/0_source/0-2_world_rules.yaml",          role: "world_rules"}
-  - {id: "0-3", path: "00_docs/0_source/0-3_assets_entities.yaml",      role: "assets_entities"}
-  - {id: "0-4", path: "00_docs/0_source/0-4_visual_direction.yaml",     role: "visual_direction"}
+  - {id: "0-1", path: "00_docs/0_source/0-1_source_origin.yaml", role: "source_origin"}
+  - {id: "0-2", path: "00_docs/0_source/0-2_world_rules.yaml", role: "world_rules"}
+  - {id: "0-3", path: "00_docs/0_source/0-3_assets_entities.yaml", role: "assets_entities"}
+  - {id: "0-4", path: "00_docs/0_source/0-4_visual_direction.yaml", role: "visual_direction"}
   - {id: "0-5", path: "00_docs/0_source/0-5_references_constraints.yaml", role: "references_constraints"}
 
-  - {id: "1-1", path: "00_docs/1_story/1-1_script_text.yaml",           role: "script_text"}
-  - {id: "1-2", path: "00_docs/1_story/1-2_segment_structure.yaml",     role: "segment_structure"}
-  - {id: "1-3", path: "00_docs/1_story/1-3_segment_drama.yaml",         role: "segment_drama"}
-  - {id: "1-3a", path: "00_docs/1_story/1-3a_segment_story_test.yaml",  role: "segment_story_test"}
-  - {id: "1-4", path: "00_docs/1_story/1-4_shot_narrative.yaml",        role: "shot_narrative"}
-  - {id: "1-5", path: "00_docs/1_story/1-5_shot_list.yaml",             role: "shot_list"}
+  - {id: "1-1", path: "00_docs/1_story/1-1_script_text.yaml", role: "script_text"}
+  - {id: "1-2", path: "00_docs/1_story/1-2_segment_structure.yaml", role: "segment_structure"}
+  - {id: "1-3", path: "00_docs/1_story/1-3_segment_drama.yaml", role: "segment_drama"}
+  - {id: "1-3a", path: "00_docs/1_story/1-3a_segment_story_test.yaml", role: "segment_story_test"}
+  - {id: "1-4", path: "00_docs/1_story/1-4_shot_narrative.yaml", role: "shot_narrative"}
+  - {id: "1-5", path: "00_docs/1_story/1-5_shot_list.yaml", role: "shot_list"}
 
-  - {id: "2-1", path: "00_docs/2_layout/2-1_cinematic_intent.yaml",     role: "cinematic_intent"}
-  - {id: "2-2", path: "00_docs/2_layout/2-2_layout_freeze.yaml",        role: "layout_freeze"}
+  - {id: "2-1", path: "00_docs/2_layout/2-1_cinematic_intent.yaml", role: "cinematic_intent"}
+  - {id: "2-2", path: "00_docs/2_layout/2-2_layout_freeze.yaml", role: "layout_freeze"}
 
-  - {id: "3-1", path: "00_docs/3_lookdev/3-1_lookdev.yaml",             role: "lookdev"}
+  - {id: "3-1", path: "00_docs/3_lookdev/3-1_lookdev.yaml", role: "lookdev"}
 
-  - {id: "4-1", path: "00_docs/4_production/4-1_shot_production.yaml",  role: "shot_production"}
-  - {id: "4-2", path: "00_docs/4_production/4-2_post_production.yaml",  role: "post_production"}
+  - {id: "4-1", path: "00_docs/4_production/4-1_shot_production.yaml", role: "shot_production"}
+  - {id: "4-2", path: "00_docs/4_production/4-2_post_production.yaml", role: "post_production"}
 
-  - {id: "X-0", path: "00_docs/X_exec/X-0_execution_tokens.yaml",       role: "execution_tokens"}
-  - {id: "X-1", path: "00_docs/X_exec/X-1_segment_story_prompts.yaml",  role: "segment_story_prompts"}
-  - {id: "X-2", path: "00_docs/X_exec/X-2_layout_prompts.yaml",         role: "layout_prompts"}
-  - {id: "X-3", path: "00_docs/X_exec/X-3_lookdev_prompts.yaml",        role: "lookdev_prompts"}
+  - {id: "X-0", path: "00_docs/X_exec/X-0_execution_tokens.yaml", role: "execution_tokens"}
+  - {id: "X-1", path: "00_docs/X_exec/X-1_segment_story_prompts.yaml", role: "segment_story_prompts"}
+  - {id: "X-2", path: "00_docs/X_exec/X-2_layout_prompts.yaml", role: "layout_prompts"}
+  - {id: "X-3", path: "00_docs/X_exec/X-3_lookdev_prompts.yaml", role: "lookdev_prompts"}
+  - {id: "X-4", path: "00_docs/X_exec/X-4_prompt_input.yaml", role: "prompt_input"}
+  - {id: "X-5", path: "00_docs/X_exec/X-5_token_input.yaml", role: "token_input"}
+  - {id: "X-6", path: "00_docs/X_exec/X-6_srt_input.yaml", role: "srt_input"}
+  - {id: "X-7", path: "00_docs/X_exec/X-7_xml_input.yaml", role: "xml_input"}
+
+example:
+  meta: {role: navigation_index, version: 1.0, status: draft}
+  documents:
+    - {id: "0-1", path: "00_docs/0_source/0-1_source_origin.yaml", role: "source_origin"}
+    - {id: "X-4", path: "00_docs/X_exec/X-4_prompt_input.yaml", role: "prompt_input"}

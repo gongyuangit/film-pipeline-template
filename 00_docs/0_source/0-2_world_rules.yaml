@@ -1,4 +1,87 @@
-meta: {role: world_rules, version: 1.0, status: draft}
+meta:
+  role: world_rules
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    content:
+      type: object
+      required: [invariants, rules, power_system, examples]
+      properties:
+        invariants:
+          type: array
+          items: {type: string}
+        rules:
+          type: array
+          items: {type: string}
+        power_system:
+          type: object
+          required: [allowed, forbidden, costs_and_limits]
+          properties:
+            allowed:
+              type: array
+              items: {type: string}
+            forbidden:
+              type: array
+              items: {type: string}
+            costs_and_limits:
+              type: array
+              items: {type: string}
+        examples:
+          type: array
+          items:
+            type: object
+            required: [rule]
+            properties:
+              rule: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: world_rules
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: content.invariants
+    purpose: 不变原则列表
+    type: array[string]
+    required: true
+    default: []
+  - path: content.rules
+    purpose: 世界规则列表
+    type: array[string]
+    required: true
+    default: []
+  - path: content.power_system
+    purpose: 能力系统或规则域描述
+    type: object
+    required: true
+    default: {allowed: [], forbidden: [], costs_and_limits: []}
+  - path: content.examples
+    purpose: 示例规则占位
+    type: array[object]
+    required: true
+    default: []
+
 content:
   invariants: []
   rules: []
@@ -7,4 +90,16 @@ content:
     forbidden: []
     costs_and_limits: []
   examples:
-    - {rule: "Example invariant/rule placeholder"}
+    - {rule: "示例规则占位"}
+
+example:
+  meta: {role: world_rules, version: 1.0, status: draft}
+  content:
+    invariants: ["空间尺度保持一致"]
+    rules: ["事件遵守因果顺序"]
+    power_system:
+      allowed: ["允许使用有限资源"]
+      forbidden: ["禁止无因说明跳跃"]
+      costs_and_limits: ["每次行动有代价"]
+    examples:
+      - {rule: "示例规则说明"}

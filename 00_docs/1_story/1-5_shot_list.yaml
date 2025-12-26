@@ -1,8 +1,113 @@
-meta: {role: shot_list, version: 1.0, status: draft}
+meta:
+  role: shot_list
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, inputs, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    inputs:
+      type: object
+      required: [from_docs]
+      properties:
+        from_docs:
+          type: array
+          items: {type: string}
+    content:
+      type: object
+      required: [shots]
+      properties:
+        shots:
+          type: array
+          items:
+            type: object
+            required: [shot, segment, order, duration_sec, duration_source]
+            properties:
+              shot: {type: string}
+              segment: {type: string}
+              order: {type: number}
+              duration_sec: {type: number, nullable: true}
+              duration_source:
+                type: string
+                enum: [estimate, timeline_xml, locked]
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: shot_list
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: inputs.from_docs
+    purpose: 上游依赖文档编号
+    type: array[string]
+    required: true
+    default: []
+  - path: content.shots[].shot
+    purpose: 镜头编号
+    type: string
+    required: true
+    default: "shot001"
+  - path: content.shots[].segment
+    purpose: 所属段落编号
+    type: string
+    required: true
+    default: "segment001"
+  - path: content.shots[].order
+    purpose: 镜头顺序
+    type: number
+    required: true
+    default: 1
+  - path: content.shots[].duration_sec
+    purpose: 时长（秒）
+    type: number|null
+    required: false
+    default: null
+  - path: content.shots[].duration_source
+    purpose: 时长来源
+    type: string
+    required: true
+    default: estimate
+
+inputs:
+  from_docs:
+    - "1-4_shot_narrative"
+    - "X-6_srt_input"
+    - "X-7_xml_input"
+
 content:
   shots:
     - shot: "shot001"
       segment: "segment001"
       order: 1
       duration_sec: null
-      duration_source: "estimate|timeline_xml|locked"
+      duration_source: "estimate"
+
+example:
+  meta: {role: shot_list, version: 1.0, status: draft}
+  inputs:
+    from_docs: ["1-4_shot_narrative", "X-6_srt_input", "X-7_xml_input"]
+  content:
+    shots:
+      - shot: "shot001"
+        segment: "segment001"
+        order: 1
+        duration_sec: 4.0
+        duration_source: "timeline_xml"

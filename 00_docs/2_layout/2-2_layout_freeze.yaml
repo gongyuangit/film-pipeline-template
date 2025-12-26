@@ -1,17 +1,150 @@
-meta: {role: layout_freeze, version: 1.0, status: draft}
+meta:
+  role: layout_freeze
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, inputs, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    inputs:
+      type: object
+      required: [from_docs]
+      properties:
+        from_docs:
+          type: array
+          items: {type: string}
+    content:
+      type: object
+      required: [shots]
+      properties:
+        shots:
+          type: array
+          items:
+            type: object
+            required: [shot, framing, camera, spatial]
+            properties:
+              shot: {type: string}
+              framing:
+                type: object
+                required: [shot_size, composition, subject_position]
+                properties:
+                  shot_size:
+                    type: string
+                    enum: [CU, MS, WS]
+                  composition:
+                    type: string
+                    enum: [center, edge, leading]
+                  subject_position:
+                    type: string
+                    enum: [center, left, right]
+              camera:
+                type: object
+                required: [movement, duration_sec]
+                properties:
+                  movement:
+                    type: string
+                    enum: [static, push, pull, pan, tilt, orbit]
+                  duration_sec: {type: number, nullable: true}
+              spatial:
+                type: object
+                required: [environment_id, key_objects, continuity_notes]
+                properties:
+                  environment_id: {type: string}
+                  key_objects:
+                    type: array
+                    items: {type: string}
+                  continuity_notes:
+                    type: array
+                    items: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: layout_freeze
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: inputs.from_docs
+    purpose: 上游依赖文档编号
+    type: array[string]
+    required: true
+    default: []
+  - path: content.shots[].shot
+    purpose: 镜头编号
+    type: string
+    required: true
+    default: "shot001"
+  - path: content.shots[].framing
+    purpose: 构图设定
+    type: object
+    required: true
+    default: {shot_size: CU, composition: center, subject_position: center}
+  - path: content.shots[].camera
+    purpose: 镜头运动设定
+    type: object
+    required: true
+    default: {movement: static, duration_sec: null}
+  - path: content.shots[].spatial
+    purpose: 空间与连续性设定
+    type: object
+    required: true
+    default: {environment_id: "env001", key_objects: [], continuity_notes: []}
+
 inputs:
-  from_docs: ["2-1_cinematic_intent","1-5_shot_list","X-2_layout_prompts"]
+  from_docs:
+    - "2-1_cinematic_intent"
+    - "1-5_shot_list"
+    - "X-2_layout_prompts"
+    - "X-4_prompt_input"
+    - "X-7_xml_input"
+
 content:
   shots:
     - shot: "shot001"
       framing:
-        shot_size: "CU|MS|WS"
-        composition: "center|edge|leading"
-        subject_position: "center|left|right"
+        shot_size: "CU"
+        composition: "center"
+        subject_position: "center"
       camera:
-        movement: "static|push|pull|pan|tilt|orbit"
+        movement: "static"
         duration_sec: null
       spatial:
         environment_id: "env001"
         key_objects: []
         continuity_notes: []
+
+example:
+  meta: {role: layout_freeze, version: 1.0, status: draft}
+  inputs:
+    from_docs: ["2-1_cinematic_intent", "1-5_shot_list", "X-2_layout_prompts", "X-4_prompt_input", "X-7_xml_input"]
+  content:
+    shots:
+      - shot: "shot001"
+        framing:
+          shot_size: "MS"
+          composition: "leading"
+          subject_position: "left"
+        camera:
+          movement: "push"
+          duration_sec: 3.5
+        spatial:
+          environment_id: "env001"
+          key_objects: ["主对象"]
+          continuity_notes: ["方向保持一致"]

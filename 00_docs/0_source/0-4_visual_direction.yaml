@@ -1,7 +1,102 @@
-meta: {role: visual_direction, version: 1.0, status: draft}
+meta:
+  role: visual_direction
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    content:
+      type: object
+      required: [style_keywords, mood_keywords, color_range, lighting_direction, do_not]
+      properties:
+        style_keywords:
+          type: array
+          items: {type: string}
+        mood_keywords:
+          type: array
+          items: {type: string}
+        color_range:
+          type: object
+          required: [preferred, avoid]
+          properties:
+            preferred:
+              type: array
+              items: {type: string}
+            avoid:
+              type: array
+              items: {type: string}
+        lighting_direction:
+          type: array
+          items: {type: string}
+        do_not:
+          type: array
+          items: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: visual_direction
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: content.style_keywords
+    purpose: 风格关键词
+    type: array[string]
+    required: true
+    default: []
+  - path: content.mood_keywords
+    purpose: 氛围关键词
+    type: array[string]
+    required: true
+    default: []
+  - path: content.color_range
+    purpose: 色彩取向
+    type: object
+    required: true
+    default: {preferred: [], avoid: []}
+  - path: content.lighting_direction
+    purpose: 灯光方向偏好
+    type: array[string]
+    required: true
+    default: []
+  - path: content.do_not
+    purpose: 禁用视觉指令
+    type: array[string]
+    required: true
+    default: []
+
 content:
   style_keywords: []
   mood_keywords: []
   color_range: {preferred: [], avoid: []}
   lighting_direction: []
   do_not: []
+
+example:
+  meta: {role: visual_direction, version: 1.0, status: draft}
+  content:
+    style_keywords: ["简洁", "结构化"]
+    mood_keywords: ["克制", "稳定"]
+    color_range:
+      preferred: ["低饱和色系"]
+      avoid: ["高对比闪烁"]
+    lighting_direction: ["柔和侧光"]
+    do_not: ["过度炫目"]
