@@ -26,7 +26,7 @@ schema:
           items: {type: string}
     content:
       type: object
-      required: [source_script, scenes]
+      required: [source_script, scenes, shots]
       properties:
         source_script: {type: string}
         scenes:
@@ -52,6 +52,30 @@ schema:
                 type: array
                 items: {type: string}
               reference_assets:
+                type: array
+                items: {type: string}
+              notes: {type: string}
+        shots:
+          type: array
+          items:
+            type: object
+            required: [shot, segment, order, duration_source]
+            properties:
+              shot: {type: string}
+              segment: {type: string}
+              order: {type: number}
+              duration_sec: {type: number, nullable: true}
+              duration_source:
+                type: string
+                enum: [estimate, timeline_xml, locked]
+              narrative_purpose: {type: string}
+              beats:
+                type: array
+                items: {type: string}
+              visuals:
+                type: array
+                items: {type: string}
+              continuity_notes:
                 type: array
                 items: {type: string}
               notes: {type: string}
@@ -138,6 +162,56 @@ fields:
     type: string
     required: false
     default: ""
+  - path: content.shots[].shot
+    purpose: 镜头编号
+    type: string
+    required: true
+    default: "shot001"
+  - path: content.shots[].segment
+    purpose: 所属段落编号
+    type: string
+    required: true
+    default: "segment001"
+  - path: content.shots[].order
+    purpose: 镜头顺序
+    type: number
+    required: true
+    default: 1
+  - path: content.shots[].duration_sec
+    purpose: 时长（秒）
+    type: number|null
+    required: false
+    default: null
+  - path: content.shots[].duration_source
+    purpose: 时长来源
+    type: string
+    required: true
+    default: estimate
+  - path: content.shots[].narrative_purpose
+    purpose: 镜头叙事目的
+    type: string
+    required: false
+    default: ""
+  - path: content.shots[].beats
+    purpose: 镜头关联节奏点
+    type: array[string]
+    required: false
+    default: []
+  - path: content.shots[].visuals
+    purpose: 关注视觉关键词
+    type: array[string]
+    required: false
+    default: []
+  - path: content.shots[].continuity_notes
+    purpose: 连续性说明
+    type: array[string]
+    required: false
+    default: []
+  - path: content.shots[].notes
+    purpose: 镜头补充说明
+    type: string
+    required: false
+    default: ""
   - path: content.notes
     purpose: 整体备注
     type: string
@@ -159,7 +233,18 @@ content:
       storyboard_refs: []
       reference_assets: []
       notes: "当前剧本正文尚未提供，先采纳骨架格式。"
-  notes: "该骨架侧重结构化拆解，剧本内容到位后再补全 `scenes` 中的各项字段。"
+  shots:
+    - shot: "shot001"
+      segment: "segment001"
+      order: 1
+      duration_sec: null
+      duration_source: "estimate"
+      narrative_purpose: ""
+      beats: []
+      visuals: []
+      continuity_notes: []
+      notes: ""
+  notes: "该骨架侧重结构化拆解，剧本内容到位后再补全 `scenes` 与 `shots` 中的各项字段。"
 
 example:
   meta: {role: script_breakdown, version: 1.0, status: draft}
@@ -181,4 +266,15 @@ example:
         storyboard_refs: ["storyboard/scene001.png"]
         reference_assets: ["reference/moodboard_page01.jpg"]
         notes: "需确认是否采用仰拍以强化张力"
-    notes: "确认脚本后再补充完整的场次与节奏细节。"
+    shots:
+      - shot: "shot001"
+        segment: "segment001"
+        order: 1
+        duration_sec: 4.0
+        duration_source: "timeline_xml"
+        narrative_purpose: "定义张力设定"
+        beats: ["角色 A 启动机器", "角色 B 提问核心冲突"]
+        visuals: ["工业质感光影", "仰拍"]
+        continuity_notes: ["保持主体从左至右移动"]
+        notes: ""
+    notes: "确认脚本后再补充完整的场次、镜头与节奏细节。"
