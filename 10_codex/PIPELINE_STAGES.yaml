@@ -25,13 +25,20 @@ stages:
     approval_key: "CINEMATIC_INTENT_APPROVED"
     requires:
       - "STAGE_C_DECISION_APPROVED"
+    next_targets: ["Stage P1.5"]
+  - name: "Stage P1.5"
+    description: "Shot map SRT for downstream mapping"
+    product: "30_project/docs/2_layout/_artifacts/editing_bridge/shot_map_v1.srt + 30_project/docs/2_layout/_artifacts/editing_bridge/timeline_plan_v1.xml"
+    approval_key: "SHOT_MAP_SRT_XML_APPROVED"
+    requires:
+      - "CINEMATIC_INTENT_APPROVED"
     next_targets: ["Stage E"]
   - name: "Stage E"
     description: "Layout freeze"
     product: "30_project/docs/2_layout/2-2_layout_freeze.yaml"
     approval_key: "LAYOUT_FREEZE_APPROVED"
     requires:
-      - "CINEMATIC_INTENT_APPROVED"
+      - "SHOT_MAP_SRT_XML_APPROVED"
     next_targets: ["Stage F"]
   - name: "Stage F"
     description: "Execution planning"

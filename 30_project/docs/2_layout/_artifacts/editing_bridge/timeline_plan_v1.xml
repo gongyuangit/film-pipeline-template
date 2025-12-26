@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<timeline start="01:00:00:00" fps="24">
+  <tracks>
+    <track id="V4" type="video" role="layout_master" />
+    <track id="V1" type="video" role="layout_candidate" />
+    <track id="V2" type="video" role="layout_candidate" />
+    <track id="V3" type="video" role="layout_candidate" />
+    <track id="V8" type="video" role="lookdev_master" />
+    <track id="V5" type="video" role="lookdev_candidate" />
+    <track id="V6" type="video" role="lookdev_candidate" />
+    <track id="V7" type="video" role="lookdev_candidate" />
+  </tracks>
+  <markers>
+    <!-- Add shot markers (SHOT ID + LABEL) as needed for import. -->
+  </markers>
+</timeline>

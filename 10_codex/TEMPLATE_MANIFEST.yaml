@@ -81,9 +81,11 @@ entries:
     type: file
   - path: "30_project/docs/2_layout/_artifacts/editing_bridge/timeline_updated.xml"
     type: file
-  - path: "30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml"
+  - path: "30_project/docs/2_layout/_artifacts/editing_bridge/timeline_plan_v1.xml"
     type: file
-  - path: "30_project/docs/2_layout/_artifacts/shot_map_v1.srt"
+  - path: "30_project/docs/2_layout/_artifacts/editing_bridge/shot_map_v1.srt"
+    type: file
+  - path: "30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml"
     type: file
   - path: "30_project/docs/2_layout/_artifacts/branch1_segment_prompt_pack_v1.yaml"
     type: file
