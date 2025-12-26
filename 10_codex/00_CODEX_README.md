@@ -24,3 +24,8 @@
 ## 5. 项目核心与人工介入
 - `30_project/` 为项目核心内容区，默认需要人工审核；Codex 请勿擅自更改其中文件，除非在 `00_human/INBOX.md` 获得明确指令。
 - 当遇到缺信息、无法自行判定的约束或需人工审批的操作时，必须立即记录在 `00_human/INBOX.md`，并等待明确的反馈再继续。
+
+## 6. 人工互动语言规范（Language for Human Interaction）
+- 所有需要人工介入的事项（判定、裁决、补信息、审批）必须通过 `00_human/INBOX.md` 提出，并注明状态，便于人类察看与回应。
+- `00_human/INBOX.md`、`00_human/NEEDED_INPUTS.md`、`00_human/APPROVALS.md` 中的描述、问题、选项与行动要求，应以中文为主；可在结尾附上英文补充说明，但中文表述需清晰完整。
+- 机器执行层（`10_codex/Makefile`、`10_codex/tools/`、`20_runtime/` 等）无需调整语言，按现有逻辑继续使用英文或中英混用即可。
