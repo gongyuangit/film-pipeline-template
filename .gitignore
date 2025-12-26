@@ -1,2 +1,4 @@
 .DS_Store
 02_outputs/
+__pycache__/
+*.pyc
