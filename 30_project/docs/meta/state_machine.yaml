@@ -68,7 +68,7 @@ gates:
   - id: "G1_to_G2"
     description: "镜头清单未冻结，禁止进入 layout 冻结"
     required_docs:
-      - "00_docs/1_story/1-5_shot_list.yaml"
+      - "30_project/docs/1_story/script_breakdown_v1.yaml"
 
   - id: "G2_to_G3"
     description: "layout 未冻结，禁止进入 lookdev 定版"

@@ -27,33 +27,21 @@ stages:
     id: 1
     docs:
       - id: "1-1"
-        path: "00_docs/1_story/1-1_script_text.yaml"
+        path: "30_project/docs/1_story/script_breakdown_v1.yaml"
         depends_on: ["0-1"]
       - id: "1-2"
-        path: "00_docs/1_story/1-2_segment_structure.yaml"
-        depends_on: ["1-1", "0-2", "0-3"]
-      - id: "1-3"
-        path: "00_docs/1_story/1-3_segment_drama.yaml"
-        depends_on: ["1-2", "0-2", "0-3"]
-      - id: "1-3a"
-        path: "00_docs/1_story/1-3a_segment_story_test.yaml"
-        depends_on: ["1-2", "1-3", "0-2", "0-3", "X-1", "X-4", "X-5"]
-      - id: "1-4"
-        path: "00_docs/1_story/1-4_shot_narrative.yaml"
-        depends_on: ["1-3a", "X-6"]
-      - id: "1-5"
-        path: "00_docs/1_story/1-5_shot_list.yaml"
-        depends_on: ["1-4", "X-6", "X-7"]
+        path: "30_project/docs/1_story/1-2_segment_structure.yaml"
+        depends_on: ["1-1"]
 
   - stage: "2_layout"
     id: 2
     docs:
       - id: "2-1"
         path: "00_docs/2_layout/2-1_cinematic_intent.yaml"
-        depends_on: ["1-5", "1-4", "X-6"]
+        depends_on: ["1-1", "1-2", "X-6"]
       - id: "2-2"
         path: "00_docs/2_layout/2-2_layout_freeze.yaml"
-        depends_on: ["2-1", "1-5", "X-2", "X-4", "X-7"]
+        depends_on: ["2-1", "1-1", "X-2", "X-4", "X-7"]
 
   - stage: "3_lookdev"
     id: 3

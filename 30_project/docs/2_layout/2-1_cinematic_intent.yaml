@@ -102,8 +102,8 @@ fields:
 
 inputs:
   from_docs:
-    - "1-5_shot_list"
-    - "1-4_shot_narrative"
+    - "script_breakdown_v1"
+    - "1-2_segment_structure"
     - "X-6_srt_input"
 
 content:
@@ -119,7 +119,7 @@ content:
 example:
   meta: {role: cinematic_intent, version: 1.0, status: draft}
   inputs:
-    from_docs: ["1-5_shot_list", "1-4_shot_narrative", "X-6_srt_input"]
+    from_docs: ["script_breakdown_v1", "1-2_segment_structure", "X-6_srt_input"]
   content:
     global_principles:
       pacing: "整体节奏平稳"

@@ -77,7 +77,7 @@ fields:
     purpose: 上游文档（最小：剧本文本）
     type: array[string]
     required: true
-    default: ["1-1_script_text"]
+    default: ["30_project/inputs/script/source_script.md"]
   - path: inputs.optional_refs
     purpose: 可选的分镜 / 参考文档
     type: array[string]
@@ -87,7 +87,7 @@ fields:
     purpose: 标识使用的剧本文档
     type: string
     required: true
-    default: "1-1_script_text"
+    default: "30_project/inputs/script/source_script.md"
   - path: content.scenes[].scene_id
     purpose: 场景编号
     type: string
@@ -145,7 +145,7 @@ fields:
     default: ""
 
 content:
-  source_script: "1-1_script_text"
+  source_script: "30_project/inputs/script/source_script.md"
   scenes:
     - scene_id: "scene001"
       slugline: "待补充"
@@ -164,10 +164,10 @@ content:
 example:
   meta: {role: script_breakdown, version: 1.0, status: draft}
   inputs:
-    from_docs: ["1-1_script_text"]
+    from_docs: ["30_project/inputs/script/source_script.md"]
     optional_refs: ["storyboard", "reference"]
   content:
-    source_script: "1-1_script_text"
+    source_script: "30_project/inputs/script/source_script.md"
     scenes:
       - scene_id: "scene001"
         slugline: "INT. STUDIO - DAY"

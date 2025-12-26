@@ -107,7 +107,7 @@ fields:
     purpose: 叙事真值文档路径
     type: string
     required: true
-    default: 00_docs/1_story/1-5_shot_list.yaml
+    default: 30_project/docs/1_story/script_breakdown_v1.yaml
   - path: sources_of_truth.layout_truth
     purpose: layout 真值文档路径
     type: string
@@ -142,7 +142,7 @@ workflow_intent:
   machine_manages_docs: true
 
 sources_of_truth:
-  story_truth: "00_docs/1_story/1-5_shot_list.yaml"
+  story_truth: "30_project/docs/1_story/script_breakdown_v1.yaml"
   layout_truth: "00_docs/2_layout/2-2_layout_freeze.yaml"
   look_truth: "00_docs/3_lookdev/3-1_lookdev.yaml"
   exec_truth: "00_docs/X_exec/X-0_execution_tokens.yaml"
@@ -163,7 +163,7 @@ example:
     human_writes_docs_directly: false
     machine_manages_docs: true
   sources_of_truth:
-    story_truth: "00_docs/1_story/1-5_shot_list.yaml"
+    story_truth: "30_project/docs/1_story/script_breakdown_v1.yaml"
     layout_truth: "00_docs/2_layout/2-2_layout_freeze.yaml"
     look_truth: "00_docs/3_lookdev/3-1_lookdev.yaml"
     exec_truth: "00_docs/X_exec/X-0_execution_tokens.yaml"

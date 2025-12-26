@@ -3,7 +3,8 @@
 | -- | -- | -- | -- |
 | 1 | pending | 请确认 `00_human/` 现在是唯一面向人工的入口点，再继续非交互式工作。 |  |
 | 2 | pending | 项目核心移至 `30_project/`；生成内容前需要一个项目入口（如 `30_project/inputs/index.yaml` 或类似的清单），包含项目名称、所需文档与约束。 |  |
-| 3 | pending | 已依据现有剧本文本生成 `30_project/docs/1_story/1-6_script_breakdown.yaml` 的第一版骨架，必须人工确认后方可进入 Stage C；分镜/参考只是建议，可选。 |  |
+| 3 | pending | 已依据现有剧本文本生成 `30_project/docs/1_story/script_breakdown_v1.yaml` 的第一版骨架，必须人工确认后方可进入 Stage C；分镜/参考只是建议，可选。 |  |
+| 4 | done | `30_project/docs/1_story/` 已清理为仅保留 `script_breakdown_v1.yaml` 与 `1-2_segment_structure.yaml`，其余原始脚本/拆解文件移除。 |  |
 
 ## 【素材检测 / 启动前状态】
 <!-- inputs-detection:start -->

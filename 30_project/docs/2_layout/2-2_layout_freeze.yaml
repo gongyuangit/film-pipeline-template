@@ -110,7 +110,7 @@ fields:
 inputs:
   from_docs:
     - "2-1_cinematic_intent"
-    - "1-5_shot_list"
+    - "script_breakdown_v1"
     - "X-2_layout_prompts"
     - "X-4_prompt_input"
     - "X-7_xml_input"
@@ -133,7 +133,7 @@ content:
 example:
   meta: {role: layout_freeze, version: 1.0, status: draft}
   inputs:
-    from_docs: ["2-1_cinematic_intent", "1-5_shot_list", "X-2_layout_prompts", "X-4_prompt_input", "X-7_xml_input"]
+    from_docs: ["2-1_cinematic_intent", "script_breakdown_v1", "X-2_layout_prompts", "X-4_prompt_input", "X-7_xml_input"]
   content:
     shots:
       - shot: "shot001"

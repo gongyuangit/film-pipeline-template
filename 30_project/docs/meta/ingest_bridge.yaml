@@ -169,15 +169,11 @@ ingest_to_docs:
   xml:
     extract: ["clip_name", "clip_start", "clip_end", "clip_duration_sec", "track"]
     write_back:
-      - {doc: "00_docs/1_story/1-5_shot_list.yaml", key: "shot", field: "content.shots[].duration_sec"}
       - {doc: "00_docs/2_layout/2-2_layout_freeze.yaml", key: "shot", field: "content.shots[].camera.duration_sec"}
 
   srt:
     extract: ["time_range", "text"]
     route_by_tag:
-      - {when_tag: "[SEG]", doc: "00_docs/1_story/1-3_segment_drama.yaml", field: "content.segments[].notes"}
-      - {when_tag: "[BEAT]", doc: "00_docs/1_story/1-3a_segment_story_test.yaml", field: "outputs.segment_results[].corrected_beats"}
-      - {when_tag: "[SHOT]", doc: "00_docs/1_story/1-4_shot_narrative.yaml", field: "content.shots[].narrative_purpose"}
       - {when_tag: "[INTENT]", doc: "00_docs/2_layout/2-1_cinematic_intent.yaml", field: "content.shot_intents[]"}
       - {when_tag: "[LOOK]", doc: "00_docs/3_lookdev/3-1_lookdev.yaml", field: "content.per_shot_notes[]"}
       - {when_tag: "[EXEC]", doc: "00_docs/X_exec/X-0_execution_tokens.yaml", field: "tokens.positive.shared"}
@@ -209,10 +205,10 @@ example:
     xml:
       extract: ["clip_name", "clip_start"]
       write_back:
-        - {doc: "00_docs/1_story/1-5_shot_list.yaml", key: "shot", field: "content.shots[].duration_sec"}
+        - {doc: "00_docs/2_layout/2-2_layout_freeze.yaml", key: "shot", field: "content.shots[].duration_sec"}
     srt:
       extract: ["time_range", "text"]
       route_by_tag:
-        - {when_tag: "[SHOT]", doc: "00_docs/1_story/1-4_shot_narrative.yaml", field: "content.shots[].narrative_purpose"}
+        - {when_tag: "[INTENT]", doc: "00_docs/2_layout/2-1_cinematic_intent.yaml", field: "content.shot_intents[]"}
   srt_authoring_examples:
     - "00:00:01,000 --> 00:00:03,000  [SHOT] shot001 占位"
