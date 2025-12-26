@@ -1,0 +1,10 @@
+meta:
+  role: dialogue_vo_prompt_pack
+  version: 1.0
+  status: draft
+content:
+  globals:
+    negative: []
+  items: []
+  notes: |
+    - `items[].positive` 按 shot_id 列出 dialogue VO 提示。负向提示可附加在 `items[].negative`。

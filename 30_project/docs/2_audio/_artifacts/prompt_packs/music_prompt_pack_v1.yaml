@@ -1,0 +1,10 @@
+meta:
+  role: music_prompt_pack
+  version: 1.0
+  status: draft
+content:
+  globals:
+    negative: []
+  items: []
+  notes: |
+    - `items[].positive` 按 segment/scene/beat 组织音乐提示。`items[].negative` 用于补充特定片段的负向提示。

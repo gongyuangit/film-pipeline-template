@@ -1,0 +1,9 @@
+meta:
+  role: audio_plan
+  version: 1.0
+  status: draft
+content:
+  shots: []
+  segments: []
+  notes: |
+    - Record how dialogue, SFX, and music align to shot_map timings.

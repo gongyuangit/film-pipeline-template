@@ -10,6 +10,9 @@
 | LAYOUT_REVIEW_APPROVED | _artifacts/reports/layout_review_v1.md | pending |  |
 | LOOKDEV_PROMPTS_APPROVED | _artifacts/branch_lookdev_shot_prompt_pack_v1.yaml | pending |  |
 | LOOKDEV_REVIEW_APPROVED | _artifacts/reports/lookdev_review_v1.md | pending |  |
+| AUDIO_PLAN_APPROVED | _artifacts/audio_plan_v1.yaml | pending |  |
+| AUDIO_PROMPTS_APPROVED | _artifacts/prompt_packs/dialogue_vo_prompt_pack_v1.yaml + ... | pending |  |
+| AUDIO_REVIEW_APPROVED | _artifacts/reports/audio_review_v1.md | pending |  |
 | EXEC_PLAN_APPROVED | exec_plan.json | pending |  |
 
 ## Stage approvals
@@ -22,4 +25,9 @@
 - LAYOUT_REVIEW_APPROVED: 人工确认 `_artifacts/reports/layout_review_v1.md`
 - LOOKDEV_PROMPTS_APPROVED: 人工确认 `_artifacts/branch_lookdev_shot_prompt_pack_v1.yaml`
 - LOOKDEV_REVIEW_APPROVED: 人工确认 `_artifacts/reports/lookdev_review_v1.md`
+- AUDIO_PLAN_APPROVED: 人工确认 `_artifacts/audio_plan_v1.yaml`
+- AUDIO_PROMPTS_APPROVED: 人工确认所有音频 prompt pack
+- AUDIO_REVIEW_APPROVED: 人工确认 `_artifacts/reports/audio_review_v1.md`
 - EXEC_PLAN_APPROVED: 人工确认执行计划输出
+
+- 音频审批与视觉审批互不阻塞，均需按照 stop→go→stop 的节奏完成。

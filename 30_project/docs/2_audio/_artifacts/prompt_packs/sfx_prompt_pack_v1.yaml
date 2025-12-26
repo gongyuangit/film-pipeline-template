@@ -1,0 +1,10 @@
+meta:
+  role: sfx_prompt_pack
+  version: 1.0
+  status: draft
+content:
+  globals:
+    negative: []
+  items: []
+  notes: |
+    - `items[].positive` 按 shot_id 列出 SFX 提示。可在 `items[].negative` 中添加镜头负向限制。

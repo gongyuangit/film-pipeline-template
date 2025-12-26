@@ -11,7 +11,7 @@ stages:
     approval_key: "SCRIPT_BREAKDOWN_APPROVED"
     requires:
       - "SOURCE_SCRIPT_APPROVED"
-    next_targets: ["Stage C"]
+    next_targets: ["Stage C", "Stage A1"]
   - name: "Stage C"
     description: "Human creative/production decisions"
     product: "00_human/DECISIONS.md"
@@ -19,6 +19,27 @@ stages:
     requires:
       - "SCRIPT_BREAKDOWN_APPROVED"
     next_targets: ["Stage D"]
+  - name: "Stage A1"
+    description: "Audio plan"
+    product: "30_project/docs/2_audio/_artifacts/audio_plan_v1.yaml"
+    approval_key: "AUDIO_PLAN_APPROVED"
+    requires:
+      - "SCRIPT_BREAKDOWN_APPROVED"
+    next_targets: ["Stage A2"]
+  - name: "Stage A2"
+    description: "Audio prompt packs"
+    product: "30_project/docs/2_audio/_artifacts/prompt_packs/dialogue_vo_prompt_pack_v1.yaml + 30_project/docs/2_audio/_artifacts/prompt_packs/sfx_prompt_pack_v1.yaml + 30_project/docs/2_audio/_artifacts/prompt_packs/music_prompt_pack_v1.yaml"
+    approval_key: "AUDIO_PROMPTS_APPROVED"
+    requires:
+      - "AUDIO_PLAN_APPROVED"
+    next_targets: ["Stage A3"]
+  - name: "Stage A3"
+    description: "Audio review"
+    product: "30_project/docs/2_audio/_artifacts/reports/audio_review_v1.md"
+    approval_key: "AUDIO_REVIEW_APPROVED"
+    requires:
+      - "AUDIO_PROMPTS_APPROVED"
+    next_targets: []
   - name: "Stage D"
     description: "Cinematic intent / layout guidance"
     product: "30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml"

@@ -109,6 +109,38 @@ entries:
     type: dir
   - path: "30_project/docs/2_layout/_exports/README.md"
     type: file
+  - path: "30_project/docs/2_audio/"
+    type: dir
+  - path: "30_project/docs/2_audio/README.md"
+    type: file
+  - path: "30_project/docs/2_audio/_artifacts/"
+    type: dir
+  - path: "30_project/docs/2_audio/_artifacts/audio_plan_v1.yaml"
+    type: file
+  - path: "30_project/docs/2_audio/_artifacts/prompt_packs/"
+    type: dir
+  - path: "30_project/docs/2_audio/_artifacts/prompt_packs/dialogue_vo_prompt_pack_v1.yaml"
+    type: file
+  - path: "30_project/docs/2_audio/_artifacts/prompt_packs/sfx_prompt_pack_v1.yaml"
+    type: file
+  - path: "30_project/docs/2_audio/_artifacts/prompt_packs/music_prompt_pack_v1.yaml"
+    type: file
+  - path: "30_project/docs/2_audio/_artifacts/reports/"
+    type: dir
+  - path: "30_project/docs/2_audio/_artifacts/reports/audio_review_v1.md"
+    type: file
+  - path: "30_project/docs/2_audio/_artifacts/editing_bridge"
+    type: dir
+  - path: "30_project/docs/2_audio/_artifacts/editing_bridge/timeline_plan_v1.xml"
+    type: file
+  - path: "30_project/docs/2_audio/_artifacts/editing_bridge/timeline_in.xml"
+    type: file
+  - path: "30_project/docs/2_audio/_artifacts/editing_bridge/timeline_updated.xml"
+    type: file
+  - path: "30_project/docs/2_audio/_artifacts/editing_bridge/audio_asset_manifest_v1.yaml"
+    type: file
+  - path: "30_project/docs/2_audio/_artifacts/editing_bridge/rename_plan_v1.yaml"
+    type: file
   - path: "30_project/docs/3_prompt/"
     type: dir
   - path: "30_project/docs/3_prompt/README.md"

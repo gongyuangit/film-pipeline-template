@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<timeline start="01:00:00:00" fps="24">
+  <tracks>
+    <track id="A1" type="audio" role="dialogue_candidate" />
+    <track id="A2" type="audio" role="dialogue_candidate" />
+    <track id="A3" type="audio" role="dialogue_candidate" />
+    <track id="A4" type="audio" role="dialogue_master" />
+    <track id="A5" type="audio" role="sfx_candidate" />
+    <track id="A6" type="audio" role="sfx_candidate" />
+    <track id="A7" type="audio" role="sfx_candidate" />
+    <track id="A8" type="audio" role="sfx_master" />
+    <track id="A9" type="audio" role="music_candidate" />
+    <track id="A10" type="audio" role="music_candidate" />
+    <track id="A11" type="audio" role="music_candidate" />
+    <track id="A12" type="audio" role="music_master" />
+  </tracks>
+  <markers>
+    <!-- Place shot/segment markers aligned with layout shot_map. -->
+  </markers>
+</timeline>
