@@ -1,12 +1,100 @@
 meta:
   role: naming_registry
   version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, ids, timeline_naming]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    ids:
+      type: object
+      required: [segment, shot, env, asset]
+      properties:
+        segment:
+          type: object
+          required: [format, example]
+          properties:
+            format: {type: string}
+            example: {type: string}
+        shot:
+          type: object
+          required: [format, example]
+          properties:
+            format: {type: string}
+            example: {type: string}
+        env:
+          type: object
+          required: [format, example]
+          properties:
+            format: {type: string}
+            example: {type: string}
+        asset:
+          type: object
+          required: [format, example]
+          properties:
+            format: {type: string}
+            example: {type: string}
+    timeline_naming:
+      type: object
+      required: [preferred_clip_names, shot_name_patterns]
+      properties:
+        preferred_clip_names:
+          type: array
+          items: {type: string}
+        shot_name_patterns:
+          type: array
+          items: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: naming_registry
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: ids.*.format
+    purpose: 标识格式规则
+    type: string
+    required: true
+    default: ""
+  - path: ids.*.example
+    purpose: 标识示例
+    type: string
+    required: true
+    default: ""
+  - path: timeline_naming.preferred_clip_names
+    purpose: 推荐片段命名
+    type: array[string]
+    required: true
+    default: []
+  - path: timeline_naming.shot_name_patterns
+    purpose: 镜头命名匹配模式
+    type: array[string]
+    required: true
+    default: []
 
 ids:
   segment: {format: "segment%03d", example: "segment001"}
-  shot:    {format: "shot%03d",    example: "shot001"}
-  env:     {format: "env%03d",     example: "env001"}
-  asset:   {format: "asset%03d",   example: "asset001"}
+  shot: {format: "shot%03d", example: "shot001"}
+  env: {format: "env%03d", example: "env001"}
+  asset: {format: "asset%03d", example: "asset001"}
 
 timeline_naming:
   preferred_clip_names:
@@ -16,3 +104,14 @@ timeline_naming:
   shot_name_patterns:
     - "^shot(?P<num>\\d{3})$"
     - "^shot(?P<num>\\d{3})[_-].*$"
+
+example:
+  meta: {role: naming_registry, version: 1.0, status: draft}
+  ids:
+    segment: {format: "segment%03d", example: "segment001"}
+    shot: {format: "shot%03d", example: "shot001"}
+    env: {format: "env%03d", example: "env001"}
+    asset: {format: "asset%03d", example: "asset001"}
+  timeline_naming:
+    preferred_clip_names: ["shot001", "shot001_v001"]
+    shot_name_patterns: ["^shot(?P<num>\\d{3})$", "^shot(?P<num>\\d{3})[_-].*$"]

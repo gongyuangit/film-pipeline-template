@@ -1,11 +1,91 @@
 meta:
   role: io_contracts
   version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, inputs, outputs]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    inputs:
+      type: array
+      items:
+        type: object
+        required: [path, allowed, meaning]
+        properties:
+          path: {type: string}
+          allowed:
+            type: array
+            items: {type: string}
+          meaning: {type: string}
+    outputs:
+      type: array
+      items:
+        type: object
+        required: [path, meaning]
+        properties:
+          path: {type: string}
+          meaning: {type: string}
+          naming: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: io_contracts
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: inputs[].path
+    purpose: 输入目录
+    type: string
+    required: true
+    default: ""
+  - path: inputs[].allowed
+    purpose: 允许的文件模式
+    type: array[string]
+    required: true
+    default: []
+  - path: inputs[].meaning
+    purpose: 输入说明
+    type: string
+    required: true
+    default: ""
+  - path: outputs[].path
+    purpose: 输出目录
+    type: string
+    required: true
+    default: ""
+  - path: outputs[].meaning
+    purpose: 输出说明
+    type: string
+    required: true
+    default: ""
+  - path: outputs[].naming
+    purpose: 输出命名约定
+    type: string
+    required: false
+    default: ""
 
 inputs:
-  - {path: "01_inputs/timeline_xml", allowed: ["*.xml","*.fcpxml","*.edl"], meaning: "时间线结构输入"}
-  - {path: "01_inputs/timeline_srt", allowed: ["*.srt"], meaning: "时间线注释输入（标签路由）"}
-  - {path: "01_inputs/storyboards", allowed: ["*.png","*.jpg","*.jpeg","*.pdf"], meaning: "分镜/参考图"}
+  - {path: "01_inputs/timeline_xml", allowed: ["*.xml", "*.fcpxml", "*.edl"], meaning: "时间线结构输入"}
+  - {path: "01_inputs/timeline_srt", allowed: ["*.srt"], meaning: "时间线注释输入"}
+  - {path: "01_inputs/storyboards", allowed: ["*.png", "*.jpg", "*.jpeg", "*.pdf"], meaning: "分镜/参考图"}
 
 outputs:
   - {path: "02_outputs/tests/segment_story", meaning: "段落剧情测试产物"}
@@ -13,4 +93,12 @@ outputs:
   - {path: "02_outputs/lookdev", meaning: "lookdev 变体与定版"}
   - {path: "02_outputs/shots", meaning: "逐镜头产出（按 shot### 分目录）", naming: "02_outputs/shots/shot###/..."}
   - {path: "02_outputs/post", meaning: "后期中间产物"}
-  - {path: "02_outputs/final", meaning: "交付成片（归档/只读建议）"}
+  - {path: "02_outputs/final", meaning: "交付成片归档"}
+
+example:
+  meta: {role: io_contracts, version: 1.0, status: draft}
+  inputs:
+    - {path: "01_inputs/timeline_xml", allowed: ["*.xml"], meaning: "时间线结构"}
+    - {path: "01_inputs/timeline_srt", allowed: ["*.srt"], meaning: "时间线注释"}
+  outputs:
+    - {path: "02_outputs/shots", meaning: "逐镜头输出", naming: "02_outputs/shots/shot###/..."}

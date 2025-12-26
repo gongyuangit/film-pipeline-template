@@ -1,6 +1,152 @@
 meta:
   role: ingest_bridge
   version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, bridge, srt_tags, ingest_to_docs, srt_authoring_examples]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    bridge:
+      type: object
+      required: [inputs, outputs]
+      properties:
+        inputs:
+          type: object
+          required: [timeline_xml_dir, timeline_srt_dir]
+          properties:
+            timeline_xml_dir: {type: string}
+            timeline_srt_dir: {type: string}
+        outputs:
+          type: object
+          required: [parsed_cache_dir, logs_dir]
+          properties:
+            parsed_cache_dir: {type: string}
+            logs_dir: {type: string}
+    srt_tags:
+      type: object
+      required: [segment, beat, shot, intent, look, exec, continuity]
+      properties:
+        segment: {type: string}
+        beat: {type: string}
+        shot: {type: string}
+        intent: {type: string}
+        look: {type: string}
+        exec: {type: string}
+        continuity: {type: string}
+    ingest_to_docs:
+      type: object
+      required: [xml, srt]
+      properties:
+        xml:
+          type: object
+          required: [extract, write_back]
+          properties:
+            extract:
+              type: array
+              items: {type: string}
+            write_back:
+              type: array
+              items:
+                type: object
+                required: [doc, key, field]
+                properties:
+                  doc: {type: string}
+                  key: {type: string}
+                  field: {type: string}
+        srt:
+          type: object
+          required: [extract, route_by_tag]
+          properties:
+            extract:
+              type: array
+              items: {type: string}
+            route_by_tag:
+              type: array
+              items:
+                type: object
+                required: [when_tag, doc, field]
+                properties:
+                  when_tag: {type: string}
+                  doc: {type: string}
+                  field: {type: string}
+    srt_authoring_examples:
+      type: array
+      items: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: ingest_bridge
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: bridge.inputs.timeline_xml_dir
+    purpose: 时间线 XML 输入目录
+    type: string
+    required: true
+    default: 01_inputs/timeline_xml
+  - path: bridge.inputs.timeline_srt_dir
+    purpose: 时间线 SRT 输入目录
+    type: string
+    required: true
+    default: 01_inputs/timeline_srt
+  - path: bridge.outputs.parsed_cache_dir
+    purpose: 解析缓存输出目录
+    type: string
+    required: true
+    default: 03_work/ingest_cache
+  - path: bridge.outputs.logs_dir
+    purpose: 日志输出目录
+    type: string
+    required: true
+    default: 03_work/logs
+  - path: srt_tags.*
+    purpose: SRT 标签占位
+    type: string
+    required: true
+    default: ""
+  - path: ingest_to_docs.xml.extract
+    purpose: XML 提取字段
+    type: array[string]
+    required: true
+    default: []
+  - path: ingest_to_docs.xml.write_back[]
+    purpose: XML 写回映射
+    type: array[object]
+    required: true
+    default: []
+  - path: ingest_to_docs.srt.extract
+    purpose: SRT 提取字段
+    type: array[string]
+    required: true
+    default: []
+  - path: ingest_to_docs.srt.route_by_tag[]
+    purpose: SRT 标签路由
+    type: array[object]
+    required: true
+    default: []
+  - path: srt_authoring_examples
+    purpose: SRT 标注示例
+    type: array[string]
+    required: true
+    default: []
 
 bridge:
   inputs:
@@ -21,23 +167,52 @@ srt_tags:
 
 ingest_to_docs:
   xml:
-    extract: ["clip_name","clip_start","clip_end","clip_duration_sec","track"]
+    extract: ["clip_name", "clip_start", "clip_end", "clip_duration_sec", "track"]
     write_back:
-      - {doc: "00_docs/1_story/1-5_shot_list.yaml",    key: "shot", field: "content.shots[].duration_sec"}
+      - {doc: "00_docs/1_story/1-5_shot_list.yaml", key: "shot", field: "content.shots[].duration_sec"}
       - {doc: "00_docs/2_layout/2-2_layout_freeze.yaml", key: "shot", field: "content.shots[].camera.duration_sec"}
 
   srt:
-    extract: ["time_range","text"]
+    extract: ["time_range", "text"]
     route_by_tag:
-      - {when_tag: "[SEG]",  doc: "00_docs/1_story/1-3_segment_drama.yaml",        field: "content.segments[].notes"}
-      - {when_tag: "[BEAT]", doc: "00_docs/1_story/1-3a_segment_story_test.yaml",  field: "outputs.segment_results[].corrected_beats"}
-      - {when_tag: "[SHOT]", doc: "00_docs/1_story/1-4_shot_narrative.yaml",       field: "content.shots[].narrative_purpose"}
-      - {when_tag: "[INTENT]",doc:"00_docs/2_layout/2-1_cinematic_intent.yaml",    field: "content.shot_intents[]"}
-      - {when_tag: "[LOOK]", doc: "00_docs/3_lookdev/3-1_lookdev.yaml",            field: "content.per_shot_notes[]"}
-      - {when_tag: "[EXEC]", doc: "00_docs/X_exec/X-0_execution_tokens.yaml",      field: "tokens.positive.shared"}
-      - {when_tag: "[CONT]", doc: "00_docs/2_layout/2-2_layout_freeze.yaml",       field: "content.shots[].spatial.continuity_notes"}
+      - {when_tag: "[SEG]", doc: "00_docs/1_story/1-3_segment_drama.yaml", field: "content.segments[].notes"}
+      - {when_tag: "[BEAT]", doc: "00_docs/1_story/1-3a_segment_story_test.yaml", field: "outputs.segment_results[].corrected_beats"}
+      - {when_tag: "[SHOT]", doc: "00_docs/1_story/1-4_shot_narrative.yaml", field: "content.shots[].narrative_purpose"}
+      - {when_tag: "[INTENT]", doc: "00_docs/2_layout/2-1_cinematic_intent.yaml", field: "content.shot_intents[]"}
+      - {when_tag: "[LOOK]", doc: "00_docs/3_lookdev/3-1_lookdev.yaml", field: "content.per_shot_notes[]"}
+      - {when_tag: "[EXEC]", doc: "00_docs/X_exec/X-0_execution_tokens.yaml", field: "tokens.positive.shared"}
+      - {when_tag: "[CONT]", doc: "00_docs/2_layout/2-2_layout_freeze.yaml", field: "content.shots[].spatial.continuity_notes"}
 
 srt_authoring_examples:
-  - "00:00:01,000 --> 00:00:04,000  [SHOT] shot001 镜头叙事：引出核心道具"
-  - "00:00:04,000 --> 00:00:08,000  [CONT] 道具位置保持画面中心，连续到 shot003"
-  - "00:00:08,000 --> 00:00:12,000 [LOOK] 风格关键词：写实、薄雾、体积光"
+  - "00:00:01,000 --> 00:00:04,000  [SHOT] shot001 叙事目的占位"
+  - "00:00:04,000 --> 00:00:08,000  [CONT] 连续性说明占位"
+  - "00:00:08,000 --> 00:00:12,000 [LOOK] 风格关键词占位"
+
+example:
+  meta: {role: ingest_bridge, version: 1.0, status: draft}
+  bridge:
+    inputs:
+      timeline_xml_dir: "01_inputs/timeline_xml"
+      timeline_srt_dir: "01_inputs/timeline_srt"
+    outputs:
+      parsed_cache_dir: "03_work/ingest_cache"
+      logs_dir: "03_work/logs"
+  srt_tags:
+    segment: "[SEG]"
+    beat: "[BEAT]"
+    shot: "[SHOT]"
+    intent: "[INTENT]"
+    look: "[LOOK]"
+    exec: "[EXEC]"
+    continuity: "[CONT]"
+  ingest_to_docs:
+    xml:
+      extract: ["clip_name", "clip_start"]
+      write_back:
+        - {doc: "00_docs/1_story/1-5_shot_list.yaml", key: "shot", field: "content.shots[].duration_sec"}
+    srt:
+      extract: ["time_range", "text"]
+      route_by_tag:
+        - {when_tag: "[SHOT]", doc: "00_docs/1_story/1-4_shot_narrative.yaml", field: "content.shots[].narrative_purpose"}
+  srt_authoring_examples:
+    - "00:00:01,000 --> 00:00:03,000  [SHOT] shot001 占位"

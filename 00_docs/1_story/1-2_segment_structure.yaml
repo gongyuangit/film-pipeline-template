@@ -1,7 +1,85 @@
-meta: {role: segment_structure, version: 1.0, status: draft}
+meta:
+  role: segment_structure
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    content:
+      type: object
+      required: [segments]
+      properties:
+        segments:
+          type: array
+          items:
+            type: object
+            required: [segment, title, scope, notes]
+            properties:
+              segment: {type: string}
+              title: {type: string}
+              scope:
+                type: string
+                enum: [setup, build, turn, climax, release]
+              notes: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: segment_structure
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: content.segments[].segment
+    purpose: 段落编号
+    type: string
+    required: true
+    default: "segment001"
+  - path: content.segments[].title
+    purpose: 段落标题
+    type: string
+    required: true
+    default: ""
+  - path: content.segments[].scope
+    purpose: 段落功能范围
+    type: string
+    required: true
+    default: setup
+  - path: content.segments[].notes
+    purpose: 结构备注
+    type: string
+    required: true
+    default: ""
+
 content:
   segments:
     - segment: "segment001"
       title: ""
-      scope: "setup|build|turn|climax|release"
+      scope: "setup"
       notes: ""
+
+example:
+  meta: {role: segment_structure, version: 1.0, status: draft}
+  content:
+    segments:
+      - segment: "segment001"
+        title: "开场结构"
+        scope: "setup"
+        notes: "说明段落边界与目的"

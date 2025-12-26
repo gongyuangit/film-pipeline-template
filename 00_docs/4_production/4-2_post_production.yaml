@@ -1,8 +1,117 @@
-meta: {role: post_production, version: 1.0, status: draft}
+meta:
+  role: post_production
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, inputs, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    inputs:
+      type: object
+      required: [from_docs]
+      properties:
+        from_docs:
+          type: array
+          items: {type: string}
+    content:
+      type: object
+      required: [assembly, color, audio, delivery]
+      properties:
+        assembly:
+          type: object
+          required: [edit_notes]
+          properties:
+            edit_notes:
+              type: array
+              items: {type: string}
+        color:
+          type: object
+          required: [targets]
+          properties:
+            targets:
+              type: array
+              items: {type: string}
+        audio:
+          type: object
+          required: [notes]
+          properties:
+            notes:
+              type: array
+              items: {type: string}
+        delivery:
+          type: object
+          required: [outputs_to]
+          properties:
+            outputs_to: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: post_production
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: inputs.from_docs
+    purpose: 上游依赖文档编号
+    type: array[string]
+    required: true
+    default: []
+  - path: content.assembly.edit_notes
+    purpose: 剪辑调整说明
+    type: array[string]
+    required: true
+    default: []
+  - path: content.color.targets
+    purpose: 综合色彩目标
+    type: array[string]
+    required: true
+    default: []
+  - path: content.audio.notes
+    purpose: 音频处理备注
+    type: array[string]
+    required: true
+    default: []
+  - path: content.delivery.outputs_to
+    purpose: 交付输出目录
+    type: string
+    required: true
+    default: "02_outputs/final/"
+
 inputs:
-  from_docs: ["4-1_shot_production","X-0_execution_tokens"]
+  from_docs:
+    - "4-1_shot_production"
+    - "X-5_token_input"
+    - "X-6_srt_input"
+
 content:
   assembly: {edit_notes: []}
   color: {targets: []}
   audio: {notes: []}
   delivery: {outputs_to: "02_outputs/final/"}
+
+example:
+  meta: {role: post_production, version: 1.0, status: draft}
+  inputs:
+    from_docs: ["4-1_shot_production", "X-5_token_input", "X-6_srt_input"]
+  content:
+    assembly: {edit_notes: ["检查节奏一致性"]}
+    color: {targets: ["统一色温"]}
+    audio: {notes: ["保持对白清晰"]}
+    delivery: {outputs_to: "02_outputs/final/"}

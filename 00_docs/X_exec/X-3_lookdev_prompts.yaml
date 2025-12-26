@@ -1,9 +1,88 @@
-meta: {role: lookdev_prompts, version: 1.0, status: draft}
+meta:
+  role: lookdev_prompts
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, prompt, output_schema]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    prompt:
+      type: object
+      required: [positive, negative]
+      properties:
+        positive: {type: string}
+        negative: {type: string}
+    output_schema:
+      type: object
+      required: [global_style, per_shot_notes]
+      properties:
+        global_style:
+          type: object
+        per_shot_notes:
+          type: array
+          items:
+            type: object
+            required: [shot, notes]
+            properties:
+              shot: {type: string}
+              notes:
+                type: array
+                items: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: lookdev_prompts
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: prompt.positive
+    purpose: 正向提示词模板
+    type: string
+    required: true
+    default: ""
+  - path: prompt.negative
+    purpose: 负向提示词模板
+    type: string
+    required: true
+    default: ""
+  - path: output_schema
+    purpose: 期望输出字段结构
+    type: object
+    required: true
+    default: {global_style: {}, per_shot_notes: []}
+
 prompt:
-  positive: |
-    Use visual direction and frozen layout.
-    Propose global style notes and per-shot look notes.
-    Output YAML matching 3-1_lookdev.yaml structure.
-  negative: |
-    Do NOT change any layout fields (framing/camera/spatial).
-output_target: "00_docs/3_lookdev/3-1_lookdev.yaml"
+  positive: "生成全局风格与逐镜头说明，输出 YAML。"
+  negative: "避免涉及生产实现细节。"
+output_schema:
+  global_style: {keywords: [], color_mood: [], lighting: []}
+  per_shot_notes:
+    - {shot: "shot001", notes: [""]}
+
+example:
+  meta: {role: lookdev_prompts, version: 1.0, status: draft}
+  prompt:
+    positive: "描述风格关键词与镜头备注"
+    negative: "不包含工具参数"
+  output_schema:
+    global_style: {keywords: ["简洁"], color_mood: ["冷静"], lighting: ["柔光"]}
+    per_shot_notes:
+      - {shot: "shot001", notes: ["主体突出"]}

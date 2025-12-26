@@ -1,0 +1,76 @@
+meta:
+  role: prompt_input
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, prompt]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    prompt:
+      type: object
+      required: [positive, negative, variables]
+      properties:
+        positive: {type: string}
+        negative: {type: string}
+        variables:
+          type: array
+          items:
+            type: object
+            required: [name, description, required]
+            properties:
+              name: {type: string}
+              description: {type: string}
+              required: {type: boolean}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: prompt_input
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: prompt.positive
+    purpose: 正向模板文本
+    type: string
+    required: true
+    default: ""
+  - path: prompt.negative
+    purpose: 负向模板文本
+    type: string
+    required: true
+    default: ""
+  - path: prompt.variables[]
+    purpose: 变量说明与是否必填
+    type: array[object]
+    required: true
+    default: []
+
+prompt:
+  positive: ""
+  negative: ""
+  variables: []
+
+example:
+  meta: {role: prompt_input, version: 1.0, status: draft}
+  prompt:
+    positive: "根据 {input_summary} 生成结构化输出"
+    negative: "避免无关说明"
+    variables:
+      - {name: "input_summary", description: "上游摘要字段", required: true}

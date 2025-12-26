@@ -1,4 +1,87 @@
-meta: {role: source_origin, version: 1.0, status: draft}
+meta:
+  role: source_origin
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    content:
+      type: object
+      required: [logline, themes, creative_intent, pillars, non_goals]
+      properties:
+        logline: {type: string}
+        themes:
+          type: array
+          items: {type: string}
+        creative_intent: {type: string}
+        pillars:
+          type: array
+          items:
+            type: object
+            required: [name, description]
+            properties:
+              name: {type: string}
+              description: {type: string}
+        non_goals:
+          type: array
+          items: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: source_origin
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: content.logline
+    purpose: 核心一句话概述
+    type: string
+    required: true
+    default: ""
+  - path: content.themes
+    purpose: 主题关键词
+    type: array[string]
+    required: true
+    default: []
+  - path: content.creative_intent
+    purpose: 创作意图概述
+    type: string
+    required: true
+    default: ""
+  - path: content.pillars[].name
+    purpose: 关键支柱名称
+    type: string
+    required: true
+    default: ""
+  - path: content.pillars[].description
+    purpose: 支柱说明
+    type: string
+    required: true
+    default: ""
+  - path: content.non_goals
+    purpose: 明确不做的方向
+    type: array[string]
+    required: true
+    default: []
+
 content:
   logline: ""
   themes: []
@@ -6,3 +89,13 @@ content:
   pillars:
     - {name: "", description: ""}
   non_goals: []
+
+example:
+  meta: {role: source_origin, version: 1.0, status: draft}
+  content:
+    logline: "用简短叙述说明主旨"
+    themes: ["主题A", "主题B"]
+    creative_intent: "说明期望的观感或情绪"
+    pillars:
+      - {name: "叙事聚焦", description: "强调核心矛盾"}
+    non_goals: ["避免复杂支线"]

@@ -1,6 +1,133 @@
 meta:
   role: project_config
   version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, project, workflow_intent, sources_of_truth]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    project:
+      type: object
+      required: [id, title, language, fps]
+      properties:
+        id: {type: string}
+        title: {type: string}
+        language: {type: string}
+        fps: {type: number, nullable: true}
+    workflow_intent:
+      type: object
+      required: [primary_workbench, bridge_formats, human_writes_docs_directly, machine_manages_docs]
+      properties:
+        primary_workbench: {type: string}
+        bridge_formats:
+          type: array
+          items: {type: string}
+        human_writes_docs_directly: {type: boolean}
+        machine_manages_docs: {type: boolean}
+    sources_of_truth:
+      type: object
+      required: [story_truth, layout_truth, look_truth, exec_truth, timeline_truth]
+      properties:
+        story_truth: {type: string}
+        layout_truth: {type: string}
+        look_truth: {type: string}
+        exec_truth: {type: string}
+        timeline_truth:
+          type: object
+          required: [xml_dir, srt_dir]
+          properties:
+            xml_dir: {type: string}
+            srt_dir: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: project_config
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: project.id
+    purpose: 项目或模板标识
+    type: string
+    required: true
+    default: template
+  - path: project.title
+    purpose: 标题
+    type: string
+    required: true
+    default: "Film Pipeline Template"
+  - path: project.language
+    purpose: 文档主语言
+    type: string
+    required: true
+    default: zh
+  - path: project.fps
+    purpose: 帧率（可为空）
+    type: number|null
+    required: false
+    default: null
+  - path: workflow_intent.primary_workbench
+    purpose: 工作方式标识
+    type: string
+    required: true
+    default: timeline_first
+  - path: workflow_intent.bridge_formats
+    purpose: 桥接输入格式
+    type: array[string]
+    required: true
+    default: [xml, srt]
+  - path: workflow_intent.human_writes_docs_directly
+    purpose: 是否人工直接维护文档
+    type: boolean
+    required: true
+    default: false
+  - path: workflow_intent.machine_manages_docs
+    purpose: 是否由流程自动管理文档
+    type: boolean
+    required: true
+    default: true
+  - path: sources_of_truth.story_truth
+    purpose: 叙事真值文档路径
+    type: string
+    required: true
+    default: 00_docs/1_story/1-5_shot_list.yaml
+  - path: sources_of_truth.layout_truth
+    purpose: layout 真值文档路径
+    type: string
+    required: true
+    default: 00_docs/2_layout/2-2_layout_freeze.yaml
+  - path: sources_of_truth.look_truth
+    purpose: lookdev 真值文档路径
+    type: string
+    required: true
+    default: 00_docs/3_lookdev/3-1_lookdev.yaml
+  - path: sources_of_truth.exec_truth
+    purpose: 执行接口真值路径
+    type: string
+    required: true
+    default: 00_docs/X_exec/X-0_execution_tokens.yaml
+  - path: sources_of_truth.timeline_truth
+    purpose: 时间线输入目录
+    type: object
+    required: true
+    default: {xml_dir: 01_inputs/timeline_xml, srt_dir: 01_inputs/timeline_srt}
 
 project:
   id: "template"
@@ -10,15 +137,36 @@ project:
 
 workflow_intent:
   primary_workbench: "timeline_first"
-  bridge_formats: ["xml","srt"]
+  bridge_formats: ["xml", "srt"]
   human_writes_docs_directly: false
   machine_manages_docs: true
 
 sources_of_truth:
-  story_truth:  "00_docs/1_story/1-5_shot_list.yaml"
+  story_truth: "00_docs/1_story/1-5_shot_list.yaml"
   layout_truth: "00_docs/2_layout/2-2_layout_freeze.yaml"
-  look_truth:   "00_docs/3_lookdev/3-1_lookdev.yaml"
-  exec_truth:   "00_docs/X_exec/X-0_execution_tokens.yaml"
+  look_truth: "00_docs/3_lookdev/3-1_lookdev.yaml"
+  exec_truth: "00_docs/X_exec/X-0_execution_tokens.yaml"
   timeline_truth:
     xml_dir: "01_inputs/timeline_xml"
     srt_dir: "01_inputs/timeline_srt"
+
+example:
+  meta: {role: project_config, version: 1.0, status: draft}
+  project:
+    id: "template"
+    title: "Film Pipeline Template"
+    language: "zh"
+    fps: 24
+  workflow_intent:
+    primary_workbench: "timeline_first"
+    bridge_formats: ["xml", "srt"]
+    human_writes_docs_directly: false
+    machine_manages_docs: true
+  sources_of_truth:
+    story_truth: "00_docs/1_story/1-5_shot_list.yaml"
+    layout_truth: "00_docs/2_layout/2-2_layout_freeze.yaml"
+    look_truth: "00_docs/3_lookdev/3-1_lookdev.yaml"
+    exec_truth: "00_docs/X_exec/X-0_execution_tokens.yaml"
+    timeline_truth:
+      xml_dir: "01_inputs/timeline_xml"
+      srt_dir: "01_inputs/timeline_srt"

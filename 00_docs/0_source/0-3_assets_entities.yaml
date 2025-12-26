@@ -1,6 +1,83 @@
-meta: {role: assets_entities, version: 1.0, status: draft}
+meta:
+  role: assets_entities
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    content:
+      type: object
+      required: [characters, props, environments, motifs]
+      properties:
+        characters:
+          type: array
+          items: {type: string}
+        props:
+          type: array
+          items: {type: string}
+        environments:
+          type: array
+          items: {type: string}
+        motifs:
+          type: array
+          items: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: assets_entities
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: content.characters
+    purpose: 角色或主体名称列表
+    type: array[string]
+    required: true
+    default: []
+  - path: content.props
+    purpose: 道具/物件列表
+    type: array[string]
+    required: true
+    default: []
+  - path: content.environments
+    purpose: 场景/环境列表
+    type: array[string]
+    required: true
+    default: []
+  - path: content.motifs
+    purpose: 视觉或叙事母题
+    type: array[string]
+    required: true
+    default: []
+
 content:
   characters: []
   props: []
   environments: []
   motifs: []
+
+example:
+  meta: {role: assets_entities, version: 1.0, status: draft}
+  content:
+    characters: ["主体A", "主体B"]
+    props: ["道具A"]
+    environments: ["环境A"]
+    motifs: ["图形母题"]

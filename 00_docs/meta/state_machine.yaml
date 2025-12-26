@@ -1,6 +1,62 @@
 meta:
   role: state_machine
   version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, gates]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    gates:
+      type: array
+      items:
+        type: object
+        required: [id, description, required_docs]
+        properties:
+          id: {type: string}
+          description: {type: string}
+          required_docs:
+            type: array
+            items: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色标识
+    type: string
+    required: true
+    default: state_machine
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: gates[].id
+    purpose: 关卡编号
+    type: string
+    required: true
+    default: "G0_to_G1"
+  - path: gates[].description
+    purpose: 关卡说明
+    type: string
+    required: true
+    default: ""
+  - path: gates[].required_docs
+    purpose: 通过所需文档路径
+    type: array[string]
+    required: true
+    default: []
 
 gates:
   - id: "G0_to_G1"
@@ -23,3 +79,10 @@ gates:
     description: "lookdev 未定版，禁止进入规模化生产"
     required_docs:
       - "00_docs/3_lookdev/3-1_lookdev.yaml"
+
+example:
+  meta: {role: state_machine, version: 1.0, status: draft}
+  gates:
+    - id: "G0_to_G1"
+      description: "完成源头层后进入下一层"
+      required_docs: ["00_docs/0_source/0-2_world_rules.yaml"]
