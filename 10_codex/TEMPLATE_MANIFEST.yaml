@@ -29,6 +29,8 @@ entries:
     type: dir
   - path: "20_runtime/exec"
     type: dir
+  - path: "20_runtime/exec/execution_plan.json"
+    type: file
   - path: "30_project/docs/0-source/README.md"
     type: file
   - path: "30_project/docs/0-source/raw/"
@@ -87,19 +89,25 @@ entries:
     type: file
   - path: "30_project/docs/2_layout/_artifacts/editing_bridge/shot_map_v1.srt"
     type: file
-  - path: "30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml"
+  - path: "30_project/docs/2_layout/_artifacts/inputs/"
+    type: dir
+  - path: "30_project/docs/2_layout/_artifacts/inputs/2-1_cinematic_intent_v1.yaml"
     type: file
   - path: "30_project/docs/2_layout/_artifacts/reports/layout_review_v1.md"
     type: file
   - path: "30_project/docs/2_layout/_artifacts/reports/lookdev_review_v1.md"
     type: file
-  - path: "30_project/docs/2_layout/_artifacts/branch1_segment_prompt_pack_v1.yaml"
+  - path: "30_project/docs/2_layout/_artifacts/prompt_packs"
+    type: dir
+  - path: "30_project/docs/2_layout/_artifacts/prompt_packs/branch1_segment_prompt_pack_v1.yaml"
     type: file
-  - path: "30_project/docs/2_layout/_artifacts/branch2_shot_prompt_pack_v1.yaml"
+  - path: "30_project/docs/2_layout/_artifacts/prompt_packs/branch2_shot_prompt_pack_v1.yaml"
     type: file
-  - path: "30_project/docs/2_layout/_artifacts/branch3_blender_tokens_v1.yaml"
+  - path: "30_project/docs/2_layout/_artifacts/prompt_packs/branch3_blender_tokens_v1.yaml"
     type: file
-  - path: "30_project/docs/2_layout/_artifacts/branch_lookdev_shot_prompt_pack_v1.yaml"
+  - path: "30_project/docs/2_layout/_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml"
+    type: file
+  - path: "30_project/docs/2_layout/_artifacts/prompt_packs/README.md"
     type: file
   - path: "30_project/docs/2_layout/_artifacts/mappings_v1.yaml"
     type: file
@@ -108,6 +116,10 @@ entries:
   - path: "30_project/docs/2_layout/_exports/"
     type: dir
   - path: "30_project/docs/2_layout/_exports/README.md"
+    type: file
+  - path: "30_project/docs/2_layout/_artifacts/exports/"
+    type: dir
+  - path: "30_project/docs/2_layout/_artifacts/exports/layout_markers_v1.yaml"
     type: file
   - path: "30_project/docs/2_audio/"
     type: dir
@@ -125,9 +137,19 @@ entries:
     type: file
   - path: "30_project/docs/2_audio/_artifacts/prompt_packs/music_prompt_pack_v1.yaml"
     type: file
+  - path: "30_project/docs/2_audio/_artifacts/prompt_packs/README.md"
+    type: file
+  - path: "30_project/docs/2_audio/_artifacts/inputs/"
+    type: dir
+  - path: "30_project/docs/2_audio/_artifacts/inputs/audio_sources.md"
+    type: file
   - path: "30_project/docs/2_audio/_artifacts/reports/"
     type: dir
   - path: "30_project/docs/2_audio/_artifacts/reports/audio_review_v1.md"
+    type: file
+  - path: "30_project/docs/2_audio/_artifacts/exports/"
+    type: dir
+  - path: "30_project/docs/2_audio/_artifacts/exports/audio_markers_plan_v1.yaml"
     type: file
   - path: "30_project/docs/2_audio/_artifacts/editing_bridge"
     type: dir

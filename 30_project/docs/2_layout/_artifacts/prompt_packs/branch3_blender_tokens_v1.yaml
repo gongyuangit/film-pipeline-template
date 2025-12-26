@@ -1,0 +1,10 @@
+meta:
+  role: branch3_blender_tokens
+  version: 1.0
+  status: draft
+content:
+  globals:
+    negative: []
+  shots: []
+  notes: |
+    - Blender layout tokens can reference `shots[].positive` for geometry cues.

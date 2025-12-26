@@ -42,7 +42,7 @@ stages:
     next_targets: []
   - name: "Stage D"
     description: "Cinematic intent / layout guidance"
-    product: "30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml"
+    product: "30_project/docs/2_layout/_artifacts/inputs/2-1_cinematic_intent_v1.yaml"
     approval_key: "CINEMATIC_INTENT_APPROVED"
     requires:
       - "STAGE_C_DECISION_APPROVED"
@@ -70,7 +70,7 @@ stages:
     next_targets: ["Stage K"]
   - name: "Stage K"
     description: "Lookdev shot prompts"
-    product: "30_project/docs/2_layout/_artifacts/branch_lookdev_shot_prompt_pack_v1.yaml"
+    product: "30_project/docs/2_layout/_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml"
     approval_key: "LOOKDEV_PROMPTS_APPROVED"
     requires:
       - "LAYOUT_REVIEW_APPROVED"

@@ -4,11 +4,11 @@
 | SOURCE_SCRIPT_APPROVED | source_script.md | approved |  |
 | SCRIPT_BREAKDOWN_APPROVED | script_breakdown_v1.yaml | approved |  |
 | STAGE_C_DECISION_APPROVED | DECISIONS.md | approved |  |
-| CINEMATIC_INTENT_APPROVED | _artifacts/2-1_cinematic_intent_v1.yaml | pending |  |
+| CINEMATIC_INTENT_APPROVED | _artifacts/inputs/2-1_cinematic_intent_v1.yaml | pending |  |
 | SHOT_MAP_SRT_XML_APPROVED | _artifacts/editing_bridge/shot_map_v1.srt + _artifacts/editing_bridge/timeline_plan_v1.xml | pending |  |
 | LAYOUT_FREEZE_APPROVED | 2-2_layout_freeze.yaml | pending |  |
 | LAYOUT_REVIEW_APPROVED | _artifacts/reports/layout_review_v1.md | pending |  |
-| LOOKDEV_PROMPTS_APPROVED | _artifacts/branch_lookdev_shot_prompt_pack_v1.yaml | pending |  |
+| LOOKDEV_PROMPTS_APPROVED | _artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml | pending |  |
 | LOOKDEV_REVIEW_APPROVED | _artifacts/reports/lookdev_review_v1.md | pending |  |
 | AUDIO_PLAN_APPROVED | _artifacts/audio_plan_v1.yaml | pending |  |
 | AUDIO_PROMPTS_APPROVED | _artifacts/prompt_packs/dialogue_vo_prompt_pack_v1.yaml + ... | pending |  |
