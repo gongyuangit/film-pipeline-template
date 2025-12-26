@@ -12,3 +12,4 @@
 
 ## Notes
 - Codex-managed tooling now lives under `10_codex/`; `00_human/` is the only directory needing manual attention.
+- Core project content resides in `30_project/` and is subject to human review per the inbox (see `00_human/README.md`).
