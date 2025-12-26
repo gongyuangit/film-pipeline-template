@@ -21,6 +21,8 @@ entries:
     type: file
   - path: "10_codex/PIPELINE_STAGES.yaml"
     type: file
+  - path: "10_codex/STANDARDS_LOOKDEV.md"
+    type: file
   - path: "20_runtime/layout"
     type: dir
   - path: "20_runtime/plan"

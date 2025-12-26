@@ -35,6 +35,7 @@
 
 - Lookdev 阶段完成镜头提示词后，必须生成 `reports/lookdev_review_v1.md` 验收报告，并将其作为后续 execution / render 参考；未获得 `LOOKDEV_REVIEW_APPROVED`，不得开始执行计划或 render 相关流程。
 - `lookdev_review_v1.md` 同样按镜头列出问题、教训与执行建议，它与 cinematic intent + layout review 等资料共同构成 downstream 的输入集合，用于排查材质、色彩、光照等一致性问题。
+- Lookdev Review 的评估标准来自 `10_codex/STANDARDS_LOOKDEV.md`，每条登记需对应材质/光照/色彩一致性之一并说明严重度与建议，报告中的问题清单必须覆盖这三个维度。
 
 ## Prompt Pack Convention
 

@@ -56,7 +56,7 @@ stages:
       - "CINEMATIC_INTENT_APPROVED"
     next_targets: ["Stage K_R"]
   - name: "Stage K_R"
-    description: "Lookdev review"
+    description: "Lookdev review (must cover STANDARDS_LOOKDEV.md pillars)"
     product: "30_project/docs/2_layout/_artifacts/reports/lookdev_review_v1.md"
     approval_key: "LOOKDEV_REVIEW_APPROVED"
     requires:
