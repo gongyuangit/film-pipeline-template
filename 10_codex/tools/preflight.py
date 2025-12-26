@@ -110,6 +110,9 @@ def update_source_script_gate():
         INBOX_PATH.write_text(new_text, encoding="utf-8")
 
 
+STAGE_D_ROW = "| 6 | pending | `30_project/docs/2_layout/2-1_cinematic_intent.yaml` 已基于 `source_script.md` 与 `script_breakdown_v1.yaml` 生成，请确认后再进入 layout freeze 或 prompt 生成。 |  |"
+
+
 def _update_table(lines):
     start = next((i for i, line in enumerate(lines) if line.startswith("| ID |")), None)
     if start is None:
@@ -128,6 +131,8 @@ def _update_table(lines):
     if not source_exists and not row_exists:
         gate_row = "| 6 | pending | 请先将 `30_project/inputs/script/source_script.md` 提供为权威剧本文本，或继续在 `30_project/docs/0-source/raw/` 投递碎片供 Source Synthesis 合成；之后再继续 1_story。 |  |"
         rows.append(gate_row)
+    if STAGE_D_ROW not in rows:
+        rows.append(STAGE_D_ROW)
     return lines[:start] + header + rows + lines[end:]
 
 

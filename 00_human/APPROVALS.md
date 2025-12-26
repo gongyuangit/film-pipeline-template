@@ -1,7 +1,12 @@
 # APPROVALS
 | Approval Key | Artifact | Status | Notes |
 | -- | -- | -- | -- |
-| SOURCE_SCRIPT_APPROVED | source_script.md | pending |  |
+| SOURCE_SCRIPT_APPROVED | source_script.md | approved |  |
+| SCRIPT_BREAKDOWN_APPROVED | script_breakdown_v1.yaml | approved |  |
+| STAGE_C_DECISION_APPROVED | DECISIONS.md | approved |  |
+| CINEMATIC_INTENT_APPROVED | 2-1_cinematic_intent.yaml | pending |  |
+| LAYOUT_FREEZE_APPROVED | 2-2_layout_freeze.yaml | pending |  |
+| EXEC_PLAN_APPROVED | exec_plan.json | pending |  |
 
 ## Stage approvals
 - SOURCE_SCRIPT_APPROVED: 人工确认剧本文本

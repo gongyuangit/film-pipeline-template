@@ -23,16 +23,10 @@ schema:
           items: {type: string}
     content:
       type: object
-      required: [global_principles, shot_intents]
+      required: [intent_summary, shot_intents]
       properties:
-        global_principles:
-          type: object
-          required: [pacing, continuity_rules]
-          properties:
-            pacing: {type: string}
-            continuity_rules:
-              type: array
-              items: {type: string}
+        intent_summary:
+          type: string
         shot_intents:
           type: array
           items:
@@ -50,7 +44,7 @@ schema:
 
 fields:
   - path: meta.role
-    purpose: 文档角色标识
+    purpose: 文档角色
     type: string
     required: true
     default: cinematic_intent
@@ -65,27 +59,22 @@ fields:
     required: false
     default: draft
   - path: inputs.from_docs
-    purpose: 上游依赖文档编号
+    purpose: 依赖的上游文档
     type: array[string]
     required: true
-    default: []
-  - path: content.global_principles.pacing
-    purpose: 全局节奏原则
+    default: ["script_breakdown_v1"]
+  - path: content.intent_summary
+    purpose: 概括的叙事/视觉意图
     type: string
     required: true
     default: ""
-  - path: content.global_principles.continuity_rules
-    purpose: 连续性规则
-    type: array[string]
-    required: true
-    default: []
   - path: content.shot_intents[].shot
     purpose: 镜头编号
     type: string
     required: true
     default: "shot001"
   - path: content.shot_intents[].viewing_goal
-    purpose: 观看目标
+    purpose: 主要观感目标
     type: string
     required: true
     default: ""
@@ -100,32 +89,30 @@ fields:
     required: true
     default: []
 
-inputs:
-  from_docs:
-    - "script_breakdown_v1"
-    - "1-2_segment_structure"
-    - "X-6_srt_input"
-
 content:
-  global_principles:
-    pacing: ""
-    continuity_rules: []
+  intent_summary: "保持工业质感、冷暖对比，并让摄像方向与节奏维持一致，避免多余动作。"
   shot_intents:
     - shot: "shot001"
-      viewing_goal: ""
-      emphasis: []
-      avoid: []
+      viewing_goal: "建立主要角色的紧张状态"
+      emphasis: ["光影对比", "角色的手势"]
+      avoid: ["多余布景反光", "过度摇摄"]
+    - shot: "shot002"
+      viewing_goal: "通过远景展示城市氛围与节奏"
+      emphasis: ["对角线构图", "机械纹理"]
+      avoid: ["过度晃动"]
 
 example:
   meta: {role: cinematic_intent, version: 1.0, status: draft}
   inputs:
-    from_docs: ["script_breakdown_v1", "1-2_segment_structure", "X-6_srt_input"]
+    from_docs: ["script_breakdown_v1"]
   content:
-    global_principles:
-      pacing: "整体节奏平稳"
-      continuity_rules: ["保持方向一致"]
+    intent_summary: "以冷暖对比突出工业张力，镜头移动保持方向一致，使情绪逐渐上升。"
     shot_intents:
       - shot: "shot001"
-        viewing_goal: "明确主体行动"
-        emphasis: ["主体位置"]
-        avoid: ["多余背景信息"]
+        viewing_goal: "说明角色在控制室的焦灼"
+        emphasis: ["冷色光", "手部慢动作"]
+        avoid: ["闪烁灯光", "手持不稳"]
+      - shot: "shot002"
+        viewing_goal: "展现外部世界的节奏"
+        emphasis: ["城市线条", "背景对称"]
+        avoid: ["轨道偏离"]

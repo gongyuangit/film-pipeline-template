@@ -6,7 +6,7 @@
 | 3 | pending | 已依据现有剧本文本生成 `30_project/docs/1_story/script_breakdown_v1.yaml` 的第一版骨架，必须人工确认后方可进入 Stage C；分镜/参考只是建议，可选。 |  |
 | 4 | done | `30_project/docs/1_story/` 已清理为仅保留 `script_breakdown_v1.yaml` 与 `1-2_segment_structure.yaml`，其余原始脚本/拆解文件移除。 |  |
 | 5 | done | `script_breakdown_v1.yaml` 已补齐场次与镜头层（segment→beat→shot），成为 Stage B 的唯一主产物。 |  |
-| 6 | pending | 请先将 `30_project/inputs/script/source_script.md` 提供为权威剧本文本，或继续在 `30_project/docs/0-source/raw/` 投递碎片供 Source Synthesis 合成；之后再继续 1_story。 |  |
+| 6 | pending | `30_project/docs/2_layout/2-1_cinematic_intent.yaml` 已基于 `source_script.md` 与 `script_breakdown_v1.yaml` 生成，请确认后再进入 layout freeze 或 prompt 生成。 |  |
 
 ## 【素材检测 / 启动前状态】
 <!-- inputs-detection:start -->
@@ -17,7 +17,7 @@
 | 剧本/脚本 | 必需 | `30_project/inputs/script/` | 提供完整脚本或文本（如 `script.pdf`, `剧本.md`），包含镜头/对白/节奏 |
 | 分镜/故事板 | 可选（建议） | `30_project/inputs/storyboard/` | 可补充已有分镜或视觉概念，但非阻塞 |
 | 拍摄/视觉参考 | 可选（建议） | `30_project/inputs/reference/` | 提供参考图或片段说明，可增视觉灵感 |
-| 素材/已有镜头 | 可选 | `30_project/inputs/assets/` | 若已有素材片段，可放入此目录并保持可读格式（如 `mp4`, `mov`） |
+| 素材/已有镜头 | 可选 | `30_project/inputs/assets/` | 若已有素材片段，可放入此目录并保持可读格式（如 `mp4`, `mov`) |
 <!-- inputs-detection:end -->
 
 ## 【可选素材建议】
