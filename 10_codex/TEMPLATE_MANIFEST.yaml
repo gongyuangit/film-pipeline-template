@@ -11,6 +11,8 @@ entries:
     type: file
   - path: "00_human/PRODUCTION.md"
     type: file
+  - path: "00_human/NOW.md"
+    type: file
   - path: "10_codex/00_CODEX_README.md"
     type: file
   - path: "10_codex/Makefile"
@@ -22,6 +24,8 @@ entries:
   - path: "10_codex/PIPELINE_STAGES.yaml"
     type: file
   - path: "10_codex/STANDARDS_LOOKDEV.md"
+    type: file
+  - path: "30_project/inputs/script/source_script.md"
     type: file
   - path: "20_runtime/layout"
     type: dir
@@ -113,13 +117,11 @@ entries:
     type: file
   - path: "30_project/docs/2_layout/CURRENT.yaml"
     type: file
-  - path: "30_project/docs/2_layout/_exports/"
-    type: dir
-  - path: "30_project/docs/2_layout/_exports/README.md"
-    type: file
   - path: "30_project/docs/2_layout/_artifacts/exports/"
     type: dir
   - path: "30_project/docs/2_layout/_artifacts/exports/layout_markers_v1.yaml"
+    type: file
+  - path: "30_project/docs/2_layout/2-2_layout_freeze.yaml"
     type: file
   - path: "30_project/docs/2_audio/"
     type: dir
@@ -197,15 +199,17 @@ entries:
     type: file
   - path: "30_project/docs/5_color/_artifacts/editing_bridge/rename_plan_v1.yaml"
     type: file
-  - path: "30_project/docs/3_prompt/"
+  - path: "90_archive/docs/"
     type: dir
-  - path: "30_project/docs/3_prompt/README.md"
-    type: file
-  - path: "30_project/docs/3_prompt/.gitkeep"
-    type: file
-  - path: "30_project/docs/4_render/"
+  - path: "90_archive/docs/3_lookdev/"
     type: dir
-  - path: "30_project/docs/4_render/README.md"
-    type: file
-  - path: "30_project/docs/4_render/.gitkeep"
-    type: file
+  - path: "90_archive/docs/3_prompt/"
+    type: dir
+  - path: "90_archive/docs/4_production/"
+    type: dir
+  - path: "90_archive/docs/4_render/"
+    type: dir
+  - path: "90_archive/docs/X_exec/"
+    type: dir
+  - path: "90_archive/docs/2_layout/_exports/"
+    type: dir

@@ -21,11 +21,11 @@
 - SOURCE_SCRIPT_APPROVED: 人工确认剧本文本
 - SCRIPT_BREAKDOWN_APPROVED: 人工确认 `script_breakdown_v1.yaml`
 - STAGE_C_DECISION_APPROVED: 人工确认方向性/制片决策
-- CINEMATIC_INTENT_APPROVED: 人工确认 `_artifacts/2-1_cinematic_intent_v1.yaml`
+- CINEMATIC_INTENT_APPROVED: 人工确认 `_artifacts/inputs/2-1_cinematic_intent_v1.yaml`
 - SHOT_MAP_SRT_XML_APPROVED: 人工确认 `_artifacts/editing_bridge/shot_map_v1.srt` 与 `timeline_plan_v1.xml`
 - LAYOUT_FREEZE_APPROVED: 人工确认 `2-2_layout_freeze.yaml`
 - LAYOUT_REVIEW_APPROVED: 人工确认 `_artifacts/reports/layout_review_v1.md`
-- LOOKDEV_PROMPTS_APPROVED: 人工确认 `_artifacts/branch_lookdev_shot_prompt_pack_v1.yaml`
+- LOOKDEV_PROMPTS_APPROVED: 人工确认 `_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml`
 - LOOKDEV_REVIEW_APPROVED: 人工确认 `_artifacts/reports/lookdev_review_v1.md`
 - AUDIO_PLAN_APPROVED: 人工确认 `_artifacts/audio_plan_v1.yaml`
 - AUDIO_PROMPTS_APPROVED: 人工确认所有音频 prompt pack

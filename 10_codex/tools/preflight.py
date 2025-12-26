@@ -15,8 +15,8 @@ APPROVALS_PATH = REPO_ROOT / "00_human" / "APPROVALS.md"
 HUMAN_TEMPLATES = {
     "00_human/INBOX.md": (
         "# INBOX\n"
-        "| Order | Stage | Gate Key | Status | Prereq | Artifact | Notes |\n"
-        "| -- | -- | -- | -- | -- | -- | -- |\n"
+        "| Order | Stage | Gate Key | Status | Action | Artifact | Prereq | Artifact Exists |\n"
+        "| -- | -- | -- | -- | -- | -- | -- | -- |\n"
     ),
     "00_human/APPROVALS.md": (
         "# APPROVALS\n"
@@ -42,6 +42,11 @@ HUMAN_TEMPLATES = {
     "00_human/DECISIONS.md": "# DECISIONS\n\n- 无\n",
     "00_human/NEEDED_INPUTS.md": "# NEEDED INPUTS\n\n- None\n",
     "00_human/PRODUCTION.md": "# PRODUCTION\n\n- None\n",
+    "00_human/NOW.md": (
+        "# NOW\n"
+        "| Order | Stage | Gate Key | Status | Action | Artifact |\n"
+        "| -- | -- | -- | -- | -- | -- |\n"
+    ),
 }
 
 def load_manifest():
@@ -134,54 +139,87 @@ def load_approvals():
     return APPROVALS_PATH.read_text(encoding="utf-8")
 
 
+def build_stage_status(stage, approvals_data):
+    gate_key = stage.get("approval_key") or stage.get("name")
+    product = stage.get("product", "").strip() or "-"
+    product_paths = parse_product_paths(product)
+    exists_flag = artifact_exists(product_paths)
+    missing_prereqs = [
+        req
+        for req in stage.get("requires", [])
+        if approvals_data.get(req, {}).get("status", "").lower() != "approved"
+    ]
+    prereq_ok = not missing_prereqs
+    entry = approvals_data.get(gate_key, {})
+    raw_status = entry.get("status", "pending")
+    approved = str(raw_status).lower() == "approved"
+    if approved:
+        status = "approved"
+    elif not prereq_ok:
+        status = "blocked"
+    else:
+        status = "pending"
+    if product == "-":
+        artifact_display = "-"
+    else:
+        missing_paths = [path for path in product_paths if not (REPO_ROOT / path).exists()]
+        artifact_display = (
+            f"{product} (missing: {', '.join(missing_paths)})"
+            if missing_paths
+            else f"{product} (exists)"
+        )
+    artifact_exists_col = "yes" if exists_flag else "no"
+    prereq_display = "yes" if prereq_ok else f"missing: {', '.join(missing_prereqs)}"
+    action_description = stage.get("description", "").strip() or stage.get("name")
+    return {
+        "stage_name": stage.get("name"),
+        "gate_key": gate_key,
+        "status": status,
+        "action": action_description,
+        "artifact": artifact_display,
+        "prereq": prereq_display,
+        "artifact_exists": artifact_exists_col,
+        "exists": exists_flag,
+        "prereq_ok": prereq_ok,
+    }
+
+
 def write_inbox_table(approvals_data, stages):
     rows = [
         "# INBOX",
         "",
-        "| Order | Stage | Gate Key | Status | Prereq | Artifact | Notes |",
-        "| -- | -- | -- | -- | -- | -- | -- |",
+        "| Order | Stage | Gate Key | Status | Action | Artifact | Prereq | Artifact Exists |",
+        "| -- | -- | -- | -- | -- | -- | -- | -- |",
     ]
     for order, stage in enumerate(stages, start=1):
-        gate_key = stage.get("approval_key") or stage.get("name")
-        product = stage.get("product", "-")
-        product_paths = parse_product_paths(product)
-        exists = artifact_exists(product_paths)
-        missing_prereqs = [
-            req
-            for req in stage.get("requires", [])
-            if approvals_data.get(req, {}).get("status", "").lower() != "approved"
-        ]
-        prereq_ok = not missing_prereqs
-        entry = approvals_data.get(gate_key, {})
-        raw_status = entry.get("status", "pending")
-        approved = str(raw_status).lower() == "approved"
-        if approved:
-            status = "approved"
-        elif not prereq_ok:
-            status = "blocked"
-        else:
-            status = "pending"
-        prereq_display = "yes" if prereq_ok else f"missing: {', '.join(missing_prereqs)}"
-        if product:
-            missing_paths = [
-                path for path in product_paths if not (REPO_ROOT / path).exists()
-            ]
-            if missing_paths:
-                artifact_display = f"{product} (missing: {', '.join(missing_paths)})"
-            else:
-                artifact_display = f"{product} (exists)"
-        else:
-            artifact_display = "-"
-        notes_parts = [stage.get("description", "").strip()]
-        if not notes_parts[0]:
-            notes_parts = []
-        if status == "pending" and not exists:
-            notes_parts.append("waiting artifact")
-        notes = "；".join(part for part in notes_parts if part)
+        stage_status = build_stage_status(stage, approvals_data)
         rows.append(
-            f"| {order} | {stage.get('name')} | {gate_key} | {status} | {prereq_display} | {artifact_display} | {notes} |"
+            f"| {order} | {stage_status['stage_name']} | {stage_status['gate_key']} | {stage_status['status']} | "
+            f"{stage_status['action']} | {stage_status['artifact']} | {stage_status['prereq']} | {stage_status['artifact_exists']} |"
         )
     with INBOX_PATH.open("w", encoding="utf-8") as f:
+        f.write("\n".join(rows) + "\n")
+
+
+def write_now_table(approvals_data, stages):
+    rows = [
+        "# NOW",
+        "",
+        "| Order | Stage | Gate Key | Status | Action | Artifact |",
+        "| -- | -- | -- | -- | -- | -- |",
+    ]
+    for order, stage in enumerate(stages, start=1):
+        stage_status = build_stage_status(stage, approvals_data)
+        if stage_status["status"] == "pending" and stage_status["prereq_ok"] and stage_status["exists"]:
+            rows.append(
+                f"| {order} | {stage_status['stage_name']} | {stage_status['gate_key']} | {stage_status['status']} | "
+                f"{stage_status['action']} | {stage_status['artifact']} |"
+            )
+    if len(rows) == 4:
+        rows.append("| - | - | - | - | - | - |")
+        rows.append("> 当前无可行动的 gate。")
+    NOW_PATH = REPO_ROOT / "00_human" / "NOW.md"
+    with NOW_PATH.open("w", encoding="utf-8") as f:
         f.write("\n".join(rows) + "\n")
 
 
@@ -204,6 +242,7 @@ def main():
     approvals_data = parse_approvals_table(approvals_text)
     stages = load_pipeline_stages()
     write_inbox_table(approvals_data, stages)
+    write_now_table(approvals_data, stages)
     if not SOURCE_SCRIPT_PATH.exists():
         print("缺失 30_project/inputs/script/source_script.md，暂停 1_story 生成，等待人工上传或通过 0-source/raw 补全。")
         sys.exit(1)

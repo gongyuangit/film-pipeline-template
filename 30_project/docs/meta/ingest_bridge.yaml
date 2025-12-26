@@ -174,9 +174,9 @@ ingest_to_docs:
   srt:
     extract: ["time_range", "text"]
     route_by_tag:
-      - {when_tag: "[INTENT]", doc: "30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml", field: "content.shot_intents[]"}
-      - {when_tag: "[LOOK]", doc: "00_docs/3_lookdev/3-1_lookdev.yaml", field: "content.per_shot_notes[]"}
-      - {when_tag: "[EXEC]", doc: "00_docs/X_exec/X-0_execution_tokens.yaml", field: "tokens.positive.shared"}
+      - {when_tag: "[INTENT]", doc: "30_project/docs/2_layout/_artifacts/inputs/2-1_cinematic_intent_v1.yaml", field: "content.shot_intents[]"}
+      - {when_tag: "[LOOK]", doc: "90_archive/docs/3_lookdev/3-1_lookdev.yaml", field: "content.per_shot_notes[]"}
+      - {when_tag: "[EXEC]", doc: "90_archive/docs/X_exec/X-0_execution_tokens.yaml", field: "tokens.positive.shared"}
       - {when_tag: "[CONT]", doc: "30_project/docs/2_layout/2-2_layout_freeze.yaml", field: "content.shots[].spatial.continuity_notes"}
 
 srt_authoring_examples:
@@ -209,6 +209,6 @@ example:
     srt:
       extract: ["time_range", "text"]
       route_by_tag:
-        - {when_tag: "[INTENT]", doc: "30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml", field: "content.shot_intents[]"}
+        - {when_tag: "[INTENT]", doc: "30_project/docs/2_layout/_artifacts/inputs/2-1_cinematic_intent_v1.yaml", field: "content.shot_intents[]"}
   srt_authoring_examples:
     - "00:00:01,000 --> 00:00:03,000  [SHOT] shot001 占位"

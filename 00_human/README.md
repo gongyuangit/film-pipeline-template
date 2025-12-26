@@ -22,15 +22,21 @@
 
 ## 二、文件职责说明（固定，不可扩展）
 
-### 1. INBOX.md —— 当前待处理事项（唯一入口）
+### 1. INBOX.md —— 全流程 gate 看板（All Gates）
 
-- 仅显示**当前仍需人工处理**的事项
-- 每条事项只会出现一次
-- 状态完成后，该条目会从 INBOX 中消失
+- 显示 `PIPELINE_STAGES.yaml` 定义的所有 gate，按 stage_order 排序
+- Status 会标记为 `approved` / `blocked` / `pending`
+- 每行同时告诉你 artifact 是否存在以及哪些 approvals 仍未达成
 
-**INBOX 不保存历史，仅反映“现在要你做什么”**
+**把整个节奏摆在 INBOX 中；深度追踪流程进度时请直接打开本表。**
 
-完成后的信息将被转移到更合适的文件中（如下）。
+### 2. NOW.md —— 当前可行动的 pending gate
+
+- 仅显示 Status 为 `pending`，且 prerequisites 已满足、artifact 已存在的 gate
+- 表格按相同 stage_order 排列，保持“今天该做什么”的聚焦视图
+- 该文件会随 `preflight` 每次刷新：不 action 的 gate 将自动消失直到满足条件
+
+**INBOX 展示全流程状态，NOW 则告诉你“现在可以干啥”。**
 
 ---
 

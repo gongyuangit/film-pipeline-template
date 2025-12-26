@@ -37,39 +37,39 @@ stages:
     id: 2
     docs:
       - id: "2-1"
-        path: "30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml"
-        depends_on: ["1-1", "1-2", "X-6"]
+        path: "30_project/docs/2_layout/_artifacts/inputs/2-1_cinematic_intent_v1.yaml"
+        depends_on: ["1-1", "1-2"]
       - id: "2-2"
         path: "30_project/docs/2_layout/2-2_layout_freeze.yaml"
-        depends_on: ["2-1", "1-1", "X-2", "X-4", "X-7"]
+        depends_on: ["2-1", "1-1"]
 
-  - stage: "3_lookdev"
+  - stage: "2_audio"
     id: 3
     docs:
-      - id: "3-1"
-        path: "00_docs/3_lookdev/3-1_lookdev.yaml"
-        depends_on: ["0-4", "2-2", "X-3", "X-4", "X-5"]
+      - id: "2A-1"
+        path: "30_project/docs/2_audio/_artifacts/audio_plan_v1.yaml"
+        depends_on: ["2-1"]
+      - id: "2A-2"
+        path: "30_project/docs/2_audio/_artifacts/prompt_packs/dialogue_vo_prompt_pack_v1.yaml"
+        depends_on: ["2A-1"]
+      - id: "2A-3"
+        path: "30_project/docs/2_audio/_artifacts/reports/audio_review_v1.md"
+        depends_on: ["2A-2"]
 
-  - stage: "4_production"
+  - stage: "5_color"
     id: 4
     docs:
-      - id: "4-1"
-        path: "00_docs/4_production/4-1_shot_production.yaml"
-        depends_on: ["2-2", "3-1", "X-4", "X-5"]
-      - id: "4-2"
-        path: "00_docs/4_production/4-2_post_production.yaml"
-        depends_on: ["4-1", "X-5", "X-6"]
+      - id: "5-1"
+        path: "30_project/docs/5_color/_artifacts/reports/color_qc_v1.md"
+        depends_on: ["2A-3"]
+      - id: "5-2"
+        path: "30_project/docs/5_color/_artifacts/reports/color_review_v1.md"
+        depends_on: ["5-1"]
 
 shared_exec_inputs:
   - id: "X-4"
-    path: "00_docs/X_exec/X-4_prompt_input.yaml"
+    path: "90_archive/docs/X_exec/X-4_prompt_input.yaml"
     role: "prompt_input"
   - id: "X-5"
-    path: "00_docs/X_exec/X-5_token_input.yaml"
+    path: "90_archive/docs/X_exec/X-5_token_input.yaml"
     role: "token_input"
-  - id: "X-6"
-    path: "00_docs/X_exec/X-6_srt_input.yaml"
-    role: "srt_input"
-  - id: "X-7"
-    path: "00_docs/X_exec/X-7_xml_input.yaml"
-    role: "xml_input"
