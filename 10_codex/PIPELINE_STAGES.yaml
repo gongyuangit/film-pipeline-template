@@ -39,6 +39,21 @@ stages:
     approval_key: "LAYOUT_FREEZE_APPROVED"
     requires:
       - "SHOT_MAP_SRT_XML_APPROVED"
+    next_targets: ["Stage LR"]
+  - name: "Stage LR"
+    description: "Layout review and acceptance"
+    product: "30_project/docs/2_layout/_artifacts/reports/layout_review_v1.md"
+    approval_key: "LAYOUT_REVIEW_APPROVED"
+    requires:
+      - "LAYOUT_FREEZE_APPROVED"
+    next_targets: ["Stage K"]
+  - name: "Stage K"
+    description: "Lookdev shot prompts"
+    product: "30_project/docs/2_layout/_artifacts/branch_lookdev_shot_prompt_pack_v1.yaml"
+    approval_key: "LOOKDEV_PROMPTS_APPROVED"
+    requires:
+      - "LAYOUT_REVIEW_APPROVED"
+      - "CINEMATIC_INTENT_APPROVED"
     next_targets: ["Stage F"]
   - name: "Stage F"
     description: "Execution planning"
@@ -46,4 +61,5 @@ stages:
     approval_key: "EXEC_PLAN_APPROVED"
     requires:
       - "LAYOUT_FREEZE_APPROVED"
+      - "LOOKDEV_PROMPTS_APPROVED"
     next_targets: []

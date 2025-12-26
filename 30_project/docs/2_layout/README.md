@@ -25,3 +25,8 @@
 - 轨道可以多对多：一个镜头可覆盖多个素材、一个素材可跨多个镜头；允许镜头为空，轨道上的素材可以是视频或静态图。
 
 `_artifacts/editing_bridge/` 中的所有文件都属于 layout 产物；更新它们须同步更新 `CINEMATIC_INTENT_APPROVED` 及 `SHOT_MAP_SRT_XML_APPROVED` 之类的 gates，保持 stop→go→stop 的节奏。
+
+## Lookdev Prompt Guidance
+
+- Layout prompt pack（如 `branch1_segment_prompt_pack_v1.yaml` / `branch2_shot_prompt_pack_v1.yaml`）聚焦镜头逻辑、镜头语言与叙事节奏，源自 cinematic intent 与 layout freeze 输出；它们的逻辑是“如何用镜头呈现叙事”。
+- Lookdev shot prompt pack (`branch_lookdev_shot_prompt_pack_v1.yaml`) 则侧重镜头画面风格、材质与灯光预期，其信息源必须包含 cinematic intent 与 `reports/layout_review_v1.md` 中的验收反馈（问题清单 + 通用教训 + lookdev 补丁），目的是帮助 lookdev 团队在镜头构图基础上决策材质调性。

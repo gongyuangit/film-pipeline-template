@@ -9,3 +9,4 @@
 - 镜头与素材的多对多关系是允许的；真相以 XML 时间线为准，命名仅为整理标签；如需策略性调整，可在 `_artifacts/editing_bridge/notes.md` 记录辅助决策。
 - Layout 轨道：`V4` = layout_master，`V1/V2/V3` = layout_candidates；Lookdev 轨道：`V8` = lookdev_master，`V5/V6/V7` = lookdev_candidates。
 - Track 上的素材（视频或图片）与镜头之间允许多对多与错位，只要 XML 时间线能说明事实即可；`timeline_plan_v1.xml` 是规划版骨架，`shot_map_v1.srt` 的镜头顺序必须对应 XML 轨道 marker。
+- Layout prompts（segment/shot prompt pack）依赖 cinematic intent + layout freeze 输出，关注结构、节奏与镜头逻辑；Lookdev prompts 则必须额外依赖 `reports/layout_review_v1.md` 中的验收反馈（按镜头问题清单 + 通用教训 + lookdev 输入补丁），用于指导材质、光效、细节层面的设计决策。

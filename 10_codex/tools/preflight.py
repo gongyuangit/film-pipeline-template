@@ -30,6 +30,8 @@ HUMAN_TEMPLATES = {
         "- CINEMATIC_INTENT_APPROVED: 人工确认 cinematic intent\n"
         "- SHOT_MAP_SRT_XML_APPROVED: 人工确认 layout shot map SRT + planning XML\n"
         "- LAYOUT_FREEZE_APPROVED: 人工确认 layout freeze\n"
+        "- LAYOUT_REVIEW_APPROVED: 人工确认 layout review\n"
+        "- LOOKDEV_PROMPTS_APPROVED: 人工确认 lookdev shot prompts\n"
         "- EXEC_PLAN_APPROVED: 人工确认 exec plan\n"
     ),
     "00_human/DECISIONS.md": "# DECISIONS\n\n- 无\n",
@@ -113,6 +115,8 @@ def update_source_script_gate():
 
 STAGE_D_ROW = "| 6 | pending | `30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml` 已基于 `source_script.md` 与 `script_breakdown_v1.yaml` 生成，请确认后再进入 shot map / layout freeze。 |  |"
 STAGE_P1_5_ROW = "| 7 | pending | `30_project/docs/2_layout/_artifacts/editing_bridge/shot_map_v1.srt` 与 `30_project/docs/2_layout/_artifacts/editing_bridge/timeline_plan_v1.xml` 均已生成镜头管理 SRT 与规划 XML，请确认后再进入 layout 或 prompt 生成。 |  |"
+STAGE_LR_ROW = "| 8 | pending | `30_project/docs/2_layout/_artifacts/reports/layout_review_v1.md` 已生成 layout review 验收记录，请确认后再进入 lookdev prompt Pack。 |  |"
+STAGE_K_ROW = "| 9 | pending | `30_project/docs/2_layout/_artifacts/branch_lookdev_shot_prompt_pack_v1.yaml` 已生成 Lookdev shot prompt Pack，请确认后再进入执行计划。 |  |"
 
 
 def _update_table(lines):
@@ -130,7 +134,7 @@ def _update_table(lines):
     source_exists = SOURCE_SCRIPT_PATH.exists()
     if source_exists and row_exists:
         rows = [row for row in rows if row_keyword not in row]
-    stage_rows = [STAGE_D_ROW, STAGE_P1_5_ROW]
+    stage_rows = [STAGE_D_ROW, STAGE_P1_5_ROW, STAGE_LR_ROW, STAGE_K_ROW]
     if not source_exists and not row_exists:
         gate_row = "| 6 | pending | 请先将 `30_project/inputs/script/source_script.md` 提供为权威剧本文本，或继续在 `30_project/docs/0-source/raw/` 投递碎片供 Source Synthesis 合成；之后再继续 1_story。 |  |"
         rows.append(gate_row)
