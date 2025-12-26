@@ -127,7 +127,7 @@
 
 ## 执行层流程规则（Execution Gates）
 
-`30_project/docs/0-source/` 被定义为碎片事实源（可乱可碎）——仅供参考，不能直接驱动下游流程。若缺少明确的 `source_script.md`，必须先进入 Source Synthesis 阶段，生成可供人工确认的权威文本。
+`30_project/docs/0-source/` 被定义为碎片事实源（可乱可碎）——仅供参考，不能直接驱动下游流程。目录必须至少包含三层结构：`inbox/`（用户投递碎片的唯一入口）、`parsed/`（分批解析出的标准文本/说明）、`registry.yaml`（解析登记册）。若缺少明确的 `source_script.md`，必须先进入 Source Synthesis 阶段，生成可供人工确认的权威文本。
 
 项目流程被划分为以下阶段 :
 
@@ -139,6 +139,12 @@
   - 未收到人工确认，禁止生成 `script_breakdown`
   - 一旦人工确认，草案升级为 `source_script.md` 并归档 `source_script_draft.md` 版本
 - 结束条件：存在 `approved` 的 `source_script.md`，该文件成为唯一权威文本来源
+- 说明：`30_project/docs/0-source/` 必须包含三层结构——`inbox/`（用户投递碎片入口）、`parsed/`（每个源文件的解析输出）、`registry.yaml`（记录 fingerprint、输出路径和解析状态）。Stage S 期间必须遵循解析登记册规则：
+- 先查找 `registry.yaml` 中记录，若 fingerprint 未变则直接复用 `parsed_output`，避免重复解析；
+- 若 fingerprint 变化或无记录，才解析对应 `inbox/` 文件，产出详细的解析文本（`.md`/`.txt`），并写入 `parsed/`，同时更新 registry 的 `summary`、`status`（`parsed`/`skipped`/`needs_review`）与 `last_parsed_at`；
+- 解析说明要具有可引用价值（如“提取出角色动机与环境描述”），而非仅写“已解析”；
+- Stage S 的输入优先级为：先使用 registry 指向的 `parsed/` 文本，若需要再按 inbox 增量处理未登记或 fingerprint 变化的文件。
+注册条目必须包括至少这些字段：`source_path`、`fingerprint`、`parsed_output`、`summary`、`status`（`parsed`/`skipped`/`needs_review`）、`last_parsed_at`，以便 Source Synthesis 判断是否继续解析。
 
 阶段 A：输入预处理（自动）
 

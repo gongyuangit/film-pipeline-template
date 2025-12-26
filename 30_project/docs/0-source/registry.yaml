@@ -1,0 +1,9 @@
+# 0-source 解析登记册，记录每个 inbox 源的 fingerprint 与输出。
+entries: []
+# 示例条目（可复制更新）：
+# - source_path: inbox/fragment_a.txt
+#   fingerprint: 1234567890abcdef
+#   parsed_output: parsed/fragment_a.md
+#   summary: 提取角色与背景说明
+#   status: parsed
+#   last_parsed_at: 2024-01-01T00:00:00Z
