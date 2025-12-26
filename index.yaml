@@ -8,19 +8,19 @@ stages:
     id: 0
     docs:
       - id: "0-1"
-        path: "00_docs/0_source/0-1_source_origin.yaml"
+        path: "30_project/docs/0-source/raw/structured/0-1_source_origin.yaml"
         depends_on: []
       - id: "0-2"
-        path: "00_docs/0_source/0-2_world_rules.yaml"
+        path: "30_project/docs/0-source/raw/structured/0-2_world_rules.yaml"
         depends_on: []
       - id: "0-3"
-        path: "00_docs/0_source/0-3_assets_entities.yaml"
+        path: "30_project/docs/0-source/raw/structured/0-3_assets_entities.yaml"
         depends_on: []
       - id: "0-4"
-        path: "00_docs/0_source/0-4_visual_direction.yaml"
+        path: "30_project/docs/0-source/raw/structured/0-4_visual_direction.yaml"
         depends_on: []
       - id: "0-5"
-        path: "00_docs/0_source/0-5_references_constraints.yaml"
+        path: "30_project/docs/0-source/raw/structured/0-5_references_constraints.yaml"
         depends_on: []
 
   - stage: "1_story"

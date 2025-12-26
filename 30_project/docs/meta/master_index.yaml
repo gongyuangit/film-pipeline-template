@@ -57,11 +57,11 @@ fields:
     default: ""
 
 documents:
-  - {id: "0-1", path: "00_docs/0_source/0-1_source_origin.yaml", role: "source_origin"}
-  - {id: "0-2", path: "00_docs/0_source/0-2_world_rules.yaml", role: "world_rules"}
-  - {id: "0-3", path: "00_docs/0_source/0-3_assets_entities.yaml", role: "assets_entities"}
-  - {id: "0-4", path: "00_docs/0_source/0-4_visual_direction.yaml", role: "visual_direction"}
-  - {id: "0-5", path: "00_docs/0_source/0-5_references_constraints.yaml", role: "references_constraints"}
+  - {id: "0-1", path: "30_project/docs/0-source/raw/structured/0-1_source_origin.yaml", role: "source_origin"}
+  - {id: "0-2", path: "30_project/docs/0-source/raw/structured/0-2_world_rules.yaml", role: "world_rules"}
+  - {id: "0-3", path: "30_project/docs/0-source/raw/structured/0-3_assets_entities.yaml", role: "assets_entities"}
+  - {id: "0-4", path: "30_project/docs/0-source/raw/structured/0-4_visual_direction.yaml", role: "visual_direction"}
+  - {id: "0-5", path: "30_project/docs/0-source/raw/structured/0-5_references_constraints.yaml", role: "references_constraints"}
 
   - {id: "1-1", path: "00_docs/1_story/1-1_script_text.yaml", role: "script_text"}
   - {id: "1-2", path: "00_docs/1_story/1-2_segment_structure.yaml", role: "segment_structure"}
@@ -90,5 +90,5 @@ documents:
 example:
   meta: {role: navigation_index, version: 1.0, status: draft}
   documents:
-    - {id: "0-1", path: "00_docs/0_source/0-1_source_origin.yaml", role: "source_origin"}
+    - {id: "0-1", path: "30_project/docs/0-source/raw/structured/0-1_source_origin.yaml", role: "source_origin"}
     - {id: "X-4", path: "00_docs/X_exec/X-4_prompt_input.yaml", role: "prompt_input"}

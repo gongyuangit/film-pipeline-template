@@ -62,8 +62,8 @@ gates:
   - id: "G0_to_G1"
     description: "源头层信息不足，禁止冻结叙事结构"
     required_docs:
-      - "00_docs/0_source/0-2_world_rules.yaml"
-      - "00_docs/0_source/0-3_assets_entities.yaml"
+      - "30_project/docs/0-source/raw/structured/0-2_world_rules.yaml"
+      - "30_project/docs/0-source/raw/structured/0-3_assets_entities.yaml"
 
   - id: "G1_to_G2"
     description: "镜头清单未冻结，禁止进入 layout 冻结"
@@ -85,4 +85,4 @@ example:
   gates:
     - id: "G0_to_G1"
       description: "完成源头层后进入下一层"
-      required_docs: ["00_docs/0_source/0-2_world_rules.yaml"]
+      required_docs: ["30_project/docs/0-source/raw/structured/0-2_world_rules.yaml"]

@@ -131,8 +131,8 @@
 
 项目流程被划分为以下阶段 :
 
-阶段 S：Source Synthesis（碎片化输入处理）
-- 内容：从 `30_project/docs/0-source/` 的碎片、可选 `storyboard/` 与 `reference/` 整理出 `source_script_draft.md`
+- 阶段 S：Source Synthesis（碎片化输入处理）
+- 内容：优先结合 `30_project/docs/0-source/raw/structured/` 中的高质量 YAML 与 `raw/`、可选 `storyboard/` 与 `reference/` 中的碎片，整理出 `source_script_draft.md`
 - 权限：允许自动化汇总碎片并生成草案
 - 强制规则：
   - 需在 `00_human/INBOX.md` 中新增 `pending` 条目请求人工确认草案
@@ -143,8 +143,8 @@
 - 先查找 `registry.yaml` 中记录，若 fingerprint 未变则直接复用 `parsed_output`，避免重复解析；
 - 若 fingerprint 变化或无记录，才解析对应 `raw/` 文件，产出详细的解析文本（`.md`/`.txt`），并写入 `parsed/`，同时更新 registry 的 `summary`、`status`（`parsed`/`skipped`/`needs_review`）与 `last_parsed_at`；
 - 解析说明要具有可引用价值（如“提取出角色动机与环境描述”），而非仅写“已解析”；
-- Stage S 的输入优先级为：先使用 registry 指向的 `parsed/` 文本，若需要再按 inbox 增量处理未登记或 fingerprint 变化的文件。
-注册条目必须包括至少这些字段：`source_path`、`fingerprint`、`parsed_output`、`summary`、`status`（`parsed`/`skipped`/`needs_review`）、`last_parsed_at`，以便 Source Synthesis 判断是否继续解析。
+- Stage S 的输入优先级为：先使用 registry 指向的 `parsed/` 文本，若需要再按 `raw/` 增量处理未登记或 fingerprint 变化的文件。`raw/structured/` 中的 YAML 属于手工核准的高质量片段，Stage S 应优先引用并直接复用。
+- 注册条目必须包括至少这些字段：`source_path`、`fingerprint`、`parsed_output`、`summary`、`status`（`parsed`/`skipped`/`needs_review`）、`last_parsed_at`，以便 Source Synthesis 判断是否继续解析。
 
 阶段 A：输入预处理（自动）
 
