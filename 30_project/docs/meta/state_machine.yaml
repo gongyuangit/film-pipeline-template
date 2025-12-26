@@ -75,11 +75,6 @@ gates:
     required_docs:
       - "30_project/docs/2_layout/2-2_layout_freeze.yaml"
 
-  - id: "G3_to_G4"
-    description: "lookdev 未定版，禁止进入规模化生产"
-    required_docs:
-      - "90_archive/docs/3_lookdev/3-1_lookdev.yaml"
-
 example:
   meta: {role: state_machine, version: 1.0, status: draft}
   gates:

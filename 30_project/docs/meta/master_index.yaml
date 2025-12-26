@@ -69,8 +69,6 @@ documents:
   - {id: "2-1", path: "30_project/docs/2_layout/_artifacts/inputs/2-1_cinematic_intent_v1.yaml", role: "cinematic_intent"}
   - {id: "2-2", path: "30_project/docs/2_layout/2-2_layout_freeze.yaml", role: "layout_freeze"}
 
-  - {id: "3-1", path: "90_archive/docs/3_lookdev/3-1_lookdev.yaml", role: "lookdev"}
-
   - {id: "2A-1", path: "30_project/docs/2_audio/_artifacts/audio_plan_v1.yaml", role: "audio_plan"}
   - {id: "2A-2", path: "30_project/docs/2_audio/_artifacts/prompt_packs/dialogue_vo_prompt_pack_v1.yaml", role: "audio_prompts"}
   - {id: "2A-3", path: "30_project/docs/2_audio/_artifacts/reports/audio_review_v1.md", role: "audio_review"}
@@ -78,21 +76,12 @@ documents:
   - {id: "5-1", path: "30_project/docs/5_color/_artifacts/reports/color_qc_v1.md", role: "color_qc"}
   - {id: "5-2", path: "30_project/docs/5_color/_artifacts/reports/color_review_v1.md", role: "color_review"}
 
-  - {id: "4-1", path: "90_archive/docs/4_production/4-1_shot_production.yaml", role: "shot_production"}
-  - {id: "4-2", path: "90_archive/docs/4_production/4-2_post_production.yaml", role: "post_production"}
-
-  - {id: "X-0", path: "90_archive/docs/X_exec/X-0_execution_tokens.yaml", role: "execution_tokens"}
-  - {id: "X-1", path: "90_archive/docs/X_exec/X-1_segment_story_prompts.yaml", role: "segment_story_prompts"}
-  - {id: "X-2", path: "90_archive/docs/X_exec/X-2_layout_prompts.yaml", role: "layout_prompts"}
-  - {id: "X-3", path: "90_archive/docs/X_exec/X-3_lookdev_prompts.yaml", role: "lookdev_prompts"}
-  - {id: "X-4", path: "90_archive/docs/X_exec/X-4_prompt_input.yaml", role: "prompt_input"}
-  - {id: "X-5", path: "90_archive/docs/X_exec/X-5_token_input.yaml", role: "token_input"}
-  - {id: "X-6", path: "90_archive/docs/X_exec/X-6_srt_input.yaml", role: "srt_input"}
-  - {id: "X-7", path: "90_archive/docs/X_exec/X-7_xml_input.yaml", role: "xml_input"}
+  - {id: "4-1", path: "30_project/docs/2_layout/_artifacts/inputs/2-1_cinematic_intent_v1.yaml", role: "cinematic_intent"}
+  - {id: "4-2", path: "30_project/docs/2_layout/2-2_layout_freeze.yaml", role: "layout_freeze"}
 
 example:
   meta: {role: navigation_index, version: 1.0, status: draft}
   documents:
     - {id: "0-1", path: "30_project/docs/0-source/raw/structured/0-1_source_origin.yaml", role: "source_origin"}
     - {id: "1-1", path: "30_project/docs/1_story/script_breakdown_v1.yaml", role: "script_breakdown"}
-    - {id: "X-4", path: "90_archive/docs/X_exec/X-4_prompt_input.yaml", role: "prompt_input"}
+    - {id: "2-2", path: "30_project/docs/2_layout/2-2_layout_freeze.yaml", role: "layout_freeze"}

@@ -33,13 +33,12 @@ KEY_RULES = [
     "`TEMPLATE_PLACEHOLDER: true` + `content_nontrivial` heuristics guard readiness for YAML/MD/SRT/XML/JSON inputs.",
     "XML/SRT files represent timeline facts; trust track IDs and durations, not track names, and keep them under `_artifacts/editing_bridge/`.",
     "Every generated product must live inside the stage’s `_artifacts/` directory; layout uses `CURRENT.yaml` as the pointer.",
-    "`90_archive/` is archive-only and is intentionally excluded from manifests, dashboards, and gate enforcement.",
 ]
 
 NO_DRIFT = [
     "New stages must sync `PIPELINE_STAGES.yaml`, `TEMPLATE_MANIFEST.yaml`, dashboards (INBOX/NOW), and `preflight.py` gating logic.",
     "Every required file/directory must be listed in `TEMPLATE_MANIFEST.yaml`; preflight recreates placeholders when missing.",
-    "Any structural change must document updates in `10_codex/TEMPLATE_INDEX.md` and, if archiving content, log it under `90_archive/docs_migration_log.md`.",
+    "Any structural change must document updates in `10_codex/TEMPLATE_INDEX.md` and, if archiving content, record it in the migration log.",
 ]
 
 

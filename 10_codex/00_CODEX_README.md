@@ -175,7 +175,7 @@
 
 ## 模板清单与 Preflight（预置 + 自检）
 
-1) `10_codex/TEMPLATE_MANIFEST.yaml` 是模板结构的 Source of Truth，列出必须保留的目录和文件（`00_human` 五件套、`30_project/inputs/script/source_script.md`、`0-source/raw/` + `parsed/` + `registry.yaml`、`1_story/script_breakdown_v1.yaml`、`2_layout/`、`2_audio/`、`5_color/`、`2_layout/2-2_layout_freeze.yaml`、`90_archive/docs/...` 旧档案等）。每当引入新路径或 archive 旧路径，应同步在该清单添加新条目，并让 `preflight` (see below) 触发之。
+1) `10_codex/TEMPLATE_MANIFEST.yaml` 是模板结构的 Source of Truth，列出必须保留的目录和文件（`00_human` 五件套、`30_project/inputs/script/source_script.md`、`0-source/raw/` + `parsed/` + `registry.yaml`、`1_story/script_breakdown_v1.yaml`、`2_layout/`、`2_audio/`、`5_color/`、`2_layout/2-2_layout_freeze.yaml` 等）。每当引入新路径或 archive 旧路径，应同步在该清单添加新条目，并让 `preflight` (see below) 触发之。
 2) 每次执行前必须先运行 `preflight`；该脚本会根据 manifest 补齐结构、在 00_human/INBOX.md 写入结构变化摘要，并在缺失的 `source_script.md` situ 抛出门槛（只会在 INBOX 表格中提示“请向 30_project/docs/0-source/raw/ 投递碎片以生成 script”），确保执行节奏“停→走→停”。
 3) `10_codex/Makefile` 已将 `plan`、`exec-plan`、`check-inputs` 与 `preflight` 串联：先自检、再生成，再等待人工批准；任何阶段主产物产出后都需在 INBOX 创建对应 pending 项，一旦 `APPROVALS.md` 写入该产物，该阶段才允许继续。
 4) `source_script.md` 是第一门槛；没有确认的剧本，就不能生成 `script_breakdown_v1`，更不能进入 layout、prompt、render 等下游，整套流程靠 “AI 做事、人类决策” 的【停走停】节奏控制。

@@ -65,11 +65,3 @@ stages:
       - id: "5-2"
         path: "30_project/docs/5_color/_artifacts/reports/color_review_v1.md"
         depends_on: ["5-1"]
-
-shared_exec_inputs:
-  - id: "X-4"
-    path: "90_archive/docs/X_exec/X-4_prompt_input.yaml"
-    role: "prompt_input"
-  - id: "X-5"
-    path: "90_archive/docs/X_exec/X-5_token_input.yaml"
-    role: "token_input"

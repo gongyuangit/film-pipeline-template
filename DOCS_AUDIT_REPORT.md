@@ -68,5 +68,5 @@
 ## 4. Actionable summary
 
 - Add `30_project/inputs/script/source_script.md` and `30_project/docs/2_layout/2-2_layout_freeze.yaml` to `TEMPLATE_MANIFEST.yaml`.
-- Archive unused directories (`3_lookdev`, `3_prompt`, `4_production`, `4_render`, `_exports`, `X_exec`) under `90_archive/` and update meta/index references to point at the archived copies.
+- Archive unused directories (`3_lookdev`, `3_prompt`, `4_production`, `4_render`, `_exports`, `X_exec`) and update meta/index references so no active path points to them.
 - Ensure `_artifacts/` for each active stage contains the required `inputs`, `prompt_packs`, `reports`, `exports` subfolders with placeholder content so the manifest/preflight can rely on them.
