@@ -1,3 +1,4 @@
+import re
 import sys
 from pathlib import Path
 
@@ -10,13 +11,14 @@ INBOX_PATH = REPO_ROOT / "00_human" / "INBOX.md"
 SOURCE_SCRIPT_PATH = REPO_ROOT / "30_project" / "inputs" / "script" / "source_script.md"
 STAGE_PATH = REPO_ROOT / "10_codex" / "PIPELINE_STAGES.yaml"
 APPROVALS_PATH = REPO_ROOT / "00_human" / "APPROVALS.md"
+PROJECT_MODE_PATH = REPO_ROOT / "30_project" / "inputs" / "index.yaml"
 
 
 HUMAN_TEMPLATES = {
     "00_human/INBOX.md": (
         "# INBOX\n"
-        "| Order | Stage | Gate Key | Status | Action | Artifact | Prereq | Artifact Exists |\n"
-        "| -- | -- | -- | -- | -- | -- | -- | -- |\n"
+        "| Order | Stage | Gate Key | Status | Action | Artifact | Prereq | Artifact Exists | Artifact Ready | Notes |\n"
+        "| -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |\n"
     ),
     "00_human/APPROVALS.md": (
         "# APPROVALS\n"
@@ -48,6 +50,9 @@ HUMAN_TEMPLATES = {
         "| -- | -- | -- | -- | -- | -- |\n"
     ),
 }
+
+TEMPLATE_READY_WHITELIST = {"STAGE_C_DECISION_APPROVED"}
+DEFAULT_PROJECT_MODE = "template"
 
 def load_manifest():
     with open(MANIFEST_PATH, "r", encoding="utf-8") as f:
@@ -119,11 +124,34 @@ def file_has_placeholder(path):
     return False
 
 
+def content_nontrivial(target: Path):
+    try:
+        text = target.read_text(encoding="utf-8", errors="ignore")
+    except (OSError, UnicodeDecodeError):
+        return False
+    lines = [line for line in text.splitlines() if "TEMPLATE_PLACEHOLDER" not in line]
+    cleaned = [line.strip() for line in lines if line.strip()]
+    suffix = target.suffix.lower()
+    joined = "\n".join(cleaned)
+    if suffix in {".yaml", ".yml", ".md", ".json"}:
+        return len(cleaned) >= 5 or len(joined) >= 50
+    if suffix == ".srt":
+        for idx in range(len(lines) - 1):
+            if lines[idx].strip().isdigit() and "-->" in lines[idx + 1]:
+                return True
+        return False
+    if suffix == ".xml":
+        lower = joined.lower()
+        return "<timeline" in lower and len(joined) >= 40
+    return len(joined) >= 50
+
+
 def artifact_ready_info(paths):
     missing = []
     placeholders = []
+    insufficient = []
     if not paths:
-        return False, missing, placeholders
+        return False, missing, placeholders, insufficient
     for path in paths:
         target = REPO_ROOT / path
         if not target.exists():
@@ -131,9 +159,23 @@ def artifact_ready_info(paths):
             continue
         if file_has_placeholder(path):
             placeholders.append(path)
-    ready = not missing and not placeholders
-    return ready, missing, placeholders
+            continue
+        if not content_nontrivial(target):
+            insufficient.append(path)
+    ready = not (missing or placeholders or insufficient)
+    return ready, missing, placeholders, insufficient
 
+
+def load_project_mode():
+    if not PROJECT_MODE_PATH.exists():
+        return DEFAULT_PROJECT_MODE
+    try:
+        data = yaml.safe_load(PROJECT_MODE_PATH.read_text())
+        if isinstance(data, dict):
+            return data.get("project_mode", DEFAULT_PROJECT_MODE)
+    except yaml.YAMLError:
+        pass
+    return DEFAULT_PROJECT_MODE
 
 def parse_approvals_table(text):
     lines = text.splitlines()
@@ -172,11 +214,14 @@ def load_approvals():
     return APPROVALS_PATH.read_text(encoding="utf-8")
 
 
-def build_stage_status(stage, approvals_data):
+def build_stage_status(stage, approvals_data, project_mode):
     gate_key = stage.get("approval_key") or stage.get("name")
     product = stage.get("product", "").strip() or "-"
     product_paths = parse_product_paths(product)
     exists_flag = artifact_exists(product_paths)
+    artifact_ready_flag, missing_ready, placeholder_paths, insufficient = artifact_ready_info(
+        product_paths
+    )
     missing_prereqs = [
         req
         for req in stage.get("requires", [])
@@ -192,13 +237,12 @@ def build_stage_status(stage, approvals_data):
         status = "blocked"
     else:
         status = "pending"
-    artifact_ready_flag, missing_ready, placeholder_paths = artifact_ready_info(product_paths)
-    missing_paths = [path for path in product_paths if not (REPO_ROOT / path).exists()]
     if product == "-":
         artifact_display = "-"
         artifact_exists_col = "-"
         artifact_ready_display = "-"
     else:
+        missing_paths = [path for path in product_paths if not (REPO_ROOT / path).exists()]
         artifact_display = (
             f"{product} (missing: {', '.join(missing_paths)})"
             if missing_paths
@@ -207,17 +251,25 @@ def build_stage_status(stage, approvals_data):
         artifact_exists_col = (
             "yes" if exists_flag else f"no (missing: {', '.join(missing_paths)})"
         )
-        if artifact_ready_flag:
-            artifact_ready_display = "yes"
-        else:
-            reasons = []
-            if missing_ready:
-                reasons.append(f"missing: {', '.join(missing_ready)}")
-            if placeholder_paths:
-                reasons.append(f"placeholder: {', '.join(placeholder_paths)}")
-            artifact_ready_display = (
-                f"no ({'; '.join(reasons)})" if reasons else "no (not ready)"
-            )
+        reasons = []
+        if missing_ready:
+            reasons.append(f"missing: {', '.join(missing_ready)}")
+        if placeholder_paths:
+            reasons.append(f"placeholder: {', '.join(placeholder_paths)}")
+        if insufficient:
+            reasons.append(f"insufficient content: {', '.join(insufficient)}")
+        artifact_ready_display = (
+            "yes" if artifact_ready_flag else f"no ({'; '.join(reasons)})"
+        )
+    template_override = (
+        project_mode == "template" and gate_key not in TEMPLATE_READY_WHITELIST
+    )
+    if template_override:
+        artifact_ready_flag = False
+        if artifact_ready_display == "yes":
+            artifact_ready_display = "no (template mode)"
+        elif "template mode" not in artifact_ready_display:
+            artifact_ready_display = f"{artifact_ready_display}；template mode"
     prereq_display = "yes" if prereq_ok else f"missing: {', '.join(missing_prereqs)}"
     action_description = stage.get("description", "").strip() or stage.get("name")
     notes_parts = [stage.get("description", "").strip()]
@@ -244,7 +296,7 @@ def build_stage_status(stage, approvals_data):
     }
 
 
-def write_inbox_table(approvals_data, stages):
+def write_inbox_table(approvals_data, stages, project_mode):
     rows = [
         "# INBOX",
         "",
@@ -252,7 +304,7 @@ def write_inbox_table(approvals_data, stages):
         "| -- | -- | -- | -- | -- | -- | -- | -- | -- | -- |",
     ]
     for order, stage in enumerate(stages, start=1):
-        stage_status = build_stage_status(stage, approvals_data)
+        stage_status = build_stage_status(stage, approvals_data, project_mode)
         rows.append(
             f"| {order} | {stage_status['stage_name']} | {stage_status['gate_key']} | {stage_status['status']} | "
             f"{stage_status['action']} | {stage_status['artifact']} | {stage_status['prereq']} | {stage_status['artifact_exists']} | {stage_status['artifact_ready']} | {stage_status['notes']} |"
@@ -261,25 +313,32 @@ def write_inbox_table(approvals_data, stages):
         f.write("\n".join(rows) + "\n")
 
 
-def write_now_table(approvals_data, stages):
+def write_now_table(approvals_data, stages, project_mode):
     rows = [
         "# NOW",
         "",
         "| Order | Stage | Gate Key | Status | Action | Artifact |",
         "| -- | -- | -- | -- | -- | -- |",
     ]
+    actionable_found = False
     for order, stage in enumerate(stages, start=1):
-        stage_status = build_stage_status(stage, approvals_data)
+        stage_status = build_stage_status(stage, approvals_data, project_mode)
         if (
-            stage_status["status"] == "pending"
-            and stage_status["prereq_ok"]
-            and stage_status["artifact_ready_flag"]
+            project_mode == "template"
+            or stage_status["status"] != "pending"
+            or not stage_status["prereq_ok"]
+            or not stage_status["artifact_ready_flag"]
         ):
-            rows.append(
-                f"| {order} | {stage_status['stage_name']} | {stage_status['gate_key']} | {stage_status['status']} | "
-                f"{stage_status['action']} | {stage_status['artifact']} |"
-            )
-    if len(rows) == 4:
+            continue
+        actionable_found = True
+        rows.append(
+            f"| {order} | {stage_status['stage_name']} | {stage_status['gate_key']} | {stage_status['status']} | "
+            f"{stage_status['action']} | {stage_status['artifact']} |"
+        )
+    if project_mode == "template":
+        rows.append("| - | - | - | - | - | - |")
+        rows.append("> 当前为模板模式（project_mode=template），请复制项目并设置 project_mode 为 project 后再继续。")
+    elif not actionable_found:
         rows.append("| - | - | - | - | - | - |")
         rows.append("> 当前无可行动的 gate。")
     NOW_PATH = REPO_ROOT / "00_human" / "NOW.md"
@@ -305,8 +364,9 @@ def main():
     approvals_text = load_approvals()
     approvals_data = parse_approvals_table(approvals_text)
     stages = load_pipeline_stages()
-    write_inbox_table(approvals_data, stages)
-    write_now_table(approvals_data, stages)
+    project_mode = load_project_mode()
+    write_inbox_table(approvals_data, stages, project_mode)
+    write_now_table(approvals_data, stages, project_mode)
     if not SOURCE_SCRIPT_PATH.exists():
         print("缺失 30_project/inputs/script/source_script.md，暂停 1_story 生成，等待人工上传或通过 0-source/raw 补全。")
         sys.exit(1)

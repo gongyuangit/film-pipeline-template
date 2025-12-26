@@ -96,3 +96,11 @@
 
 本目录的结构与语义已冻结。
 后续项目中，仅更新内容，不再调整结构。
+
+---
+
+## 模式开关（Template vs. Project）
+
+- 本模板默认 `30_project/inputs/index.yaml` 中 `project_mode: template`。
+- 模板模式下 `NOW.md` 只给出提示，`INBOX.md` 仅展示 gate 状态而不会自动推进。
+- 复制本仓库进入新项目后，务必将 `project_mode` 改为 `project` 并补充真正的素材，才能看到 actionable gate 并进入生产节奏。

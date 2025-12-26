@@ -27,6 +27,10 @@ entries:
     type: file
   - path: "30_project/inputs/script/source_script.md"
     type: file
+  - path: "30_project/inputs/index.yaml"
+    type: file
+  - path: "30_project/inputs/README.md"
+    type: file
   - path: "20_runtime/layout"
     type: dir
   - path: "20_runtime/plan"
