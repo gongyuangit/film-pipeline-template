@@ -1,8 +1,8 @@
 # INBOX
-| ID | Status | Description |
-| -- | ------ | ----------- |
-| 1 | pending | Please confirm that `00_human/` now serves as the sole human-facing entry point before Codex continues non-interactive work. |
-| 2 | pending | Project core moved to `30_project/`; need a project entry (e.g., `30_project/inputs/index.yaml` or similar manifest listing required docs/stages) before generating new content—waiting on that file/fields (project name, required docs, constraints). |
+| ID | Status | Description | 备注 |
+| -- | -- | -- | -- |
+| 1 | pending | 请确认 `00_human/` 现在是唯一面向人工的入口点，再继续非交互式工作。 |  |
+| 2 | pending | 项目核心移至 `30_project/`；生成内容前需要一个项目入口（如 `30_project/inputs/index.yaml` 或类似的清单），包含项目名称、所需文档与约束。 |  |
 
 ## 【开始制作前，需要你提供以下内容】
 | 内容名称 | 是否必需 | 放置路径 | 简短备注 |
