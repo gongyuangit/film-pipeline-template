@@ -127,15 +127,27 @@
 
 ## 执行层流程规则（Execution Gates）
 
-项目流程被划分为以下阶段：
+`30_project/docs/0-source/` 被定义为碎片事实源（可乱可碎）——仅供参考，不能直接驱动下游流程。若缺少明确的 `source_script.md`，必须先进入 Source Synthesis 阶段，生成可供人工确认的权威文本。
+
+项目流程被划分为以下阶段 :
+
+阶段 S：Source Synthesis（碎片化输入处理）
+- 内容：从 `30_project/docs/0-source/` 的碎片、可选 `storyboard/` 与 `reference/` 整理出 `source_script_draft.md`
+- 权限：允许自动化汇总碎片并生成草案
+- 强制规则：
+  - 需在 `00_human/INBOX.md` 中新增 `pending` 条目请求人工确认草案
+  - 未收到人工确认，禁止生成 `script_breakdown`
+  - 一旦人工确认，草案升级为 `source_script.md` 并归档 `source_script_draft.md` 版本
+- 结束条件：存在 `approved` 的 `source_script.md`，该文件成为唯一权威文本来源
+
+阶段 A：输入预处理（自动）
 
 阶段 A：输入预处理（自动）
 - 内容：命名规范化、去重、非语义清理
 - 权限：可自动执行
 - 结束条件：预处理完成
 
-阶段 B：内容拆解（半自动）
-- 内容：从剧本/分镜生成 script_breakdown（结构性拆解）
+- 内容：从已确认的 `source_script.md`（唯一权威）生成 `script_breakdown`（结构性拆解），分镜/参考仅为辅助信息
 - 权限：允许自动生成【第一版】
 - 强制规则：
   - 生成第一版 script_breakdown 后，必须立刻停止
