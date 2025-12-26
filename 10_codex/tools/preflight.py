@@ -1,5 +1,4 @@
 import sys
-from datetime import datetime
 from pathlib import Path
 
 import yaml
@@ -16,8 +15,8 @@ APPROVALS_PATH = REPO_ROOT / "00_human" / "APPROVALS.md"
 HUMAN_TEMPLATES = {
     "00_human/INBOX.md": (
         "# INBOX\n"
-        "| ID | Status | Description | 备注 |\n"
-        "| -- | -- | -- | -- |\n"
+        "| Stage | Gate Key | Status | Action | Artifact |\n"
+        "| -- | -- | -- | -- | -- |\n"
     ),
     "00_human/APPROVALS.md": (
         "# APPROVALS\n"
@@ -31,13 +30,112 @@ HUMAN_TEMPLATES = {
         "- SHOT_MAP_SRT_XML_APPROVED: 人工确认 layout shot map SRT + planning XML\n"
         "- LAYOUT_FREEZE_APPROVED: 人工确认 layout freeze\n"
         "- LAYOUT_REVIEW_APPROVED: 人工确认 layout review\n"
-        "- LOOKDEV_PROMPTS_APPROVED: 人工确认 lookdev shot prompts\n"
+        "- LOOKDEV_PROMPTS_APPROVED: 人工确认 lookdev prompts\n"
+        "- LOOKDEV_REVIEW_APPROVED: 人工确认 lookdev review\n"
+        "- AUDIO_PLAN_APPROVED: 人工确认 audio plan\n"
+        "- AUDIO_PROMPTS_APPROVED: 人工确认 audio prompt packs\n"
+        "- AUDIO_REVIEW_APPROVED: 人工确认 audio review\n"
+        "- COLOR_QC_APPROVED: 人工确认 color QC\n"
+        "- COLOR_REVIEW_APPROVED: 人工确认 color review\n"
         "- EXEC_PLAN_APPROVED: 人工确认 exec plan\n"
     ),
     "00_human/DECISIONS.md": "# DECISIONS\n\n- 无\n",
     "00_human/NEEDED_INPUTS.md": "# NEEDED INPUTS\n\n- None\n",
     "00_human/PRODUCTION.md": "# PRODUCTION\n\n- None\n",
 }
+
+STAGE_GATE_DEFINITIONS = [
+    {
+        "stage": "Stage S",
+        "key": "SOURCE_SCRIPT_APPROVED",
+        "artifact": "30_project/inputs/script/source_script.md",
+        "action": "上传/确认权威剧本",
+    },
+    {
+        "stage": "Stage B",
+        "key": "SCRIPT_BREAKDOWN_APPROVED",
+        "artifact": "30_project/docs/1_story/script_breakdown_v1.yaml",
+        "action": "确认 script_breakdown 初版",
+    },
+    {
+        "stage": "Stage C",
+        "key": "STAGE_C_DECISION_APPROVED",
+        "artifact": "00_human/DECISIONS.md",
+        "action": "确认方向性/制片决策",
+    },
+    {
+        "stage": "Stage A1",
+        "key": "AUDIO_PLAN_APPROVED",
+        "artifact": "30_project/docs/2_audio/_artifacts/audio_plan_v1.yaml",
+        "action": "确认音频计划",
+    },
+    {
+        "stage": "Stage A2",
+        "key": "AUDIO_PROMPTS_APPROVED",
+        "artifact": "30_project/docs/2_audio/_artifacts/prompt_packs/dialogue_vo_prompt_pack_v1.yaml + 30_project/docs/2_audio/_artifacts/prompt_packs/sfx_prompt_pack_v1.yaml + 30_project/docs/2_audio/_artifacts/prompt_packs/music_prompt_pack_v1.yaml",
+        "action": "确认音频提示词",
+    },
+    {
+        "stage": "Stage A3",
+        "key": "AUDIO_REVIEW_APPROVED",
+        "artifact": "30_project/docs/2_audio/_artifacts/reports/audio_review_v1.md",
+        "action": "确认音频验收",
+    },
+    {
+        "stage": "Stage D",
+        "key": "CINEMATIC_INTENT_APPROVED",
+        "artifact": "30_project/docs/2_layout/_artifacts/inputs/2-1_cinematic_intent_v1.yaml",
+        "action": "确认 cinematic intent",
+    },
+    {
+        "stage": "Stage P1.5",
+        "key": "SHOT_MAP_SRT_XML_APPROVED",
+        "artifact": "30_project/docs/2_layout/_artifacts/editing_bridge/shot_map_v1.srt + 30_project/docs/2_layout/_artifacts/editing_bridge/timeline_plan_v1.xml",
+        "action": "确认 shot map SRT 与规划 XML",
+    },
+    {
+        "stage": "Stage E",
+        "key": "LAYOUT_FREEZE_APPROVED",
+        "artifact": "30_project/docs/2_layout/2-2_layout_freeze.yaml",
+        "action": "确认 layout freeze",
+    },
+    {
+        "stage": "Stage LR",
+        "key": "LAYOUT_REVIEW_APPROVED",
+        "artifact": "30_project/docs/2_layout/_artifacts/reports/layout_review_v1.md",
+        "action": "确认 layout review",
+    },
+    {
+        "stage": "Stage K",
+        "key": "LOOKDEV_PROMPTS_APPROVED",
+        "artifact": "30_project/docs/2_layout/_artifacts/prompt_packs/branch_lookdev_shot_prompt_pack_v1.yaml",
+        "action": "确认 lookdev prompt pack",
+    },
+    {
+        "stage": "Stage K_R",
+        "key": "LOOKDEV_REVIEW_APPROVED",
+        "artifact": "30_project/docs/2_layout/_artifacts/reports/lookdev_review_v1.md",
+        "action": "确认 lookdev review 报告",
+    },
+    {
+        "stage": "Stage F",
+        "key": "EXEC_PLAN_APPROVED",
+        "artifact": "20_runtime/exec/execution_plan.json",
+        "action": "确认执行计划",
+    },
+    {
+        "stage": "Stage G1",
+        "key": "COLOR_QC_APPROVED",
+        "artifact": "30_project/docs/5_color/_artifacts/reports/color_qc_v1.md",
+        "action": "确认 color QC 检测",
+    },
+    {
+        "stage": "Stage G2",
+        "key": "COLOR_REVIEW_APPROVED",
+        "artifact": "30_project/docs/5_color/_artifacts/reports/color_review_v1.md",
+        "action": "确认 color review 报告",
+    },
+]
 
 
 def load_manifest():
@@ -80,74 +178,49 @@ def ensure_human_templates():
             target.write_text(updated, encoding="utf-8")
 
 
-def ensure_preflight_section():
-    content = INBOX_PATH.read_text(encoding="utf-8")
-    if "## Preflight" not in content:
-        with INBOX_PATH.open("a", encoding="utf-8") as f:
-            f.write("\n## Preflight\n")
-            f.write("- 尚无结构更新\n")
-
-
-def append_preflight_summary(created):
-    if not created:
-        return
-    ensure_preflight_section()
-    timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
-    bullet = f"- {timestamp} 已补齐：{', '.join(created)}\n"
-    text = INBOX_PATH.read_text(encoding="utf-8")
-    if "## Preflight" not in text:
-        text += "\n## Preflight\n"
-    parts = text.split("## Preflight", 1)
-    before = parts[0]
-    after = parts[1]
-    updated_after = "## Preflight\n" + bullet + after.lstrip("\n")
-    with INBOX_PATH.open("w", encoding="utf-8") as f:
-        f.write(before + updated_after)
-
-
-def update_source_script_gate():
-    text = INBOX_PATH.read_text(encoding="utf-8")
+def parse_approvals_table(text):
     lines = text.splitlines()
-    if pipe := _update_table(lines):
-        new_text = "\n".join(pipe)
-        INBOX_PATH.write_text(new_text, encoding="utf-8")
-
-
-STAGE_D_ROW = "| 6 | pending | `30_project/docs/2_layout/_artifacts/2-1_cinematic_intent_v1.yaml` 已基于 `source_script.md` 与 `script_breakdown_v1.yaml` 生成，请确认后再进入 shot map / layout freeze。 |  |"
-STAGE_P1_5_ROW = "| 7 | pending | `30_project/docs/2_layout/_artifacts/editing_bridge/shot_map_v1.srt` 与 `30_project/docs/2_layout/_artifacts/editing_bridge/timeline_plan_v1.xml` 均已生成镜头管理 SRT 与规划 XML，请确认后再进入 layout 或 prompt 生成。 |  |"
-STAGE_LR_ROW = "| 8 | pending | `30_project/docs/2_layout/_artifacts/reports/layout_review_v1.md` 已生成 layout review 验收记录，请确认后再进入 lookdev prompt Pack。 |  |"
-STAGE_K_ROW = "| 9 | pending | `30_project/docs/2_layout/_artifacts/branch_lookdev_shot_prompt_pack_v1.yaml` 已生成 Lookdev shot prompt Pack，请确认后再进入 lookdev review。 |  |"
-STAGE_KR_ROW = "| 10 | pending | `30_project/docs/2_layout/_artifacts/reports/lookdev_review_v1.md` 已生成 Lookdev review 验收，请确认后再进入执行计划。 |  |"
-STAGE_A1_ROW = "| 11 | pending | `30_project/docs/2_audio/_artifacts/audio_plan_v1.yaml` 已生成音频计划，请确认后再进入音频 prompt 生成。 |  |"
-STAGE_A2_ROW = "| 12 | pending | `30_project/docs/2_audio/_artifacts/prompt_packs/dialogue_vo_prompt_pack_v1.yaml`/`sfx_prompt_pack_v1.yaml`/`music_prompt_pack_v1.yaml` 已生成音频提示词，请确认后再进入音频 review。 |  |"
-STAGE_A3_ROW = "| 13 | pending | `30_project/docs/2_audio/_artifacts/reports/audio_review_v1.md` 已生成音频验收，请确认后再进入执行计划。 |  |"
-STAGE_G1_ROW = "| 14 | pending | `30_project/docs/5_color/_artifacts/reports/color_qc_v1.md` 已生成 color QC 量化报告，请确认后再进入 color review。 |  |"
-STAGE_G2_ROW = "| 15 | pending | `30_project/docs/5_color/_artifacts/reports/color_review_v1.md` 已生成 color review 验收，请确认后再进入最终交付。 |  |"
-
-
-def _update_table(lines):
-    start = next((i for i, line in enumerate(lines) if line.startswith("| ID |")), None)
+    data = {}
+    start = None
+    for idx, line in enumerate(lines):
+        if line.startswith("| Approval Key"):
+            start = idx
+            break
     if start is None:
-        return None
-    end = start
-    while end < len(lines) and lines[end].strip():
-        end += 1
-    table = lines[start:end]
-    header = table[:2]
-    rows = table[2:]
-    row_keyword = "source_script.md"
-    row_exists = any(row_keyword in row for row in rows)
-    source_exists = SOURCE_SCRIPT_PATH.exists()
-    if source_exists and row_exists:
-        rows = [row for row in rows if row_keyword not in row]
-    stage_rows = [STAGE_D_ROW, STAGE_P1_5_ROW, STAGE_LR_ROW, STAGE_K_ROW, STAGE_KR_ROW, STAGE_A1_ROW, STAGE_A2_ROW, STAGE_A3_ROW, STAGE_G1_ROW, STAGE_G2_ROW]
-    if not source_exists and not row_exists:
-        gate_row = "| 6 | pending | 请先将 `30_project/inputs/script/source_script.md` 提供为权威剧本文本，或继续在 `30_project/docs/0-source/raw/` 投递碎片供 Source Synthesis 合成；之后再继续 1_story。 |  |"
-        rows.append(gate_row)
-    for row in stage_rows:
-        if row not in rows:
-            rows.append(row)
-    return lines[:start] + header + rows + lines[end:]
+        return data
+    for line in lines[start + 2:]:
+        if not line.startswith("|"):
+            break
+        if line.startswith("| --"):
+            continue
+        parts = [part.strip() for part in line.strip().split("|")[1:-1]]
+        if len(parts) < 4:
+            continue
+        key, artifact, status, notes = parts[:4]
+        data[key] = {"artifact": artifact, "status": status, "notes": notes}
+    return data
+
+
+def write_inbox_table(approvals_data):
+    rows = [
+        "# INBOX",
+        "",
+        "| Stage | Gate Key | Status | Action | Artifact |",
+        "| -- | -- | -- | -- | -- |",
+    ]
+    pending_found = False
+    for stage in STAGE_GATE_DEFINITIONS:
+        entry = approvals_data.get(stage["key"])
+        if entry and entry.get("status", "").lower() == "pending":
+            rows.append(
+                f"| {stage['stage']} | {stage['key']} | {entry['status']} | {stage['action']} | {stage['artifact']} |"
+            )
+            pending_found = True
+    if not pending_found:
+        rows.append("| - | - | - | - | - |")
+        rows.append("> 当前无 pending gate，等待下一步。")
+    with INBOX_PATH.open("w", encoding="utf-8") as f:
+        f.write("\n".join(rows) + "\n")
 
 
 def load_pipeline_stages():
@@ -177,18 +250,15 @@ def enforce_stage_gates(stages, approvals_text):
 
 def main():
     entries = load_manifest()
-    created = ensure_structure(entries)
+    ensure_structure(entries)
     ensure_human_templates()
-    append_preflight_summary(created)
-    INBOX_TEXT = INBOX_PATH.read_text(encoding="utf-8")
-    if "## Preflight" not in INBOX_TEXT:
-        ensure_preflight_section()
-    update_source_script_gate()
+    approvals_text = load_approvals()
+    approvals_data = parse_approvals_table(approvals_text)
+    write_inbox_table(approvals_data)
     if not SOURCE_SCRIPT_PATH.exists():
         print("缺失 30_project/inputs/script/source_script.md，暂停 1_story 生成，等待人工上传或通过 0-source/raw 补全。")
         sys.exit(1)
     stages = load_pipeline_stages()
-    approvals_text = load_approvals()
     enforce_stage_gates(stages, approvals_text)
 
 
