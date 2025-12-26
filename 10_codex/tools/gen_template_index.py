@@ -33,6 +33,7 @@ KEY_RULES = [
     "`TEMPLATE_PLACEHOLDER: true` + `content_nontrivial` heuristics guard readiness for YAML/MD/SRT/XML/JSON inputs.",
     "XML/SRT files represent timeline facts; trust track IDs and durations, not track names, and keep them under `_artifacts/editing_bridge/`.",
     "Every generated product must live inside the stage’s `_artifacts/` directory; layout uses `CURRENT.yaml` as the pointer.",
+    "`90_archive/` is archive-only and is intentionally excluded from manifests, dashboards, and gate enforcement.",
 ]
 
 NO_DRIFT = [

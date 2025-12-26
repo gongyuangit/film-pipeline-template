@@ -330,6 +330,10 @@ def write_inbox_table(approvals_data, stages, project_mode):
             f"{stage_status['action']} | {stage_status['artifact']} | {stage_status['prereq']} | {stage_status['artifact_exists']} | {stage_status['artifact_ready']} | {stage_status['notes']} |"
         )
     with INBOX_PATH.open("w", encoding="utf-8") as f:
+        rows.append("")
+        rows.append("<!-- inputs-detection:start -->")
+        rows.append("**Inputs detection will insert its summary here.**")
+        rows.append("<!-- inputs-detection:end -->")
         f.write("\n".join(rows) + "\n")
 
 

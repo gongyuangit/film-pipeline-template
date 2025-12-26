@@ -17,3 +17,7 @@
 | 13 | Stage F | EXEC_PLAN_APPROVED | blocked | Execution planning | 20_runtime/exec/execution_plan.json (exists) | missing: LAYOUT_FREEZE_APPROVED, LOOKDEV_PROMPTS_APPROVED, LOOKDEV_REVIEW_APPROVED | yes | no (placeholder: 20_runtime/exec/execution_plan.json)；template mode | Execution planning |
 | 14 | Stage G1 | COLOR_QC_APPROVED | blocked | Color QC (machine measurable checks) | 30_project/docs/5_color/_artifacts/reports/color_qc_v1.md (exists) | missing: EXEC_PLAN_APPROVED | yes | no (placeholder: 30_project/docs/5_color/_artifacts/reports/color_qc_v1.md)；template mode | Color QC (machine measurable checks) |
 | 15 | Stage G2 | COLOR_REVIEW_APPROVED | blocked | Color review (pass/fail gate before final deliver) | 30_project/docs/5_color/_artifacts/reports/color_review_v1.md (exists) | missing: COLOR_QC_APPROVED | yes | no (placeholder: 30_project/docs/5_color/_artifacts/reports/color_review_v1.md)；template mode | Color review (pass/fail gate before final deliver) |
+
+<!-- inputs-detection:start -->
+**Inputs detection will insert its summary here.**
+<!-- inputs-detection:end -->

@@ -203,17 +203,3 @@ entries:
     type: file
   - path: "30_project/docs/5_color/_artifacts/editing_bridge/rename_plan_v1.yaml"
     type: file
-  - path: "90_archive/docs/"
-    type: dir
-  - path: "90_archive/docs/3_lookdev/"
-    type: dir
-  - path: "90_archive/docs/3_prompt/"
-    type: dir
-  - path: "90_archive/docs/4_production/"
-    type: dir
-  - path: "90_archive/docs/4_render/"
-    type: dir
-  - path: "90_archive/docs/X_exec/"
-    type: dir
-  - path: "90_archive/docs/2_layout/_exports/"
-    type: dir
