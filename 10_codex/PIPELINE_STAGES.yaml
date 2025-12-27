@@ -83,8 +83,8 @@ stages:
     requires:
       - "LOOKDEV_PROMPTS_APPROVED"
     next_targets: ["Stage F"]
-  - name: "Stage 4_edit"
-    description: "Finalize selected lookdev frames and music before color"
+  - name: "Stage 4-Edit"
+    description: "Edit lock: finalize selected lookdev frames and music before color"
     product: "30_project/docs/4_edit/_artifacts/edit_selection_v1.yaml"
     approval_key: "EDIT_LOCK_APPROVED"
     requires:

@@ -37,8 +37,6 @@ entries:
     type: dir
   - path: "20_runtime/README.md"
     type: file
-  - path: "20_runtime/plan"
-    type: dir
   - path: "20_runtime/plan/.gitkeep"
     type: file
   - path: "20_runtime/exec"
@@ -52,6 +50,7 @@ entries:
   - path: "20_runtime/final"
     type: dir
   - path: "20_runtime/final/.gitkeep"
+    type: file
   - path: "30_project/docs/0-source/README.md"
     type: file
   - path: "30_project/docs/0-source/raw/"
