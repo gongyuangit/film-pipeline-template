@@ -4,7 +4,6 @@
 - `00_human`
 - `10_codex`
   - `10_codex/tools`
-    - `10_codex/tools/__pycache__`
 - `30_project/docs`
   - `30_project/docs/0-source`
     - `30_project/docs/0-source/parsed`
@@ -26,7 +25,6 @@
   - `20_runtime/final`
   - `20_runtime/plan`
   - `20_runtime/tests`
-    - `20_runtime/tests/segment_story`
 
 ## B. Purpose table
 

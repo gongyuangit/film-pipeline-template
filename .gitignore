@@ -1,6 +1,6 @@
 .DS_Store
-20_runtime/
-!20_runtime/exec/
-!20_runtime/exec/execution_plan.json
+20_runtime/**
+!20_runtime/README.md
+!20_runtime/**/.gitkeep
 __pycache__/
 *.pyc
