@@ -1,0 +1,166 @@
+TEMPLATE_PLACEHOLDER: true
+
+meta:
+  role: edit_selection
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, inputs, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    inputs:
+      type: object
+      required: [from_docs]
+      properties:
+        from_docs:
+          type: array
+          items: {type: string}
+    content:
+      type: object
+      required: [lookdev_selection, music_selection, shot_music_map]
+      properties:
+        lookdev_selection:
+          type: array
+          items:
+            type: object
+            required: [shot, lookdev_version, notes]
+            properties:
+              shot:
+                type: string
+              lookdev_version:
+                type: string
+              notes:
+                type: string
+        music_selection:
+          type: array
+          items:
+            type: object
+            required: [track_id, duration_sec, mood]
+            properties:
+              track_id: {type: string}
+              duration_sec: {type: number}
+              mood: {type: string}
+              notes: {type: string}
+        shot_music_map:
+          type: array
+          items:
+            type: object
+            required: [shot, track_id]
+            properties:
+              shot: {type: string}
+              track_id: {type: string}
+              transition_notes: {type: string}
+
+fields:
+  - path: meta.role
+    purpose: 文档角色
+    type: string
+    required: true
+    default: edit_selection
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: inputs.from_docs
+    purpose: 依赖的上游 gate
+    type: array[string]
+    required: true
+    default: ["LOOKDEV_REVIEW", "audio_review_v1.md"]
+  - path: content.lookdev_selection[].shot
+    purpose: 选定镜头
+    type: string
+    required: true
+    default: "shot001"
+  - path: content.lookdev_selection[].lookdev_version
+    purpose: lookdev 方案版本
+    type: string
+    required: true
+    default: "lookdev_master"
+  - path: content.lookdev_selection[].notes
+    purpose: 补充说明
+    type: string
+    required: false
+    default: ""
+  - path: content.music_selection[].track_id
+    purpose: 音乐 ID
+    type: string
+    required: true
+    default: "track_a"
+  - path: content.music_selection[].duration_sec
+    purpose: 音乐时长
+    type: number
+    required: true
+    default: 5.0
+  - path: content.music_selection[].mood
+    purpose: 情绪关键词
+    type: string
+    required: true
+    default: "tense"
+  - path: content.music_selection[].notes
+    purpose: 说明
+    type: string
+    required: false
+    default: ""
+  - path: content.shot_music_map[].shot
+    purpose: 镜头 ID
+    type: string
+    required: true
+    default: "shot001"
+  - path: content.shot_music_map[].track_id
+    purpose: 配套音乐
+    type: string
+    required: true
+    default: "track_a"
+  - path: content.shot_music_map[].transition_notes
+    purpose: 过渡说明
+    type: string
+    required: false
+    default: ""
+
+content:
+  lookdev_selection:
+    - shot: "shot001"
+      lookdev_version: "lookdev_master"
+      notes: ""
+  music_selection:
+    - track_id: "track_a"
+      duration_sec: 5.0
+      mood: "tense"
+      notes: "默认音乐候选"
+  shot_music_map:
+    - shot: "shot001"
+      track_id: "track_a"
+      transition_notes: ""
+
+example:
+  meta: {role: edit_selection, version: 1.0, status: draft}
+  inputs:
+    from_docs: ["lookdev_review_v1", "audio_review_v1"]
+  content:
+    lookdev_selection:
+      - shot: "shot001"
+        lookdev_version: "lookdev_master"
+        notes: "选定主镜头"
+    music_selection:
+      - track_id: "track_a"
+        duration_sec: 4.2
+        mood: "tense"
+        notes: "主主题"
+    shot_music_map:
+      - shot: "shot001"
+        track_id: "track_a"
+        transition_notes: "在 cut 处保持连贯"

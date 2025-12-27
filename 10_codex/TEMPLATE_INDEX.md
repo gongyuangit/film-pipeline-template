@@ -16,6 +16,8 @@
     - `30_project/docs/2_layout/_artifacts`
   - `30_project/docs/3_lookdev`
     - `30_project/docs/3_lookdev/_artifacts`
+  - `30_project/docs/4_edit`
+    - `30_project/docs/4_edit/_artifacts`
   - `30_project/docs/5_color`
     - `30_project/docs/5_color/_artifacts`
   - `30_project/docs/meta`

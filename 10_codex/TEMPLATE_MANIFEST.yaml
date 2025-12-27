@@ -160,6 +160,14 @@ entries:
     type: dir
   - path: "30_project/docs/3_lookdev/_artifacts/exports/.gitkeep"
     type: file
+  - path: "30_project/docs/4_edit/"
+    type: dir
+  - path: "30_project/docs/4_edit/README.md"
+    type: file
+  - path: "30_project/docs/4_edit/_artifacts/"
+    type: dir
+  - path: "30_project/docs/4_edit/_artifacts/edit_selection_v1.yaml"
+    type: file
   - path: "30_project/docs/2_audio/"
     type: dir
   - path: "30_project/docs/2_audio/README.md"

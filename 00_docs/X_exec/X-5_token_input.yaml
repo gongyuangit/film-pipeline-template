@@ -1,0 +1,83 @@
+TEMPLATE_PLACEHOLDER: true
+
+meta:
+  role: token_input
+  version: 1.0
+  status: draft
+
+schema:
+  type: object
+  required: [meta, content]
+  properties:
+    meta:
+      type: object
+      required: [role, version]
+      properties:
+        role: {type: string}
+        version: {type: number}
+        status: {type: string}
+    content:
+      type: object
+      required: [tokens]
+      properties:
+        tokens:
+          type: object
+          required: [exec]
+          properties:
+            exec:
+              type: array
+              items:
+                type: object
+                required: [name, text]
+                properties:
+                  name:
+                    type: string
+                  text:
+                    type: string
+                  notes:
+                    type: string
+
+fields:
+  - path: meta.role
+    purpose: 文档角色
+    type: string
+    required: true
+    default: token_input
+  - path: meta.version
+    purpose: 模板版本
+    type: number
+    required: true
+    default: 1.0
+  - path: meta.status
+    purpose: 文档状态
+    type: string
+    required: false
+    default: draft
+  - path: content.tokens.exec[].name
+    purpose: 输入名
+    type: string
+    required: true
+    default: "exec_input"
+  - path: content.tokens.exec[].text
+    purpose: 文本内容
+    type: string
+    required: true
+    default: ""
+  - path: content.tokens.exec[].notes
+    purpose: 补充说明
+    type: string
+    required: false
+    default: ""
+
+content:
+  tokens:
+    exec: []
+
+example:
+  meta: {role: token_input, version: 1.0, status: draft}
+  content:
+    tokens:
+      exec:
+        - name: "exec_plan"
+          text: "镜头 001: 保持冷调 + 静镜"
+          notes: "供 EXEC 阶段生成统一标注"

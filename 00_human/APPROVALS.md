@@ -16,6 +16,7 @@
 | COLOR_QC_APPROVED | _artifacts/reports/color_qc_v1.md | pending |  |
 | COLOR_REVIEW_APPROVED | _artifacts/reports/color_review_v1.md | pending |  |
 | EXEC_PLAN_APPROVED | exec_plan.json | pending |  |
+| EDIT_LOCK_APPROVED | _artifacts/edit_selection_v1.yaml | pending |  |
 
 ## Stage approvals
 - SOURCE_SCRIPT_APPROVED: 人工确认剧本文本
@@ -30,6 +31,7 @@
 - AUDIO_PLAN_APPROVED: 人工确认 `_artifacts/audio_plan_v1.yaml`
 - AUDIO_PROMPTS_APPROVED: 人工确认所有音频 prompt pack
 - AUDIO_REVIEW_APPROVED: 人工确认 `_artifacts/reports/audio_review_v1.md`
+- EDIT_LOCK_APPROVED: 人工确认 `_artifacts/edit_selection_v1.yaml` 把 lookdev 框选 + 音乐匹配冻结交给调色前 gate
 - COLOR_QC_APPROVED: 人工确认 `_artifacts/reports/color_qc_v1.md`（机器量化 QC）
 - COLOR_REVIEW_APPROVED: 人工确认 `_artifacts/reports/color_review_v1.md`，确认是否允许最终交付
 - EXEC_PLAN_APPROVED: 人工确认执行计划输出

@@ -83,6 +83,14 @@ stages:
     requires:
       - "LOOKDEV_PROMPTS_APPROVED"
     next_targets: ["Stage F"]
+  - name: "Stage 4_edit"
+    description: "Finalize selected lookdev frames and music before color"
+    product: "30_project/docs/4_edit/_artifacts/edit_selection_v1.yaml"
+    approval_key: "EDIT_LOCK_APPROVED"
+    requires:
+      - "LOOKDEV_REVIEW_APPROVED"
+      - "AUDIO_REVIEW_APPROVED"
+    next_targets: ["Stage F"]
   - name: "Stage F"
     description: "Execution planning"
     product: "20_runtime/exec/execution_plan.json"
@@ -91,6 +99,7 @@ stages:
       - "LAYOUT_FREEZE_APPROVED"
       - "LOOKDEV_PROMPTS_APPROVED"
       - "LOOKDEV_REVIEW_APPROVED"
+      - "EDIT_LOCK_APPROVED"
     next_targets: ["Stage G1"]
   - name: "Stage G1"
     description: "Color QC (machine measurable checks)"
@@ -105,5 +114,4 @@ stages:
     approval_key: "COLOR_REVIEW_APPROVED"
     requires:
       - "COLOR_QC_APPROVED"
-    next_targets: []
     next_targets: []

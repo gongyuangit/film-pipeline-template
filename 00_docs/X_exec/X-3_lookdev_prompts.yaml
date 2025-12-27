@@ -1,0 +1,6 @@
+meta:
+  role: exec_lookdev_prompts
+  version: 1.0
+  status: draft
+content:
+  look_notes: []
